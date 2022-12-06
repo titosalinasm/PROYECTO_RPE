@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="117.84998mm"
+   height="48.208412mm"
+   viewBox="0 0 117.84998 48.208412"
+   version="1.1"
+   id="svg311"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="prueba.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview313"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.48996914"
+     inkscape:cx="295.93701"
+     inkscape:cy="393.90236"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs308" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-26.230063,-44.131585)">
+    <text
+       xml:space="preserve"
+       style="font-size:66.3068px;fill:#ffffff;stroke-width:5.53424"
+       x="19.754789"
+       y="92.339996"
+       id="text486"><tspan
+         sodipodi:role="line"
+         id="tspan484"
+         x="19.754789"
+         y="92.339996"
+         style="fill:#ffffff;stroke-width:5.53427">RPE</tspan></text>
+  </g>
+</svg>

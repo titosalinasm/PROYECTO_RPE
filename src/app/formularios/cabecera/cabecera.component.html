@@ -1,0 +1,130 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Componentes RPE
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <div class="d-md-flex align-items-start justify-content-start">
+                <div class="p-4" routerLink="/entidad-prestadora">
+                  <div class="row">
+                    <div class="text-center">
+                      <img
+                        class="rectangle-top-header-img"
+                        src="https://landing.vuce.gob.pe/mislo/assets/vuce/imagenes/svg/certificado-origen.svg"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      <p>Entidad prestadora</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4" routerLink="/usuario">
+                  <div class="row">
+                    <div class="text-center">
+                      <img
+                        class="rectangle-top-header-img"
+                        src="https://landing.vuce.gob.pe/mislo/assets/vuce/imagenes/svg/certificado-origen.svg"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      <p>Lista de usuarios</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4" routerLink="/entidad-prestadora">
+                  <div class="row">
+                    <div class="text-center">
+                      <img
+                        class="rectangle-top-header-img"
+                        src="https://landing.vuce.gob.pe/mislo/assets/vuce/imagenes/svg/certificado-origen.svg"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      <p>Lista de entidad prestadora</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4" routerLink="/organizacion-rpe">
+                  <div class="row">
+                    <div class="text-center">
+                      <img
+                        class="rectangle-top-header-img"
+                        src="https://landing.vuce.gob.pe/mislo/assets/vuce/imagenes/svg/certificado-origen.svg"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      <p>Organización RPE</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="#"
+            >Módulo de información sobre los servicios de ruta productiva
+            exportadora RPE.</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex text-white">
+      <div class="d-flex flex-row">
+        <div class="p-0 my-auto mx-1">Mi Perfil</div>
+        <div class="p-0 my-auto mx-1">
+          <div class="vr"></div>
+        </div>
+        <div class="p-0 my-auto mx-1"><div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           {{objUsuario?.nombres}} {{objUsuario?.apellidos}}
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Mis datos</a></li>
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar sesión</a></li>
+          </ul>
+        </div></div>
+        <div class="p-0 my-auto mx-1">
+          <img
+            class="rounded-circle shadow-4-strong"
+            alt="avatar2"
+            [src]="objUsuario.foto"
+            width="30"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

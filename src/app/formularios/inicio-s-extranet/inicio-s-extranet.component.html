@@ -1,0 +1,86 @@
+<div class="container" *ngIf="!blSessionIniciada">
+  <div class="card card-login mx-auto text-center card">
+    <!-- <div class="card-body mx-auto">
+      <span>
+        <img
+          src="./assets/imagenes/RPE_ Logo secundario.png"
+          class="w-75"
+          alt="Logo"
+        />
+      </span>
+      <br />
+    </div> -->
+    <span class="logo_title mt-1 fontbold" style="color: #212529">
+      INICIAR SESIÓN</span
+    >
+    <div class="card-body">
+      <form>
+        <div class="input-group form-group mb-2">
+          <input
+            type="text"
+            name="email"
+            class="form-control"
+            placeholder="Ingrese usuario"
+          />
+        </div>
+
+        <div class="input-group form-group mb-2">
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Ingrese password"
+          />
+        </div>
+
+        <div class="input-group form-group mb-2">
+          <re-captcha
+            id="recaptcha"
+            name="recaptcha"
+          ></re-captcha>
+        </div>
+
+        <div class="form-group mb-2">
+          <input
+            type="button"
+            name="btnIniciarSesion"
+            value="Ingresar"
+            class="btn btn-outline-danger float-right login_btn"
+            (click)="iniciarSesion()"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="blSessionIniciada">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="feature-description">
+          <h5>Bienvenido a RPE</h5>
+          <hr />
+
+          <div class="list-group">
+            <a
+              class="list-group-item list-group-item-action list-group-item-light"
+              routerLink="/entidad-prestadora"
+            >
+              <span><i class="far fa-compass"></i></span> Ingrese a entidad
+              prestadora.</a
+            >
+            <a
+              class="list-group-item list-group-item-action list-group-item-light"
+            >
+              <span><i class="far fa-compass"></i></span> Otros servicios.</a
+            >
+          </div>
+
+          <hr />
+          <p>Nota : Elija la acividad que desee realizar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

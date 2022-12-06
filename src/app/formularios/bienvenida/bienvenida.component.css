@@ -1,0 +1,8 @@
+.btn-personalizado{
+  background-color: #0272bd;
+  border-radius: 5px;
+  color: white;
+  max-width: 250px;
+  padding: 10px 30px;
+  width: 100%;
+}

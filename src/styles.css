@@ -1,0 +1,129 @@
+.btn-custom {
+  background-color: #0099FF;
+  border: 0px;
+  border-radius: 0 !important;
+  font-weight: bold;
+}
+
+.fontregular{
+  font-family: 'Roboto', sans-serif;
+}
+.fontbold{
+  font-weight: bold;
+}
+
+.font500{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+.size16{
+  font-size: 16px;
+}
+
+._obligatorio{
+  color: #DA291C;
+}
+.boton_guardar{
+  background-color: #DA291C;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.boton_rojo{
+  background-color:  #DA291C;
+  border: 1px #DA291C;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+.boton_celeste{
+  background-color:  #02A7F0;
+  border: 1px #02A7F0;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+.boton_verde{
+  background-color:  #66CC83;
+  border: 1px #66CC83;
+}
+
+.boton_secundario{
+  background-color:  #7F7F7F;
+  border: 1px #7F7F7F;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.boton_cancelar{
+  background-color:  #7F7F7F;
+  border: 1px #7F7F7F;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.text-white{
+  color: white;
+}
+
+.boton_cancelar:hover{
+  background-color:  #696868;
+  border: 1px #696868;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.text-#DA291C{
+  color: #DA291C;
+}
+.boton_rojo{
+  background-color: #DA291C;
+}
+.card{
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px !important;
+}
+
+.tableshadow{
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px !important;
+}
+
+.marginbutton0{
+  margin-bottom: 0px;
+}
+.paddingright0{
+padding-right: 0px;
+}
+
+
+.table_cabecera{
+  background-color: #DA291C !important;
+  color: white;
+}
+
+
+.pagination{
+  --bs-pagination-border-color: #dee2e6 !important;
+  --bs-pagination-active-bg: #da291c !important;
+  --bs-pagination-active-border-color: !important;
+  --bs-pagination-color: #000000 !important;
+}
+
+/* .bd-example {
+  padding: 1.5rem;
+  margin-right: 0;
+  margin-left: 0;
+  border-width: 1px;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+} */
+
+
+/* .page-link {
+  position: relative;
+  display: block;
+  padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+  font-size: var(--bs-pagination-font-size);
+  color: #000000;
+  text-decoration: none;
+  background-color: var(--bs-pagination-bg);
+  border: var(--bs-pagination-border-width) solid #d1d1d1;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+} */
