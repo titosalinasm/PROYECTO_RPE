@@ -4,6 +4,8 @@ import { BienvenidaComponent } from './formularios/bienvenida/bienvenida.compone
 import { CabeceraComponent } from './formularios/cabecera/cabecera.component';
 import { EntidadPrestadoraComponent } from './formularios/entidad-prestadora/entidad-prestadora.component';
 import { InicioSExtranetComponent } from './formularios/inicio-s-extranet/inicio-s-extranet.component';
+import { OrganizacionRpeComponent } from './formularios/organizacion-rpe/organizacion-rpe.component';
+import { RequisitosComponent } from './formularios/requisitos/requisitos.component';
 import { SesionIniciadaGuard } from './guards/sesion-iniciada.guard';
 
 const routes: Routes = [
@@ -12,6 +14,8 @@ const routes: Routes = [
   {path: 'extranet', component: InicioSExtranetComponent,},
   {path: 'cabecera', component: CabeceraComponent, canActivate: [SesionIniciadaGuard],},
   {path: 'entidad-prestadora', component: EntidadPrestadoraComponent, canActivate: [SesionIniciadaGuard],},
+  {path: 'organizacion-rpe', component: OrganizacionRpeComponent, canActivate: [SesionIniciadaGuard],},
+  {path: 'requisitos', component: RequisitosComponent, canActivate: [SesionIniciadaGuard],},
 
 ];
 

@@ -4,6 +4,7 @@ import { GeneralI } from '../utilitarios/GeneralI';
 import { environment } from 'src/environments/environment';
 import { END_POINTS } from '../utilitarios/end-point';
 import { Observable } from 'rxjs';
+import { EntidadPrestadoraFilterI } from '../interfaces/entidad-prestadora-filter';
 // import { EntidadPrestadoraI } from '../interfaces/entidad-prestadora-i';
 
 @Injectable({
@@ -27,10 +28,17 @@ export class EntidadPrestadoraService {
     );
   }
 
-  public listarEntidad$(entity: any): Observable<GeneralI> {
+  public listarEntidad$(entity: EntidadPrestadoraFilterI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiGateway + END_POINTS.entidad_prestadora.listar,
+      environment.apiGateway + END_POINTS.entidad_prestadora.listar_paginado,
       entity,
+      this.httpOptions
+    );
+  }
+
+  public eliminarEntidad$(id: number): Observable<GeneralI> {
+    return this.http.put<GeneralI>(
+      environment.apiGateway + END_POINTS.entidad_prestadora.eliminar+id,
       this.httpOptions
     );
   }

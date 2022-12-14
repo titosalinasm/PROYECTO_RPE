@@ -6,6 +6,9 @@ import { EntidadPrestadoraService } from 'src/app/servicios/entidad-prestadora.s
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { EntidadPrestadoraFilterI } from 'src/app/interfaces/entidad-prestadora-filter';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { constante } from 'src/app/utilitarios/constantes';
 
 @Component({
   selector: 'app-entidad-prestadora',
@@ -15,7 +18,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 export class EntidadPrestadoraComponent implements OnInit {
   @ViewChild('modal_nuevo_entidad') _modal_nuevo_entidad: TemplateRef<any>;
 
-  contentArray = new Array(5).fill('');
+  // contentArray = new Array(5).fill('');
   // returnedArray?: string[];
 
   modalRef?: BsModalRef;
@@ -25,10 +28,10 @@ export class EntidadPrestadoraComponent implements OnInit {
   };
 
   nuTipo: number = 1;
-  paginaActual: number = 1;
+  filaRegistroActualizar: number;
 
   listaEntidadPrestadora: EntidadPrestadoraI[] = [];
-  objEntidadPrestadoraActualiza: EntidadPrestadoraI;
+  // objEntidadPrestadoraActualiza: EntidadPrestadoraI;
 
   frmEntidadPrestadora = this.formBuilder.group({
     ruc: ['', [Validators.required]],
@@ -40,146 +43,137 @@ export class EntidadPrestadoraComponent implements OnInit {
     razonsocial: ['', [Validators.required]],
   });
 
+  objFiltroEntidadP: EntidadPrestadoraFilterI;
+  objEntidadPrestadora: EntidadPrestadoraI;
+  objEntidadPrestadoraActualizar: EntidadPrestadoraI;
+
+  //paginacion
+  pagina: number = 1;
+  tamanioPagina: number = constante.paginacion.tamanioPagina;
+  totalItems: number;
+
+  objUsuario: any;
+
   constructor(
     private modalService: BsModalService,
     private entidadPrestadoraService: EntidadPrestadoraService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
-
+    this.objUsuario = JSON.parse(this.usuarioService.getUsuario() + '');
   }
 
   doModalEntidad() {
+    this.frmEntidadPrestadora.reset();
     let objEntidad = {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      // class: 'modal-md',
     };
     this.openModal(this._modal_nuevo_entidad, objEntidad);
   }
 
-  crearEntidad() {
+  crearActualizarEntidad() {
     this.spinner.show();
 
+    this.objEntidadPrestadora = {
+      identidadprestadora:
+        this.nuTipo == 1
+          ? 0
+          : this.objEntidadPrestadoraActualizar.identidadprestadora,
+      ruc: this.frmEntidadPrestadora.value.ruc,
+      razonsocial: this.frmEntidadPrestadora.value.razonsocial,
+      usuariocreacion: this.objUsuario.usuario,
+      fechacreacion: new Date(),
+      usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
+      fechamodificacion: this.nuTipo == 1 ? null : new Date(),
+      estadoregistro: true,
+    };
 
-    let param;
-    if (this.nuTipo == 1) {
-      param = {
-        ruc: this.frmEntidadPrestadora.value.ruc,
-        razonsocial: this.frmEntidadPrestadora.value.razonsocial,
-        usuariocreacion: 'tsalinas',
-        fechacreacion: '2022-12-05',
-        usuariomodificacion: '',
-        fechamodificacion: '',
-        estadoregistro: true,
-      };
-    } else {
-      this.nuTipo = 1;
-      param = {
-        identidadprestadora:
-          this.objEntidadPrestadoraActualiza.identidadprestadora,
-        ruc: this.frmEntidadPrestadora.value.ruc,
-        razonsocial: this.frmEntidadPrestadora.value.razonsocial,
-        usuariocreacion: this.objEntidadPrestadoraActualiza.usuariocreacion,
-        fechacreacion: this.objEntidadPrestadoraActualiza.fechacreacion,
-        usuariomodificacion: 'frodas',
-        fechamodificacion: '2022-12-02',
-        estadoregistro: true,
-      };
-    }
-
-    this.entidadPrestadoraService.agregarEntidad$(param).subscribe(
-      (resp) => {
+    this.entidadPrestadoraService
+      .agregarEntidad$(this.objEntidadPrestadora)
+      .subscribe((resp) => {
         this.spinner.hide();
         this.frmEntidadPrestadora.reset();
-        this.listaEntidadPrestadora.push(resp.data);
-        this.hideModal(1);
-        Swal.fire('La entidad se agregó correctamente');
-      },
-      (error) => {
-        this.hideModal(1);
-        Swal.fire({
-          icon: 'error',
-          text: 'Ocurrio un error en el registro',
-        });
-        this.spinner.hide();
-      }
-    );
+        if (this.nuTipo == 1) {
+          this.listaEntidadPrestadora.push(resp.data);
+          this.hideModal(1);
+          Swal.fire({
+            text: 'La entidad se agregó correctamente',
+            confirmButtonColor: 'LightSeaGreen',
+          });
+        } else {
+          this.listaEntidadPrestadora[this.filaRegistroActualizar] = resp.data;
+          this.hideModal(1);
+          Swal.fire({
+            text: 'Se actualizó correctamente',
+            confirmButtonColor: 'LightSeaGreen',
+          });
+        }
+      });
   }
 
-  abrirModalActualizar(obj: EntidadPrestadoraI) {
+  cerrarModalCrearActualizar() {
+    this.hideModal(1);
+  }
+
+  abrirModalActualizar(objEntidadPrestadora: EntidadPrestadoraI, fila: number) {
     this.nuTipo = 2;
-    this.objEntidadPrestadoraActualiza = obj;
-    this.frmEntidadPrestadora.controls.ruc.setValue(
-      this.objEntidadPrestadoraActualiza.ruc
-    );
+    this.filaRegistroActualizar = fila;
+    this.objEntidadPrestadoraActualizar = objEntidadPrestadora;
     this.frmEntidadPrestadora.controls.razonsocial.setValue(
-      this.objEntidadPrestadoraActualiza.razonsocial
+      objEntidadPrestadora.razonsocial
     );
+    this.frmEntidadPrestadora.controls.ruc.setValue(objEntidadPrestadora.ruc);
+
     let objEntidad = {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      // class: 'modal-md',
     };
     this.openModal(this._modal_nuevo_entidad, objEntidad);
   }
 
-  eliminarEntidad(obj: EntidadPrestadoraI, fila: number) {
+  eliminarEntidad(idEntidadPrestadora: number, row: number) {
     this.spinner.show();
-    let param = {
-      identidadprestadora: obj.identidadprestadora,
-      ruc: obj.ruc,
-      razonsocial: obj.razonsocial,
-      usuariocreacion: 'tsalinas',
-      fechacreacion: '2022-12-05',
-      usuariomodificacion: '',
-      fechamodificacion: '',
-      estadoregistro: false,
-    };
-
-    this.entidadPrestadoraService.agregarEntidad$(param).subscribe(
-      (resp) => {
+    this.entidadPrestadoraService
+      .eliminarEntidad$(idEntidadPrestadora)
+      .subscribe((resp) => {
         this.spinner.hide();
-        this.listaEntidadPrestadora[fila].estadoregistro = 'false';
-        Swal.fire({ text: 'Se elimino correctamente',  confirmButtonColor: 'LightSeaGreen',});
-      },
-      (error) => {
-        this.hideModal(1);
+        this.listaEntidadPrestadora.splice(row, 1);
         Swal.fire({
-          icon: 'error',
-          text: 'Ocurrio un error al eliminar',
+          text: 'Se elimino correctamente',
+          confirmButtonColor: 'LightSeaGreen',
         });
-        this.spinner.hide();
-      }
-    );
+      });
   }
 
   listarEntidadPrestadora() {
     this.spinner.show();
-    let param = {
-      ruc: this.frmFiltroEntidadPrestadora.value.ruc,
-      razonsocial: this.frmFiltroEntidadPrestadora.value.razonsocial,
+
+    this.objFiltroEntidadP = {
+      razonsocial:
+        this.frmFiltroEntidadPrestadora.value.razonsocial == ''
+          ? null
+          : this.frmFiltroEntidadPrestadora.value.razonsocial,
+      ruc:
+        this.frmFiltroEntidadPrestadora.value.ruc == ''
+          ? null
+          : this.frmFiltroEntidadPrestadora.value.ruc,
+      pageNumber: this.pagina,
+      pageSize: this.tamanioPagina,
     };
 
-    this.entidadPrestadoraService.listarEntidad$(param).subscribe(
-      (resp) => {
+    this.entidadPrestadoraService
+      .listarEntidad$(this.objFiltroEntidadP)
+      .subscribe((resp) => {
         this.spinner.hide();
-        this.listaEntidadPrestadora = resp.data;
-        this.contentArray=resp.data;
-      //   this.contentArray = this.contentArray.map((v: string, i: number) => {
-      //     return 'Line '+ (i + 1);
-      //  });
-       this.listaEntidadPrestadora = this.contentArray.slice(0, 5);
-
-      },
-      (error) => {
-        this.spinner.hide();
-      }
-    );
+        this.listaEntidadPrestadora = resp.data.lista;
+        this.totalItems = resp.data.totalItems;
+      });
   }
 
   openModal(template: TemplateRef<any>, objClass: any) {
@@ -190,8 +184,7 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   pageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-      const endItem = event.page * event.itemsPerPage;
-      this.listaEntidadPrestadora = this.contentArray.slice(startItem, endItem);
+    this.pagina = event.page;
+    this.listarEntidadPrestadora();
   }
 }

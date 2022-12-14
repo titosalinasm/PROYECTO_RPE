@@ -2,106 +2,50 @@
   <h5 class="fontbold">Lista de entidades prestadoras RPE</h5>
   <div class="card">
     <div class="card-body">
-      <!-- <form
+      <form
         class="row g-3"
         [formGroup]="frmFiltroEntidadPrestadora"
         autocomplete="off"
       >
-        <div class="col">
-          <span for="staticEmail2">Razón Social</span>
-        </div>
-        <div class="col">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Razón social"
-            formControlName="razonsocial"
-          />
-        </div>
-        <div class="col">
-          <span for="staticEmail2">RUC</span>
-        </div>
-        <div class="col">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="RUC"
-            formControlName="ruc"
-          />
-        </div>
-        <div class="col">
-          <button
-            type="submit"
-            class="btn btn-success mb-3 boton_verde"
-            style="width: 150px; margin-bottom: 5px"
-            (click)="listarEntidadPrestadora()"
+        <div class="row mt-4">
+          <label
+            for="colFormLabelSm"
+            class="col-sm-2 col-form-label col-form-label-sm"
+            >Razón Social</label
           >
-            Buscar
-          </button>
+          <div class="col-sm-3">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              placeholder="Razón social"
+              formControlName="razonsocial"
+            />
+          </div>
+          <label
+            for="colFormLabelSm"
+            class="col-sm-1 col-form-label col-form-label-sm"
+            >RUC</label
+          >
+          <div class="col-sm-3">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              placeholder="RUC"
+              formControlName="ruc"
+            />
+          </div>
+          <div class="col-sm-3">
+            <button
+              type="submit"
+              class="btn btn-success btn-sm mb-3 boton_verde"
+              style="width: 150px; margin-bottom: 5px"
+              (click)="listarEntidadPrestadora()"
+            >
+              Buscar
+            </button>
+          </div>
         </div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-      </form> -->
-
-      <!-- <form class="row g-3">
-        <div class="col-md-4">
-          <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" class="form-control" id="inputEmail4">
-        </div>
-        <div class="col-md-4">
-          <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" class="form-control" id="inputEmail4">
-        </div>
-        <div class="col-md-4">
-          <button
-          type="submit"
-          class="btn btn-success btn-sm mb-3 boton_verde"
-          style="width: 150px; margin-bottom: 5px"
-          (click)="listarEntidadPrestadora()"
-        >
-          Buscar
-        </button>
-        </div>
-
-        </form> -->
-      <form
-      class="row g-3"
-      [formGroup]="frmFiltroEntidadPrestadora"
-      autocomplete="off"
-    >
-      <div class="row mt-4">
-        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Razón Social</label>
-        <div class="col-sm-3">
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            placeholder="Razón social"
-            formControlName="razonsocial"
-          />
-        </div>
-        <label for="colFormLabelSm" class="col-sm-1 col-form-label col-form-label-sm">RUC</label>
-        <div class="col-sm-3">
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            placeholder="RUC"
-            formControlName="ruc"
-          />
-        </div>
-        <div class="col-sm-3">
-          <button
-          type="submit"
-          class="btn btn-success btn-sm mb-3 boton_verde"
-          style="width: 150px; margin-bottom: 5px"
-          (click)="listarEntidadPrestadora()"
-        >
-          Buscar
-        </button>
-        </div>
-      </div>
       </form>
-
     </div>
   </div>
   <br />
@@ -121,7 +65,9 @@
     <table class="table table-bordered marginbutton0">
       <thead>
         <tr>
-          <th scope="row" class="table_cabecera" style="width: 100px;">Nro. Orden</th>
+          <th scope="row" class="table_cabecera" style="width: 100px">
+            Nro. Orden
+          </th>
           <th scope="row" class="table_cabecera">RUC</th>
           <th scope="row" class="table_cabecera">Razón Social</th>
           <th scope="row" class="table_cabecera">Fecha de creación</th>
@@ -144,7 +90,7 @@
               ><button
                 type="button"
                 class="btn btn-outline-warning btn-sm"
-                (click)="abrirModalActualizar(item)"
+                (click)="abrirModalActualizar(item, row)"
               >
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
@@ -153,7 +99,7 @@
               <button
                 type="button"
                 class="btn btn-outline-danger btn-sm"
-                (click)="eliminarEntidad(item, row)"
+                (click)="eliminarEntidad(item.identidadprestadora, row)"
               >
                 <i class="fa fa-trash" aria-hidden="true"></i></button
             ></span>
@@ -162,6 +108,7 @@
       </tbody>
     </table>
   </div>
+
   <div class="d-flex justify-content-center">
     <div class="p-2">
       <div class="row">
@@ -171,9 +118,9 @@
           nextText="&rsaquo;"
           firstText="&laquo;"
           lastText="&raquo;"
-          [totalItems]="contentArray.length"
-         [itemsPerPage]="5"
-         (pageChanged)="pageChanged($event)"
+          [totalItems]="totalItems"
+          [itemsPerPage]="tamanioPagina"
+          (pageChanged)="pageChanged($event)"
         >
         </pagination>
       </div>
@@ -218,13 +165,17 @@
           <button
             type="button"
             class="btn btn-danger boton_guardar"
-            (click)="crearEntidad()"
+            (click)="crearActualizarEntidad()"
           >
             Guardar
           </button>
         </div>
         <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_cancelar">
+          <button
+            type="button"
+            class="btn btn-danger boton_cancelar"
+            (click)="cerrarModalCrearActualizar()"
+          >
             Cancelar
           </button>
         </div>

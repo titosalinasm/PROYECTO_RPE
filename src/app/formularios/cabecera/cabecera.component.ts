@@ -19,7 +19,6 @@ export class CabeceraComponent implements OnInit {
   ngOnInit(): void {
     if(this.usuarioService.getUsuario())
     this.objUsuario=JSON.parse(this.usuarioService.getUsuario()+'');
-
   }
 
   cerrarSesion(){

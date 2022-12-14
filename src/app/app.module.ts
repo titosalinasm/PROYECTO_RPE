@@ -24,6 +24,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { OrganizacionRpeComponent } from './formularios/organizacion-rpe/organizacion-rpe.component';
+import { RequisitosComponent } from './formularios/requisitos/requisitos.component';
+import { OrganizacionRpeService } from './servicios/organizacion-rpe.service';
+import { SectorService } from './servicios/sector.service';
+import { RequisitoService } from './servicios/requisito.service';
+import { LineaProductoService } from './servicios/linea-producto.service';
+import { RegionService } from './servicios/region.service';
+import { ProductoService } from './servicios/producto.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +41,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BienvenidaComponent,
     InicioSExtranetComponent,
     EntidadPrestadoraComponent,
+    OrganizacionRpeComponent,
+    RequisitosComponent,
 
   ],
   imports: [
@@ -60,6 +70,12 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     TokenService,
     CookieService,
     EntidadPrestadoraService,
+    OrganizacionRpeService,
+    SectorService,
+    RequisitoService,
+    LineaProductoService,
+    RegionService,
+    ProductoService,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

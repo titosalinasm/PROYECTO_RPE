@@ -1,0 +1,264 @@
+<div class="container fontregular">
+  <h3 class="fontbold">Lista de requisitos</h3>
+  <div class="card">
+    <div class="card-body mt-3">
+      <form class="row g-3" [formGroup]="frmFiltroRequisito" autocomplete="off">
+        <div class="row mb-1">
+          <div class="col-sm-2" style="padding: 0px">
+            <span for="staticEmail2">Sector</span>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-control" formControlName="idsector">
+              <option value="0" disabled selected hidden>
+                --Seleccionar--
+              </option>
+              <option *ngFor="let item of listaSector" [value]="item.idsector">
+                {{ item.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <span>Linea Producto</span>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-control" formControlName="idlineaproducto">
+              <option value="0" disabled selected hidden>
+                --Seleccionar--
+              </option>
+              <option
+                *ngFor="let item of listaLineaProducto"
+                [value]="item.idlineaproducto"
+              >
+                {{ item.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col-sm-2" style="padding: 0px">
+            <span for="staticEmail2">Nombre</span>
+          </div>
+          <div class="col-sm-3">
+            <input class="form-control" formControlName="nombre" />
+          </div>
+          <div class="col-sm-2">
+            <span>Producto</span>
+          </div>
+          <div class="col-sm-3">
+            <select class="form-control" formControlName="idproducto">
+              <option value="0" disabled selected hidden>
+                --Seleccionar--
+              </option>
+              <option
+                *ngFor="let item of listarProducto"
+                [value]="item.idproducto"
+              >
+                {{ item.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button
+              type="submit"
+              class="btn btn-success mb-3 boton_verde"
+              style="width: 150px; margin-bottom: 5px"
+              (click)="listarRequisito()"
+            >
+              Buscar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col">
+      <button
+        type="button"
+        class="btn btn-success boton_verde"
+        style="width: 150px; margin-bottom: 5px"
+        (click)="abrirModalCrearRequisito()"
+      >
+        Nuevo Registro
+      </button>
+    </div>
+  </div>
+  <div class="table-responsive tableshadow">
+    <table class="table table-bordered marginbutton0">
+      <thead>
+        <tr>
+          <th scope="row" class="table_cabecera">Nro. Orden</th>
+          <th scope="row" class="table_cabecera">Nombre</th>
+          <th scope="row" class="table_cabecera">Sector</th>
+          <th scope="row" class="table_cabecera">Linea Producto</th>
+          <th scope="row" class="table_cabecera">Producto</th>
+          <th scope="row" class="table_cabecera">Estado</th>
+          <th scope="row" class="table_cabecera">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaRequisito; let row = index">
+          <td>{{ row + 1 }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.nombresector }}</td>
+          <td>{{ item.nombrelineaproducto }}</td>
+          <td>Producto 1</td>
+          <td>
+            <span *ngIf="item.estadoregistro">Activo</span>
+            <span *ngIf="!item.estadoregistro">Inactivo</span>
+          </td>
+          <td>
+            <span style="margin-right: 5px"
+              ><button
+                type="button"
+                class="btn btn-outline-warning btn-sm"
+                (click)="abrirModalActualizar(item, row)"
+              >
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span>
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+                (click)="eliminarRequisito(item.idrequisito, row)"
+              >
+                <i class="fa fa-trash" aria-hidden="true"></i></button
+            ></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="p-2">
+      <div class="row">
+        <nav aria-label="Page navigation example">
+          <pagination
+            [boundaryLinks]="true"
+            previousText="&lsaquo;"
+            nextText="&rsaquo;"
+            firstText="&laquo;"
+            lastText="&raquo;"
+            [totalItems]="totalItems"
+            [itemsPerPage]="tamanioPagina"
+            (pageChanged)="pageChanged($event)"
+          >
+          </pagination>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modal_nuevo_requisito class="fontregular">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">DATOS DEL USUARIO</h4>
+    <button
+      type="button"
+      class="close btn-close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form  [formGroup]="frmRequisito" autocomplete="off">
+      <div class="row mb-1">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-3">
+          <input class="form-control" formControlName="nombre" />
+        </div>
+        <div class="col-sm-6"></div>
+      </div>
+
+      <div class="row mb-1">
+        <label class="col-sm-3 col-form-label">Descripción</label>
+        <div class="col-sm-9">
+          <textarea class="form-control" id="floatingTextarea" formControlName="descripcion" ></textarea>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <label class="col-sm-3 col-form-label">Sector</label>
+        <div class="col-sm-3">
+          <select class="form-control" formControlName="idsector">
+            <option value="0" disabled selected hidden>--Seleccionar--</option>
+            <option *ngFor="let item of listaSectorModal" [value]="item.idsector">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="col-sm-3">Linea producto</div>
+        <div class="col-sm-3">
+          <select class="form-control" formControlName="idlineaproducto">
+            <option value="0" disabled selected hidden>--Seleccionar--</option>
+            <option *ngFor="let item of listaLineaProductoModal" [value]="item.idlineaproducto">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-3">Producto</div>
+        <div class="col-sm-3">
+          <select class="form-control" formControlName="idproducto">
+            <option value="0" disabled selected hidden>--Seleccionar--</option>
+            <option *ngFor="let item of listarProductoModal" [value]="item.idproducto">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <br />
+
+      <div class="row mb-3">
+        <div class="col-sm-6" style="text-align: center">
+          <button type="button" class="btn btn-danger boton_guardar"
+          (click)="crearActualizarEntidad()"
+          >
+            Guardar
+          </button>
+        </div>
+        <div class="col-sm-6" style="text-align: center">
+          <button type="button" class="btn btn-danger boton_cancelar">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #modal_eliminar>
+  <div class="modal-body fontregular">
+    <div style="text-align: center">
+      <span
+        class="material-symbols-outlined"
+        style="font-size: 80px; color: #f59a23"
+      >
+        warning
+      </span>
+      <h3><b>ALERTA DEL SISTEMA</b></h3>
+      <br />
+      <div class="row mb-3">
+        <div class="col-sm-6" style="text-align: center">
+          <button type="button" class="btn btn-danger boton_guardar">SI</button>
+        </div>
+        <div class="col-sm-6" style="text-align: center">
+          <button type="button" class="btn btn-danger boton_cancelar">
+            NO
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
