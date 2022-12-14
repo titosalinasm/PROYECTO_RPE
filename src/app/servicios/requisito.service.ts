@@ -17,7 +17,7 @@ export class RequisitoService {
     }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public agregarActualizarRequisito$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
@@ -36,7 +36,7 @@ export class RequisitoService {
 
   public eliminarRequisito$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      environment.apiMaestroRequisito + END_POINTS.requisito.listar_paginado,
+      environment.apiMaestroRequisito + END_POINTS.requisito.eliminar + id,
       this.httpOptions
     );
   }

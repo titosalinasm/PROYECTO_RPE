@@ -10,23 +10,26 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { TokenService } from './token.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private tokenService: TokenService,
+    private spinner: NgxSpinnerService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    this.spinner.show();
     let tokenItem: string = 'access_token';
-    request=this.addToken(this.getToken(tokenItem), request);
+    request = this.addToken(this.getToken(tokenItem), request);
 
 
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+          this.spinner.hide();
           if (error.status === 401 || error.status === 400 || error.status === 403) {
             return this.refreshToken(tokenItem)
               .pipe(
@@ -39,8 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }
           return throwError(error);
         }),
-        finalize(() => ''
-        )
+        finalize(() => this.spinner.hide())
       );
   }
 
@@ -71,13 +73,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   refreshToken(tokenItem: string): Observable<any> {
     let rptaHttp: Observable<any>;
-    rptaHttp=this.tokenService.obtenerToken$();
+    rptaHttp = this.tokenService.obtenerToken$();
     return rptaHttp;
   }
 
   obtenerToken() {
 
 
-}
+  }
 
 }

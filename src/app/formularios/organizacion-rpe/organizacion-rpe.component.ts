@@ -9,6 +9,7 @@ import { EntidadPrestadoraService } from 'src/app/servicios/entidad-prestadora.s
 import { OrganizacionRpeService } from 'src/app/servicios/organizacion-rpe.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { constante } from 'src/app/utilitarios/constantes';
+import { eTipoAccion } from 'src/app/utilitarios/data.enums';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -58,7 +59,7 @@ export class OrganizacionRpeComponent implements OnInit {
   pagina: number = 1;
   tamanioPagina: number = constante.paginacion.tamanioPagina;
   totalItems: number;
-  nuTipo: number = 1;
+  nuTipo: number = eTipoAccion.Insertar; //1;
 
   objUsuario: any;
 
@@ -66,19 +67,38 @@ export class OrganizacionRpeComponent implements OnInit {
     private organizacionRpeService: OrganizacionRpeService,
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private usuarioService: UsuarioService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.objUsuario = JSON.parse(this.usuarioService.getUsuario() + '');
   }
 
   crearActualizarOrganizacionPrestadora() {
-    this.spinner.show();
+    if (this.nuTipo == eTipoAccion.Actualizar) {
+      Swal.fire({
+        title: 'Está seguro que desea actualizar el registro?',
+        text: "Esta acción no se podrá recuperar!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, actualizar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.crearActualizarRegistroAccion();
+        }
+      });
+    } else {
+      this.crearActualizarRegistroAccion();
+    }
+  }
+
+  crearActualizarRegistroAccion() {
     this.objOrganizacionRPE = {
       idorganizacionrpe:
-        this.nuTipo == 1
+        this.nuTipo == eTipoAccion.Insertar
           ? 0
           : this.objOrganizacionRPEActualizar.idorganizacionrpe,
       ruc: this.frmOrganizacionRPE.value.ruc,
@@ -97,33 +117,30 @@ export class OrganizacionRpeComponent implements OnInit {
       redsocial: this.frmOrganizacionRPE.value.redsocial,
       usuariocreacion: this.objUsuario.usuario,
       fechacreacion: new Date(),
-      usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
-      fechamodificacion: this.nuTipo == 1 ? null : new Date(),
+      usuariomodificacion: this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
+      fechamodificacion: this.nuTipo == eTipoAccion.Insertar ? null : new Date(),
       estadoregistro: true,
     };
     this.organizacionRpeService
       .agregarActualizarEntidad$(this.objOrganizacionRPE)
       .subscribe((resp) => {
-        if(this.nuTipo==1){
-        this.listaOrganizacionRPE.push(resp.data);
-        Swal.fire({
-          text: 'La organización se agregó correctamente',
-          confirmButtonColor: 'LightSeaGreen',
-        });
-
-        }else{
-          this.listaOrganizacionRPE[this.filaRegistroActualizar]=resp.data;
-
-
+        if (this.nuTipo == eTipoAccion.Insertar) {
+          this.listaOrganizacionRPE.push(resp.data);
           Swal.fire({
-            text: 'La organización se actualizó correctamente',
+            text: 'La organización se agregó correctamente',
             confirmButtonColor: 'LightSeaGreen',
           });
+        } else {
+          this.listaOrganizacionRPE[this.filaRegistroActualizar] = resp.data;
+          Swal.fire({ text: 'La organización se actualizó correctamente', confirmButtonColor: 'LightSeaGreen', });
         }
         this.hideModal(1);
-        this.spinner.hide();
-
-
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        });
       });
   }
 
@@ -140,9 +157,9 @@ export class OrganizacionRpeComponent implements OnInit {
 
   abrirModaActualizarOrganizacionRPE(item: OrganizacioRPE, fila: number) {
 
-    this.nuTipo=2;
-    this.filaRegistroActualizar=fila;
-    this.objOrganizacionRPEActualizar=item;
+    this.nuTipo = eTipoAccion.Actualizar;
+    this.filaRegistroActualizar = fila;
+    this.objOrganizacionRPEActualizar = item;
     this.frmOrganizacionRPE.controls.nombres.setValue(item.nombres);
     this.frmOrganizacionRPE.controls.apellidopaterno.setValue(item.apellidopaterno);
     this.frmOrganizacionRPE.controls.apellidomaterno.setValue(item.apellidomaterno);
@@ -166,7 +183,6 @@ export class OrganizacionRpeComponent implements OnInit {
   }
 
   listarOrganizacionRPE() {
-    this.spinner.show();
     this.objFiltroOrgRPE = {
       razonsocial:
         this.frmFilterOrganizacionRPE.value.razonsocial == ''
@@ -184,19 +200,34 @@ export class OrganizacionRpeComponent implements OnInit {
       .listarOrganizacionRPE$(this.objFiltroOrgRPE)
       .subscribe((resp) => {
         this.listaOrganizacionRPE = resp.data.lista;
-        this.spinner.hide();
       });
   }
 
-  eliminarOrganizacionRPE(fila: number, id: number){
-    this.spinner.show();
-    this.organizacionRpeService.eliminarOrgRPE$(id).subscribe(resp=>{
-      this.spinner.hide();
-      this.listaOrganizacionRPE.splice(fila, 1);
-      Swal.fire({
-        text: 'La organización se elimnó correctamente.',
-        confirmButtonColor: 'LightSeaGreen',
-      });
+  eliminarOrganizacionRPE(fila: number, id: number) {
+    Swal.fire({
+      title: 'Está seguro que desea eliminar el registro?',
+      text: "Esta acción no se podrá recuperar!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.organizacionRpeService.eliminarOrgRPE$(id).subscribe(resp => {
+          this.listaOrganizacionRPE.splice(fila, 1);
+          Swal.fire({
+            text: 'La organización se elimnó correctamente.',
+            confirmButtonColor: 'LightSeaGreen',
+          });
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+          });
+        });
+      }
     });
   }
 

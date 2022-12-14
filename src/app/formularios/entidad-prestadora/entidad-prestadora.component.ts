@@ -9,6 +9,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { EntidadPrestadoraFilterI } from 'src/app/interfaces/entidad-prestadora-filter';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { constante } from 'src/app/utilitarios/constantes';
+import { eTipoAccion } from 'src/app/utilitarios/data.enums';
 
 @Component({
   selector: 'app-entidad-prestadora',
@@ -27,7 +28,7 @@ export class EntidadPrestadoraComponent implements OnInit {
     ignoreBackdropClick: false,
   };
 
-  nuTipo: number = 1;
+  nuTipo: number = eTipoAccion.Insertar; // 1;
   filaRegistroActualizar: number;
 
   listaEntidadPrestadora: EntidadPrestadoraI[] = [];
@@ -58,11 +59,12 @@ export class EntidadPrestadoraComponent implements OnInit {
     private modalService: BsModalService,
     private entidadPrestadoraService: EntidadPrestadoraService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private usuarioService: UsuarioService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    // this.spinner.show();
     this.objUsuario = JSON.parse(this.usuarioService.getUsuario() + '');
   }
 
@@ -77,28 +79,42 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   crearActualizarEntidad() {
-    this.spinner.show();
+    if (this.nuTipo == eTipoAccion.Actualizar) {
+      Swal.fire({
+        title: 'Está seguro que desea actualizar el registro?',
+        text: "Esta acción no se podrá recuperar!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, actualizar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.crearActualizarRegistroAccion();
+        }
+      });
+    } else {
+      this.crearActualizarRegistroAccion();
+    }
+  }
 
+  crearActualizarRegistroAccion() {
     this.objEntidadPrestadora = {
-      identidadprestadora:
-        this.nuTipo == 1
-          ? 0
-          : this.objEntidadPrestadoraActualizar.identidadprestadora,
+      identidadprestadora: this.nuTipo == eTipoAccion.Insertar ? 0 : this.objEntidadPrestadoraActualizar.identidadprestadora,
       ruc: this.frmEntidadPrestadora.value.ruc,
       razonsocial: this.frmEntidadPrestadora.value.razonsocial,
       usuariocreacion: this.objUsuario.usuario,
       fechacreacion: new Date(),
-      usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
-      fechamodificacion: this.nuTipo == 1 ? null : new Date(),
+      usuariomodificacion: this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
+      fechamodificacion: this.nuTipo == eTipoAccion.Insertar ? null : new Date(),
       estadoregistro: true,
     };
 
     this.entidadPrestadoraService
       .agregarEntidad$(this.objEntidadPrestadora)
       .subscribe((resp) => {
-        this.spinner.hide();
         this.frmEntidadPrestadora.reset();
-        if (this.nuTipo == 1) {
+        if (this.nuTipo == eTipoAccion.Insertar) {
           this.listaEntidadPrestadora.push(resp.data);
           this.hideModal(1);
           Swal.fire({
@@ -108,11 +124,14 @@ export class EntidadPrestadoraComponent implements OnInit {
         } else {
           this.listaEntidadPrestadora[this.filaRegistroActualizar] = resp.data;
           this.hideModal(1);
-          Swal.fire({
-            text: 'Se actualizó correctamente',
-            confirmButtonColor: 'LightSeaGreen',
-          });
+          Swal.fire({ text: 'Se actualizó correctamente', confirmButtonColor: 'LightSeaGreen' });
         }
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        });
       });
   }
 
@@ -121,7 +140,7 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   abrirModalActualizar(objEntidadPrestadora: EntidadPrestadoraI, fila: number) {
-    this.nuTipo = 2;
+    this.nuTipo = eTipoAccion.Actualizar;
     this.filaRegistroActualizar = fila;
     this.objEntidadPrestadoraActualizar = objEntidadPrestadora;
     this.frmEntidadPrestadora.controls.razonsocial.setValue(
@@ -138,21 +157,38 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   eliminarEntidad(idEntidadPrestadora: number, row: number) {
-    this.spinner.show();
-    this.entidadPrestadoraService
-      .eliminarEntidad$(idEntidadPrestadora)
-      .subscribe((resp) => {
-        this.spinner.hide();
-        this.listaEntidadPrestadora.splice(row, 1);
-        Swal.fire({
-          text: 'Se elimino correctamente',
-          confirmButtonColor: 'LightSeaGreen',
-        });
-      });
+    Swal.fire({
+      title: 'Está seguro que desea eliminar el registro?',
+      text: "Esta acción no se podrá recuperar!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.entidadPrestadoraService
+          .eliminarEntidad$(idEntidadPrestadora)
+          .subscribe((resp) => {
+            this.listaEntidadPrestadora.splice(row, 1);
+            Swal.fire({
+              text: 'Se elimino correctamente',
+              confirmButtonColor: 'LightSeaGreen',
+            });
+          }, error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!'
+            });
+          });
+      }
+    });
   }
 
+
   listarEntidadPrestadora() {
-    this.spinner.show();
+    // this.spinner.show();
 
     this.objFiltroEntidadP = {
       razonsocial:
@@ -170,7 +206,7 @@ export class EntidadPrestadoraComponent implements OnInit {
     this.entidadPrestadoraService
       .listarEntidad$(this.objFiltroEntidadP)
       .subscribe((resp) => {
-        this.spinner.hide();
+        // this.spinner.hide();
         this.listaEntidadPrestadora = resp.data.lista;
         this.totalItems = resp.data.totalItems;
       });
