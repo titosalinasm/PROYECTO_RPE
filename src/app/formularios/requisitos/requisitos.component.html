@@ -8,7 +8,7 @@
             <span for="staticEmail2">Sector</span>
           </div>
           <div class="col-sm-3">
-            <select class="form-control" formControlName="idsector">
+            <select class="form-select" formControlName="idsector">
               <option value="0" disabled selected hidden>
                 --Seleccionar--
               </option>
@@ -21,7 +21,7 @@
             <span>Linea Producto</span>
           </div>
           <div class="col-sm-3">
-            <select class="form-control" formControlName="idlineaproducto">
+            <select class="form-select" formControlName="idlineaproducto">
               <option value="0" disabled selected hidden>
                 --Seleccionar--
               </option>
@@ -47,7 +47,7 @@
             <span>Producto</span>
           </div>
           <div class="col-sm-3">
-            <select class="form-control" formControlName="idproducto">
+            <select class="form-select" formControlName="idproducto">
               <option value="0" disabled selected hidden>
                 --Seleccionar--
               </option>
@@ -188,7 +188,7 @@
       <div class="row mb-1">
         <label class="col-sm-3 col-form-label">Sector</label>
         <div class="col-sm-3">
-          <select class="form-control" formControlName="idsector">
+          <select class="form-select" formControlName="idsector">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
             <option *ngFor="let item of listaSectorModal" [value]="item.idsector">
               {{ item.nombre }}
@@ -197,7 +197,7 @@
         </div>
         <div class="col-sm-3">Linea producto</div>
         <div class="col-sm-3">
-          <select class="form-control" formControlName="idlineaproducto">
+          <select class="form-select" formControlName="idlineaproducto">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
             <option *ngFor="let item of listaLineaProductoModal" [value]="item.idlineaproducto">
               {{ item.nombre }}
@@ -210,7 +210,7 @@
         <div class="col-sm-6"></div>
         <div class="col-sm-3">Producto</div>
         <div class="col-sm-3">
-          <select class="form-control" formControlName="idproducto">
+          <select class="form-select" formControlName="idproducto">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
             <option *ngFor="let item of listarProductoModal" [value]="item.idproducto">
               {{ item.nombre }}

@@ -39,7 +39,6 @@ export class RequisitosComponent implements OnInit {
   nuTipo: number = eTipoAccion.Insertar; // 1;
   filaRegistroActualizar: number;
 
-
   // PARA REGISTRO
   frmRequisito = this.formBuilder.group({
     idsector: [0, [Validators.required]],
@@ -85,7 +84,6 @@ export class RequisitosComponent implements OnInit {
 
   objActualizarRequisito: RequisitoI;
 
-
   constructor(
     private modalService: BsModalService,
     private requisitoService: RequisitoService,
@@ -97,7 +95,7 @@ export class RequisitosComponent implements OnInit {
     private lineaProductoService: LineaProductoService,
     private regionService: RegionService,
     private productoService: ProductoService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.cargarMaestros();
@@ -113,11 +111,9 @@ export class RequisitosComponent implements OnInit {
         pageSize: 100,
       };
 
-      // this.spinner.show();
       this.lineaProductoService
         .listarLineaProducto$(param)
         .subscribe((resp) => {
-          // this.spinner.hide();
           this.frmFiltroRequisito.controls.idlineaproducto.setValue(0);
           this.frmFiltroRequisito.controls.idproducto.setValue(0);
           this.listarProducto = [];
@@ -137,9 +133,7 @@ export class RequisitosComponent implements OnInit {
           pageSize: 100,
         };
         if (value != 0) {
-          // this.spinner.show();
           this.productoService.listarProducto$(param).subscribe((resp) => {
-            // this.spinner.hide();
             this.frmFiltroRequisito.controls.idproducto.setValue(0);
             this.listarProducto = resp.data.lista;
           });
@@ -153,11 +147,9 @@ export class RequisitosComponent implements OnInit {
         pageSize: 100,
       };
 
-      // this.spinner.show();
       this.lineaProductoService
         .listarLineaProducto$(param)
         .subscribe((resp) => {
-          // this.spinner.hide();
           this.frmRequisito.controls.idlineaproducto.setValue(0);
           this.frmRequisito.controls.idproducto.setValue(0);
           this.listarProductoModal = [];
@@ -175,9 +167,7 @@ export class RequisitosComponent implements OnInit {
         pageSize: 100,
       };
       if (value != 0) {
-        // this.spinner.show();
         this.productoService.listarProducto$(param).subscribe((resp) => {
-          // this.spinner.hide();
           this.frmRequisito.controls.idproducto.setValue(0);
           this.listarProductoModal = resp.data.lista;
         });
@@ -186,7 +176,6 @@ export class RequisitosComponent implements OnInit {
   }
 
   cargarMaestros() {
-    // this.spinner.show();
     const objFiltro: maestroFilterI = {
       nombre: null,
       descripcion: null,
@@ -197,7 +186,6 @@ export class RequisitosComponent implements OnInit {
       this.sectorService.listarSector$(objFiltro),
       this.regionService.listarRegion$(objFiltro),
     ]).subscribe((resp) => {
-      // this.spinner.hide();
       this.listaSector = resp[0].data.lista;
       this.listaRegion = resp[1].data.lista;
       this.listaSectorModal = resp[0].data.lista;
@@ -237,12 +225,12 @@ export class RequisitosComponent implements OnInit {
     if (this.nuTipo == eTipoAccion.Actualizar) {
       Swal.fire({
         title: 'Está seguro que desea actualizar el registro?',
-        text: "Esta acción no se podrá recuperar!",
+        text: 'Esta acción no se podrá recuperar!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, actualizar'
+        confirmButtonText: 'Sí, actualizar',
       }).then((result) => {
         if (result.isConfirmed) {
           console.log('result.isConfirmed: ' + result.isConfirmed);
@@ -256,44 +244,62 @@ export class RequisitosComponent implements OnInit {
 
   crearActualizarEntidadAccion() {
     let requestRequisito: RequisitoI = {
-      idrequisito: this.nuTipo == eTipoAccion.Insertar ? 0 : this.objActualizarRequisito.idrequisito,
+      idrequisito:
+        this.nuTipo == eTipoAccion.Insertar
+          ? 0
+          : this.objActualizarRequisito.idrequisito,
       nombre: this.frmRequisito.value.nombre,
-      descripcion: this.frmRequisito.value.descripcion == '' ? null : this.frmRequisito.value.descripcion,
+      descripcion:
+        this.frmRequisito.value.descripcion == ''
+          ? null
+          : this.frmRequisito.value.descripcion,
       idproducto: this.frmRequisito.value.idproducto,
       tipovalor: '',
       listavalorkey: '',
-      nombresector: this.listaSectorModal.filter(e => e.idsector = this.frmRequisito.value.idsector)[0].nombre,
-      nombrelineaproducto: this.listaLineaProductoModal.filter(e => e.idlineaproducto = this.frmRequisito.value.idlineaproducto)[0].nombre,
+      nombresector: this.listaSectorModal.filter(
+        (e) => (e.idsector = this.frmRequisito.value.idsector)
+      )[0].nombre,
+      nombrelineaproducto: this.listaLineaProductoModal.filter(
+        (e) => (e.idlineaproducto = this.frmRequisito.value.idlineaproducto)
+      )[0].nombre,
       usuariocreacion: this.objUsuario.usuario,
       fechacreacion: new Date(),
-      usuariomodificacion: this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
+      usuariomodificacion:
+        this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
       fechamodificacion: new Date(),
       estadoregistro: true,
       idlineaproducto: this.frmRequisito.value.idlineaproducto,
-      idsector: this.frmRequisito.value.idsector
-    }
+      idsector: this.frmRequisito.value.idsector,
+    };
 
-    this.requisitoService.agregarActualizarRequisito$(requestRequisito).subscribe(resp => {
-      // this.spinner.hide();
-      if (this.nuTipo == eTipoAccion.Insertar) {
-        this.listaRequisito.push(resp.data);
-        this.hideModal(1);
-        Swal.fire({
-          text: 'La entidad se agregó correctamente',
-          confirmButtonColor: 'LightSeaGreen',
-        });
-      } else {
-        this.listaRequisito[this.filaRegistroActualizar] = resp.data;
-        this.hideModal(1);
-        Swal.fire({ text: 'Se actualizó correctamente', confirmButtonColor: 'LightSeaGreen' });
-      }
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
-      });
-    });
+    this.requisitoService
+      .agregarActualizarRequisito$(requestRequisito)
+      .subscribe(
+        (resp) => {
+          if (this.nuTipo == eTipoAccion.Insertar) {
+            this.listaRequisito.push(resp.data);
+            this.hideModal(1);
+            Swal.fire({
+              text: 'La entidad se agregó correctamente',
+              confirmButtonColor: 'LightSeaGreen',
+            });
+          } else {
+            this.listaRequisito[this.filaRegistroActualizar] = resp.data;
+            this.hideModal(1);
+            Swal.fire({
+              text: 'Se actualizó correctamente',
+              confirmButtonColor: 'LightSeaGreen',
+            });
+          }
+        },
+        (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          });
+        }
+      );
   }
 
   cerrarModalCrearActualizar() {
@@ -303,15 +309,22 @@ export class RequisitosComponent implements OnInit {
   abrirModalActualizar(objRequisito: RequisitoI, fila: number) {
     this.nuTipo = eTipoAccion.Actualizar;
 
-    console.log('this.objActualizarRequisito.idlineaproducto: ' + JSON.stringify(objRequisito));
-
+    console.log(
+      'this.objActualizarRequisito.idlineaproducto: ' +
+        JSON.stringify(objRequisito)
+    );
 
     this.filaRegistroActualizar = fila;
     this.objActualizarRequisito = objRequisito;
-    this.frmRequisito.controls.nombre.setValue(this.objActualizarRequisito.nombre);
-    this.frmRequisito.controls.descripcion.setValue(this.objActualizarRequisito.descripcion);
-    this.frmRequisito.controls.idsector.setValue(this.objActualizarRequisito.idsector);
-
+    this.frmRequisito.controls.nombre.setValue(
+      this.objActualizarRequisito.nombre
+    );
+    this.frmRequisito.controls.descripcion.setValue(
+      this.objActualizarRequisito.descripcion
+    );
+    this.frmRequisito.controls.idsector.setValue(
+      this.objActualizarRequisito.idsector
+    );
 
     let paramLineaProducto = {
       idsector: this.objActualizarRequisito.idsector,
@@ -333,64 +346,50 @@ export class RequisitosComponent implements OnInit {
     ]).subscribe((resp) => {
       this.listaLineaProductoModal = resp[0].data.lista;
       this.listarProductoModal = resp[1].data.lista;
-      //
-      this.frmRequisito.controls.idlineaproducto.setValue(this.objActualizarRequisito.idlineaproducto);
-      this.frmRequisito.controls.idproducto.setValue(this.objActualizarRequisito.idproducto);
-      //
       let objEntidad = {
         id: 1,
         backdrop: true,
         ignoreBackdropClick: true,
-        class: 'modal-lg'
+        class: 'modal-lg',
       };
       this.openModal(this._modal_nuevo_requisito, objEntidad);
+
+      this.frmRequisito.controls.idlineaproducto.setValue(
+        this.objActualizarRequisito.idlineaproducto
+      );
+      this.frmRequisito.controls.idproducto.setValue(
+        this.objActualizarRequisito.idproducto
+      );
     });
-
-
-  }
-
-  cargarCombosSeleccionados() {
-    let requestLineaProducto = {
-      // idsector: this.objActualizarRequisito.,
-      pageNumber: 1,
-      pageSize: 100,
-    };
-
-    // forkJoin([
-    //   this.lineaProductoService.listarLineaProducto$(requestLineaProducto),
-    //   this.regionService.listarRegion$(objFiltro),
-    // ]).subscribe((resp) => {
-    //   this.spinner.hide();
-    //   this.listaSector = resp[0].data.lista;
-    //   this.listaRegion = resp[1].data.lista;
-    //   this.listaSectorModal = resp[0].data.lista;
-    // });
   }
 
   eliminarRequisito(idRequisito: number, row: number) {
     Swal.fire({
       title: 'Está seguro que desea eliminar el registro?',
-      text: "Esta acción no se podrá recuperar!",
+      text: 'Esta acción no se podrá recuperar!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonText: 'Sí, eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.requisitoService.eliminarRequisito$(idRequisito).subscribe((resp) => {
-          this.listaRequisito.splice(row, 1);
-          Swal.fire({
-            text: 'Se elimino correctamente',
-            confirmButtonColor: 'LightSeaGreen',
-          });
-        }, error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!'
-          });
-        });
+        this.requisitoService.eliminarRequisito$(idRequisito).subscribe(
+          (resp) => {
+            this.listaRequisito.splice(row, 1);
+            Swal.fire({
+              text: 'Se elimino correctamente',
+              confirmButtonColor: 'LightSeaGreen',
+            });
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+            });
+          }
+        );
       }
     });
   }
@@ -400,7 +399,10 @@ export class RequisitosComponent implements OnInit {
       idsector: this.frmFiltroRequisito.value.idsector,
       idlineaproducto: this.frmFiltroRequisito.value.idlineaproducto,
       idproducto: this.frmFiltroRequisito.value.idproducto,
-      nombre: this.frmFiltroRequisito.value.nombre == '' ? null : this.frmFiltroRequisito.value.nombre,
+      nombre:
+        this.frmFiltroRequisito.value.nombre == ''
+          ? null
+          : this.frmFiltroRequisito.value.nombre,
       pageNumber: this.pagina,
       pageSize: this.tamanioPagina,
     };
@@ -408,8 +410,7 @@ export class RequisitosComponent implements OnInit {
     this.requisitoService
       .listarRequisito$(this.objFiltroRequisitoP)
       .subscribe((resp) => {
-        // this.spinner.hide();
-        this.listaRequisito = resp.data.lista
+        this.listaRequisito = resp.data.lista;
         this.totalItems = resp.data.totalItems;
       });
   }
