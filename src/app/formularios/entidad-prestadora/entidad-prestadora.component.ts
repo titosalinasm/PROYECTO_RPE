@@ -74,6 +74,7 @@ export class EntidadPrestadoraComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
+      class: 'modal-dialog-centered'
     };
     this.openModal(this._modal_nuevo_entidad, objEntidad);
   }
@@ -85,9 +86,10 @@ export class EntidadPrestadoraComponent implements OnInit {
         text: "Esta acción no se podrá recuperar!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, actualizar'
+        confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
           this.crearActualizarRegistroAccion();
@@ -119,12 +121,12 @@ export class EntidadPrestadoraComponent implements OnInit {
           this.hideModal(1);
           Swal.fire({
             text: 'La entidad se agregó correctamente',
-            confirmButtonColor: 'LightSeaGreen',
+            confirmButtonColor: constante.color_alert.verde,
           });
         } else {
           this.listaEntidadPrestadora[this.filaRegistroActualizar] = resp.data;
           this.hideModal(1);
-          Swal.fire({ text: 'Se actualizó correctamente', confirmButtonColor: 'LightSeaGreen' });
+          Swal.fire({ text: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde });
         }
       }, error => {
         Swal.fire({
@@ -152,6 +154,7 @@ export class EntidadPrestadoraComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
+      class: 'modal-dialog-centered'
     };
     this.openModal(this._modal_nuevo_entidad, objEntidad);
   }
@@ -162,9 +165,10 @@ export class EntidadPrestadoraComponent implements OnInit {
       text: "Esta acción no se podrá recuperar!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.entidadPrestadoraService
@@ -173,7 +177,7 @@ export class EntidadPrestadoraComponent implements OnInit {
             this.listaEntidadPrestadora.splice(row, 1);
             Swal.fire({
               text: 'Se elimino correctamente',
-              confirmButtonColor: 'LightSeaGreen',
+              confirmButtonColor: constante.color_alert.verde,
             });
           }, error => {
             Swal.fire({

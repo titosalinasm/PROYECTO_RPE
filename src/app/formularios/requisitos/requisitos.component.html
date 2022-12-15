@@ -158,7 +158,7 @@
 
 <ng-template #modal_nuevo_requisito class="fontregular">
   <div class="modal-header">
-    <h4 class="modal-title pull-left">DATOS DEL USUARIO</h4>
+    <h5 class="modal-title pull-left">DATOS DEL USUARIO</h5>
     <button
       type="button"
       class="close btn-close pull-right"
@@ -169,7 +169,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form  [formGroup]="frmRequisito" autocomplete="off">
+    <form [formGroup]="frmRequisito" autocomplete="off">
       <div class="row mb-1">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-3">
@@ -181,7 +181,11 @@
       <div class="row mb-1">
         <label class="col-sm-3 col-form-label">Descripción</label>
         <div class="col-sm-9">
-          <textarea class="form-control" id="floatingTextarea" formControlName="descripcion" ></textarea>
+          <textarea
+            class="form-control"
+            id="floatingTextarea"
+            formControlName="descripcion"
+          ></textarea>
         </div>
       </div>
 
@@ -190,7 +194,10 @@
         <div class="col-sm-3">
           <select class="form-select" formControlName="idsector">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
-            <option *ngFor="let item of listaSectorModal" [value]="item.idsector">
+            <option
+              *ngFor="let item of listaSectorModal"
+              [value]="item.idsector"
+            >
               {{ item.nombre }}
             </option>
           </select>
@@ -199,7 +206,10 @@
         <div class="col-sm-3">
           <select class="form-select" formControlName="idlineaproducto">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
-            <option *ngFor="let item of listaLineaProductoModal" [value]="item.idlineaproducto">
+            <option
+              *ngFor="let item of listaLineaProductoModal"
+              [value]="item.idlineaproducto"
+            >
               {{ item.nombre }}
             </option>
           </select>
@@ -212,7 +222,10 @@
         <div class="col-sm-3">
           <select class="form-select" formControlName="idproducto">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
-            <option *ngFor="let item of listarProductoModal" [value]="item.idproducto">
+            <option
+              *ngFor="let item of listarProductoModal"
+              [value]="item.idproducto"
+            >
               {{ item.nombre }}
             </option>
           </select>
@@ -222,43 +235,24 @@
 
       <div class="row mb-3">
         <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_guardar"
-          (click)="crearActualizarEntidad()"
+          <button
+            type="button"
+            class="btn btn-danger boton_guardar"
+            (click)="crearActualizarEntidad()"
           >
             Guardar
           </button>
         </div>
         <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_cancelar">
+          <button
+            type="button"
+            class="btn btn-danger boton_cancelar"
+            (click)="modalRef?.hide()"
+          >
             Cancelar
           </button>
         </div>
       </div>
     </form>
-  </div>
-</ng-template>
-
-<ng-template #modal_eliminar>
-  <div class="modal-body fontregular">
-    <div style="text-align: center">
-      <span
-        class="material-symbols-outlined"
-        style="font-size: 80px; color: #f59a23"
-      >
-        warning
-      </span>
-      <h3><b>ALERTA DEL SISTEMA</b></h3>
-      <br />
-      <div class="row mb-3">
-        <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_guardar">SI</button>
-        </div>
-        <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_cancelar">
-            NO
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 </ng-template>

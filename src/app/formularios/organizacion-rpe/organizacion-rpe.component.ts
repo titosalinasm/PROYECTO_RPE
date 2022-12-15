@@ -82,9 +82,10 @@ export class OrganizacionRpeComponent implements OnInit {
         text: "Esta acción no se podrá recuperar!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, actualizar'
+        confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
           this.crearActualizarRegistroAccion();
@@ -128,11 +129,11 @@ export class OrganizacionRpeComponent implements OnInit {
           this.listaOrganizacionRPE.push(resp.data);
           Swal.fire({
             text: 'La organización se agregó correctamente',
-            confirmButtonColor: 'LightSeaGreen',
+            confirmButtonColor: constante.color_alert.verde,
           });
         } else {
           this.listaOrganizacionRPE[this.filaRegistroActualizar] = resp.data;
-          Swal.fire({ text: 'La organización se actualizó correctamente', confirmButtonColor: 'LightSeaGreen', });
+          Swal.fire({ text: 'La organización se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, });
         }
         this.hideModal(1);
       }, error => {
@@ -150,7 +151,7 @@ export class OrganizacionRpeComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      class: 'modal-xl',
+      class: 'modal-xl modal-dialog-centered',
     };
     this.openModal(this._modal_nuevo_org_rpe, objEntidad);
   }
@@ -177,7 +178,7 @@ export class OrganizacionRpeComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      class: 'modal-xl',
+      class: 'modal-xl modal-dialog-centered',
     };
     this.openModal(this._modal_nuevo_org_rpe, objEntidad);
   }
@@ -209,16 +210,17 @@ export class OrganizacionRpeComponent implements OnInit {
       text: "Esta acción no se podrá recuperar!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.organizacionRpeService.eliminarOrgRPE$(id).subscribe(resp => {
           this.listaOrganizacionRPE.splice(fila, 1);
           Swal.fire({
             text: 'La organización se elimnó correctamente.',
-            confirmButtonColor: 'LightSeaGreen',
+            confirmButtonColor: constante.color_alert.verde,
           });
         }, error => {
           Swal.fire({

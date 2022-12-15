@@ -216,7 +216,7 @@ export class RequisitosComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      class: 'modal-lg',
+      class: 'modal-lg modal-dialog-centered',
     };
     this.openModal(this._modal_nuevo_requisito, objRequisito);
   }
@@ -228,9 +228,10 @@ export class RequisitosComponent implements OnInit {
         text: 'Esta acción no se podrá recuperar!',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, actualizar',
+        confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
           console.log('result.isConfirmed: ' + result.isConfirmed);
@@ -281,14 +282,14 @@ export class RequisitosComponent implements OnInit {
             this.hideModal(1);
             Swal.fire({
               text: 'La entidad se agregó correctamente',
-              confirmButtonColor: 'LightSeaGreen',
+              confirmButtonColor: constante.color_alert.verde,
             });
           } else {
             this.listaRequisito[this.filaRegistroActualizar] = resp.data;
             this.hideModal(1);
             Swal.fire({
               text: 'Se actualizó correctamente',
-              confirmButtonColor: 'LightSeaGreen',
+              confirmButtonColor: constante.color_alert.verde,
             });
           }
         },
@@ -350,7 +351,7 @@ export class RequisitosComponent implements OnInit {
         id: 1,
         backdrop: true,
         ignoreBackdropClick: true,
-        class: 'modal-lg',
+        class: 'modal-lg modal-dialog-centered',
       };
       this.openModal(this._modal_nuevo_requisito, objEntidad);
 
@@ -369,9 +370,10 @@ export class RequisitosComponent implements OnInit {
       text: 'Esta acción no se podrá recuperar!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
       confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.requisitoService.eliminarRequisito$(idRequisito).subscribe(
@@ -379,7 +381,7 @@ export class RequisitosComponent implements OnInit {
             this.listaRequisito.splice(row, 1);
             Swal.fire({
               text: 'Se elimino correctamente',
-              confirmButtonColor: 'LightSeaGreen',
+              confirmButtonColor: constante.color_alert.verde,
             });
           },
           (error) => {
