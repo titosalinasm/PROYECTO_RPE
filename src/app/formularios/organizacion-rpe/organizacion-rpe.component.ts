@@ -3,10 +3,16 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
+import { AreaI } from 'src/app/interfaces/area-i';
+import { CargoI } from 'src/app/interfaces/cargo-i';
 import { OrgRPEFilter } from 'src/app/interfaces/organizacion-rpe -filter';
 import { OrganizacioRPE } from 'src/app/interfaces/organizacion-rpe-i';
+import { ParametroI } from 'src/app/interfaces/parameto-i';
+import { TipoDocumentoI } from 'src/app/interfaces/tipo-documento-i';
 import { EntidadPrestadoraService } from 'src/app/servicios/entidad-prestadora.service';
 import { OrganizacionRpeService } from 'src/app/servicios/organizacion-rpe.service';
+import { ParametroService } from 'src/app/servicios/parametro.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { constante } from 'src/app/utilitarios/constantes';
 import { eTipoAccion } from 'src/app/utilitarios/data.enums';
@@ -63,12 +69,17 @@ export class OrganizacionRpeComponent implements OnInit {
 
   objUsuario: any;
 
+  listaTipoDocumento: ParametroI[] = [];
+  listaArea: ParametroI[] = [];
+  listaCargo: ParametroI[] = [];
+
   constructor(
     private organizacionRpeService: OrganizacionRpeService,
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
     // private spinner: NgxSpinnerService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private parametroService: ParametroService
   ) { }
 
   ngOnInit(): void {
@@ -83,9 +94,9 @@ export class OrganizacionRpeComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: constante.color_alert.rojo,
-      cancelButtonColor: constante.color_alert.plomo,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+        cancelButtonColor: constante.color_alert.plomo,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
           this.crearActualizarRegistroAccion();
@@ -164,23 +175,47 @@ export class OrganizacionRpeComponent implements OnInit {
     this.frmOrganizacionRPE.controls.nombres.setValue(item.nombres);
     this.frmOrganizacionRPE.controls.apellidopaterno.setValue(item.apellidopaterno);
     this.frmOrganizacionRPE.controls.apellidomaterno.setValue(item.apellidomaterno);
-    this.frmOrganizacionRPE.controls.idtipodocumento.setValue(1);
+    this.frmOrganizacionRPE.controls.idtipodocumento.setValue(item.idtipodocumento);
     this.frmOrganizacionRPE.controls.numerodocumento.setValue(item.numerodocumento);
     this.frmOrganizacionRPE.controls.correoelectronico.setValue(item.correoelectronico);
     this.frmOrganizacionRPE.controls.telefono.setValue(item.telefono);
     this.frmOrganizacionRPE.controls.celular.setValue(item.celular);
-    this.frmOrganizacionRPE.controls.idcargo.setValue(1);
-    this.frmOrganizacionRPE.controls.idarea.setValue(1);
+    this.frmOrganizacionRPE.controls.idcargo.setValue(item.idcargo);
+    this.frmOrganizacionRPE.controls.idarea.setValue(item.idarea);
     this.frmOrganizacionRPE.controls.sitioweb.setValue(item.sitioweb);
     this.frmOrganizacionRPE.controls.redsocial.setValue(item.redsocial);
 
-    let objEntidad = {
-      id: 1,
-      backdrop: true,
-      ignoreBackdropClick: true,
-      class: 'modal-xl modal-dialog-centered',
-    };
-    this.openModal(this._modal_nuevo_org_rpe, objEntidad);
+    // obtener datos de  comobos
+    let paramTipoDocumento = { parametrokey: 'ListaTipoDocumento' };
+    let paramArea = { parametrokey: 'ListaArea' };
+    let paramCargo = { parametrokey: 'ListaCargo' };
+
+    forkJoin([
+      this.parametroService.listarParametro$(paramTipoDocumento),
+      this.parametroService.listarParametro$(paramArea),
+      this.parametroService.listarParametro$(paramCargo)
+    ]).subscribe((resp) => {
+      this.listaTipoDocumento = resp[0].data;
+      this.listaArea = resp[1].data;
+      this.listaCargo = resp[2].data;
+
+      // abrir modal
+      let objEntidad = {
+        id: 1,
+        backdrop: true,
+        ignoreBackdropClick: true,
+        class: 'modal-xl modal-dialog-centered',
+      };
+      this.openModal(this._modal_nuevo_org_rpe, objEntidad);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      });
+    });
+
+
   }
 
   listarOrganizacionRPE() {

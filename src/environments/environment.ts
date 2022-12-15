@@ -11,6 +11,7 @@ export const environment = {
   apiMaestroRegion: 'http://20.236.129.139:8060',
   apiMaestroSector : 'http://20.236.129.139:8080',
   apiMaestroRequisito: 'http://20.236.129.139:8070',
+  apiMaestroParametro: 'http://20.236.129.139:8110',
   recaptcha:{siteKey:''}
 };
 

@@ -2,38 +2,22 @@
   <h5 class="fontbold">Lista de organizaciones RPE</h5>
   <div class="card">
     <div class="card-body">
-      <form
-        [formGroup]="frmFilterOrganizacionRPE"
-        autocomplete="off"
-        class="row g-3"
-      >
+      <form [formGroup]="frmFilterOrganizacionRPE" autocomplete="off" class="row g-3">
         <div class="col-auto">
           <label>Razón Social</label>
         </div>
         <div class="col-auto">
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            formControlName="razonsocial"
-          />
+          <input type="text" class="form-control form-control-sm" formControlName="razonsocial" />
         </div>
         <div class="col-auto">
           <label for="statictext2">RUC</label>
         </div>
         <div class="col-auto">
-          <input
-            type="text"
-            class="form-control form-control-sm"
-            formControlName="ruc"
-          />
+          <input type="text" class="form-control form-control-sm" formControlName="ruc" />
         </div>
         <div class="col-auto">
-          <button
-            type="submit"
-            class="btn btn-success mb-3 boton_verde btn-sm"
-            style="width: 150px; margin-bottom: 5px"
-            (click)="listarOrganizacionRPE()"
-          >
+          <button type="submit" class="btn btn-success mb-3 boton_verde btn-sm" style="width: 150px; margin-bottom: 5px"
+            (click)="listarOrganizacionRPE()">
             Buscar
           </button>
         </div>
@@ -43,12 +27,8 @@
   <br />
   <div class="row">
     <div class="col">
-      <button
-        type="button"
-        class="btn btn-success boton_verde"
-        style="width: 150px; margin-bottom: 5px"
-        (click)="abrirModaCrearOrganizacionRPE()"
-      >
+      <button type="button" class="btn btn-success boton_verde" style="width: 150px; margin-bottom: 5px"
+        (click)="abrirModaCrearOrganizacionRPE()">
         Nuevo Registro
       </button>
     </div>
@@ -82,19 +62,15 @@
             <span *ngIf="!item.estadoregistro">Inactivo</span>
           </td>
           <td>
-            <span style="margin-right: 5px"
-              ><button type="button" class="btn btn-outline-warning btn-sm"
-              (click)="abrirModaActualizarOrganizacionRPE(item, row)"
-              >
+            <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
+                (click)="abrirModaActualizarOrganizacionRPE(item, row)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </span>
             <span>
               <button type="button" class="btn btn-outline-danger btn-sm"
-              (click)="eliminarOrganizacionRPE(row, item.idorganizacionrpe)"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></button
-            ></span>
+                (click)="eliminarOrganizacionRPE(row, item.idorganizacionrpe)">
+                <i class="fa fa-trash" aria-hidden="true"></i></button></span>
           </td>
         </tr>
       </tbody>
@@ -103,16 +79,9 @@
   <div class="d-flex justify-content-center">
     <div class="p-2">
       <div class="row">
-        <pagination
-          [boundaryLinks]="true"
-          previousText="&lsaquo;"
-          nextText="&rsaquo;"
-          firstText="&laquo;"
-          lastText="&raquo;"
-          [totalItems]="totalItems"
-          [itemsPerPage]="tamanioPagina"
-          (pageChanged)="pageChanged($event)"
-        >
+        <pagination [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+          lastText="&raquo;" [totalItems]="totalItems" [itemsPerPage]="tamanioPagina"
+          (pageChanged)="pageChanged($event)">
         </pagination>
       </div>
     </div>
@@ -121,119 +90,87 @@
 
 <ng-template #modal_nuevo_org_rpe class="fontregular">
   <div class="modal-header">
-    <h4 class="modal-title pull-left">DATOS DE CONTACTO</h4>
-    <button type="button" class="close btn-close pull-right" aria-label="Close"
-    (click)="modalRef?.hide()"
-    >
+    <h4 class="modal-title pull-left">DATOS DE CONTACTO 1</h4>
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body fontregular">
     <form [formGroup]="frmOrganizacionRPE" autocomplete="off">
       <div class="row mb-1">
-        <label class="col-sm-2 col-form-label"
-          >Nombres <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Nombres <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
           <input type="text" class="form-control" formControlName="nombres" />
         </div>
-        <label class="col-sm-2 col-form-label"
-          >Apellido paterno <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Apellido paterno <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="apellidopaterno"
-          />
+          <input type="text" class="form-control" formControlName="apellidopaterno" />
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-sm-6"></div>
-        <label class="col-sm-2 col-form-label"
-          >Apellido Materno <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Apellido Materno <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="apellidomaterno"
-          />
+          <input type="text" class="form-control" formControlName="apellidomaterno" />
         </div>
       </div>
       <div class="row mb-1">
-        <label class="col-sm-2 col-form-label"
-          >Tipo de documento <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Tipo de documento <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select class="form-select" aria-label="Default select example" formControlName="idtipodocumento">
+            <option value="0" disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of listaTipoDocumento" [value]="item.idparametro">
+              {{ item.nombre }}
+            </option>
           </select>
         </div>
-        <label class="col-sm-2 col-form-label"
-          >Número de documento <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Número de documento <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="numerodocumento"
-          />
+          <input type="text" class="form-control" formControlName="numerodocumento" />
         </div>
       </div>
       <div class="row mb-1">
         <label class="col-sm-2 col-form-label">Correo electrónico:</label>
         <div class="col-sm-4">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="correoelectronico"
-          />
+          <input type="text" class="form-control" formControlName="correoelectronico" />
         </div>
-        <label class="col-sm-2 col-form-label"
-          >Teléfono fijo <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Teléfono fijo <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
           <input type="text" class="form-control" formControlName="telefono" />
         </div>
       </div>
       <div class="row mb-1">
-        <label class="col-sm-2 col-form-label"
-          >Celular <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Celular <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
           <input type="text" class="form-control" formControlName="telefono" />
         </div>
-        <label class="col-sm-2 col-form-label"
-          >Cargo <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Cargo <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
           <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="0" disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of listaCargo" [value]="item.idparametro">
+              {{ item.nombre }}
+            </option>
           </select>
         </div>
       </div>
       <div class="row mb-1">
-        <label class="col-sm-2 col-form-label"
-          >Área a la que pertenece <span class="_obligatorio">*</span>:</label
-        >
+        <label class="col-sm-2 col-form-label">Área a la que pertenece <span class="_obligatorio">*</span>:</label>
         <div class="col-sm-4">
           <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="0" disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of listaArea" [value]="item.idparametro">
+              {{ item.nombre }}
+            </option>
           </select>
         </div>
-        <label class="col-sm-2 col-form-label"
-          >Facebook / Instagram de organización:</label
-        >
+        <label class="col-sm-2 col-form-label">Facebook / Instagram de organización:</label>
         <div class="col-sm-4">
           <input type="text" class="form-control" formControlName="redsocial" />
         </div>
@@ -246,9 +183,7 @@
       </div>
       <div class="row mb-1">
         <div class="col-sm-12" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_guardar"
-          (click)="crearActualizarOrganizacionPrestadora()"
-          >
+          <button type="button" class="btn btn-danger boton_guardar" (click)="crearActualizarOrganizacionPrestadora()">
             Guardar
           </button>
         </div>
@@ -260,10 +195,7 @@
 <ng-template #modal_eliminar>
   <div class="modal-body fontregular">
     <div style="text-align: center">
-      <span
-        class="material-symbols-outlined"
-        style="font-size: 80px; color: #f59a23"
-      >
+      <span class="material-symbols-outlined" style="font-size: 80px; color: #f59a23">
         warning
       </span>
       <h3><b>ALERTA DEL SISTEMA</b></h3>
