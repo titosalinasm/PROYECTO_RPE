@@ -287,10 +287,7 @@ export class RequisitosComponent implements OnInit {
           } else {
             this.listaRequisito[this.filaRegistroActualizar] = resp.data;
             this.hideModal(1);
-            Swal.fire({
-              text: 'Se actualizó correctamente',
-              confirmButtonColor: constante.color_alert.verde,
-            });
+           Swal.fire({ title: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, confirmButtonText: 'Aceptar' });
           }
         },
         (error) => {
@@ -380,8 +377,9 @@ export class RequisitosComponent implements OnInit {
           (resp) => {
             this.listaRequisito.splice(row, 1);
             Swal.fire({
-              text: 'Se elimino correctamente',
+              title: 'Se elimino correctamente',
               confirmButtonColor: constante.color_alert.verde,
+              confirmButtonText: 'Aceptar'
             });
           },
           (error) => {

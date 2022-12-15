@@ -59,12 +59,10 @@ export class EntidadPrestadoraComponent implements OnInit {
     private modalService: BsModalService,
     private entidadPrestadoraService: EntidadPrestadoraService,
     private formBuilder: FormBuilder,
-    // private spinner: NgxSpinnerService,
     private usuarioService: UsuarioService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    // this.spinner.show();
     this.objUsuario = JSON.parse(this.usuarioService.getUsuario() + '');
   }
 
@@ -74,7 +72,7 @@ export class EntidadPrestadoraComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      class: 'modal-dialog-centered'
+      class: 'modal-dialog-centered',
     };
     this.openModal(this._modal_nuevo_entidad, objEntidad);
   }
@@ -83,13 +81,13 @@ export class EntidadPrestadoraComponent implements OnInit {
     if (this.nuTipo == eTipoAccion.Actualizar) {
       Swal.fire({
         title: 'Está seguro que desea actualizar el registro?',
-        text: "Esta acción no se podrá recuperar!",
+        text: 'Esta acción no se podrá recuperar!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: constante.color_alert.rojo,
-      cancelButtonColor: constante.color_alert.plomo,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+        cancelButtonColor: constante.color_alert.plomo,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
           this.crearActualizarRegistroAccion();
@@ -102,39 +100,53 @@ export class EntidadPrestadoraComponent implements OnInit {
 
   crearActualizarRegistroAccion() {
     this.objEntidadPrestadora = {
-      identidadprestadora: this.nuTipo == eTipoAccion.Insertar ? 0 : this.objEntidadPrestadoraActualizar.identidadprestadora,
+      identidadprestadora:
+        this.nuTipo == eTipoAccion.Insertar
+          ? 0
+          : this.objEntidadPrestadoraActualizar.identidadprestadora,
       ruc: this.frmEntidadPrestadora.value.ruc,
       razonsocial: this.frmEntidadPrestadora.value.razonsocial,
       usuariocreacion: this.objUsuario.usuario,
       fechacreacion: new Date(),
-      usuariomodificacion: this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
-      fechamodificacion: this.nuTipo == eTipoAccion.Insertar ? null : new Date(),
+      usuariomodificacion:
+        this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
+      fechamodificacion:
+        this.nuTipo == eTipoAccion.Insertar ? null : new Date(),
       estadoregistro: true,
     };
 
     this.entidadPrestadoraService
       .agregarEntidad$(this.objEntidadPrestadora)
-      .subscribe((resp) => {
-        this.frmEntidadPrestadora.reset();
-        if (this.nuTipo == eTipoAccion.Insertar) {
-          this.listaEntidadPrestadora.push(resp.data);
-          this.hideModal(1);
+      .subscribe(
+        (resp) => {
+          this.frmEntidadPrestadora.reset();
+          if (this.nuTipo == eTipoAccion.Insertar) {
+            this.listaEntidadPrestadora.push(resp.data);
+            this.hideModal(1);
+            Swal.fire({
+              title: 'Se agregó correctamente',
+              confirmButtonColor: constante.color_alert.verde,
+              confirmButtonText: 'Aceptar',
+            });
+          } else {
+            this.listaEntidadPrestadora[this.filaRegistroActualizar] =
+              resp.data;
+            this.hideModal(1);
+            Swal.fire({
+              title: 'Se actualizó correctamente',
+              confirmButtonColor: constante.color_alert.verde,
+              confirmButtonText: 'Aceptar',
+            });
+          }
+        },
+        (error) => {
           Swal.fire({
-            text: 'La entidad se agregó correctamente',
-            confirmButtonColor: constante.color_alert.verde,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
           });
-        } else {
-          this.listaEntidadPrestadora[this.filaRegistroActualizar] = resp.data;
-          this.hideModal(1);
-          Swal.fire({ text: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde });
         }
-      }, error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!'
-        });
-      });
+      );
   }
 
   cerrarModalCrearActualizar() {
@@ -154,7 +166,7 @@ export class EntidadPrestadoraComponent implements OnInit {
       id: 1,
       backdrop: true,
       ignoreBackdropClick: true,
-      class: 'modal-dialog-centered'
+      class: 'modal-dialog-centered',
     };
     this.openModal(this._modal_nuevo_entidad, objEntidad);
   }
@@ -162,34 +174,37 @@ export class EntidadPrestadoraComponent implements OnInit {
   eliminarEntidad(idEntidadPrestadora: number, row: number) {
     Swal.fire({
       title: 'Está seguro que desea eliminar el registro?',
-      text: "Esta acción no se podrá recuperar!",
+      text: 'Esta acción no se podrá recuperar!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: constante.color_alert.rojo,
       cancelButtonColor: constante.color_alert.plomo,
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         this.entidadPrestadoraService
           .eliminarEntidad$(idEntidadPrestadora)
-          .subscribe((resp) => {
-            this.listaEntidadPrestadora.splice(row, 1);
-            Swal.fire({
-              text: 'Se elimino correctamente',
-              confirmButtonColor: constante.color_alert.verde,
-            });
-          }, error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!'
-            });
-          });
+          .subscribe(
+            (resp) => {
+              this.listaEntidadPrestadora.splice(row, 1);
+              Swal.fire({
+                title: 'Se elimino correctamente',
+                confirmButtonColor: constante.color_alert.verde,
+                confirmButtonText: 'Aceptar',
+              });
+            },
+            (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+              });
+            }
+          );
       }
     });
   }
-
 
   listarEntidadPrestadora() {
     // this.spinner.show();

@@ -128,12 +128,12 @@ export class OrganizacionRpeComponent implements OnInit {
         if (this.nuTipo == eTipoAccion.Insertar) {
           this.listaOrganizacionRPE.push(resp.data);
           Swal.fire({
-            text: 'La organización se agregó correctamente',
+            text: 'Se agregó correctamente',
             confirmButtonColor: constante.color_alert.verde,
           });
         } else {
           this.listaOrganizacionRPE[this.filaRegistroActualizar] = resp.data;
-          Swal.fire({ text: 'La organización se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, });
+          Swal.fire({ title: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, confirmButtonText: 'Aceptar' });
         }
         this.hideModal(1);
       }, error => {
