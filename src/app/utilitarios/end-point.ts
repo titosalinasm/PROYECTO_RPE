@@ -36,5 +36,8 @@ export const END_POINTS = {
   },
   perfil: {
     listar: 'perfil/api/v1/seguridad/perfil/perfiles'
+  },
+  menu: {
+    listar: '/api/v1/seguridad/menu/menus/'
   }
 };
