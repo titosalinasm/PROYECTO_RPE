@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject  } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { DOCUMENT } from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -10,29 +10,28 @@ import { NgForm } from '@angular/forms';
 })
 export class InicioSExtranetComponent implements OnInit {
   objUsuario: any;
-  token: string|undefined;
+  token: string | undefined;
 
-  blSessionIniciada : boolean=false;
+  blSessionIniciada: boolean = false;
 
-  constructor(private usuarioService: UsuarioService,
-    @Inject(DOCUMENT) private document: Document) {
-      this.token = undefined;
+  constructor(
+    private usuarioService: UsuarioService,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.token = undefined;
   }
 
   ngOnInit(): void {
-    if(this.usuarioService.getUsuario())
-    this.blSessionIniciada=true;
-    // this.usuarioService.getUserLogged();
+    if (this.usuarioService.getUsuario()) this.blSessionIniciada = true;
   }
 
   iniciarSesion() {
     this.usuarioService.getValidaUsuario().subscribe((resp) => {
-    this.usuarioService.setUsuario(JSON.stringify(resp.data[0]));
-    this.objUsuario=resp.data[0];
-    setInterval(() => {
-      this.document.location.reload();
-    }, 1000)
-
+      this.usuarioService.setUsuario(JSON.stringify(resp.data[0]));
+      this.objUsuario = resp.data[0];
+      setInterval(() => {
+        this.document.location.reload();
+      }, 500);
     });
   }
 
@@ -46,6 +45,4 @@ export class InicioSExtranetComponent implements OnInit {
 
     console.debug(`Token [${this.token}] generated`);
   }
-
-
 }

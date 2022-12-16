@@ -6,6 +6,7 @@ import { EntidadPrestadoraComponent } from './formularios/entidad-prestadora/ent
 import { InicioSExtranetComponent } from './formularios/inicio-s-extranet/inicio-s-extranet.component';
 import { OrganizacionRpeComponent } from './formularios/organizacion-rpe/organizacion-rpe.component';
 import { RequisitosComponent } from './formularios/requisitos/requisitos.component';
+import { UsuarioComponent } from './formularios/usuario/usuario.component';
 import { SesionIniciadaGuard } from './guards/sesion-iniciada.guard';
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   {path: 'entidad-prestadora', component: EntidadPrestadoraComponent, canActivate: [SesionIniciadaGuard],},
   {path: 'organizacion-rpe', component: OrganizacionRpeComponent, canActivate: [SesionIniciadaGuard],},
   {path: 'requisitos', component: RequisitosComponent, canActivate: [SesionIniciadaGuard],},
+  {path: 'usuario', component: UsuarioComponent, canActivate: [SesionIniciadaGuard],},
+
 
 ];
 

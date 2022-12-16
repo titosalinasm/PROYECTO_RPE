@@ -23,14 +23,14 @@ export class OrganizacionRpeService {
 
     public agregarActualizarEntidad$(entity: any): Observable<GeneralI> {
       return this.http.post<GeneralI>(
-        environment.apiMaestroOrganizacionRpe + END_POINTS.organizacion_rpe.crear,
+        environment.apiGatewayMaestro + END_POINTS.organizacion_rpe.crear,
         entity,
       );
     }
 
   public listarOrganizacionRPE$(entity: OrgRPEFilter): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiMaestroOrganizacionRpe + END_POINTS.organizacion_rpe.listar_paginado,
+      environment.apiGatewayMaestro + END_POINTS.organizacion_rpe.listar_paginado,
       entity,
       this.httpOptions
     );
@@ -38,7 +38,7 @@ export class OrganizacionRpeService {
 
   public eliminarOrgRPE$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      environment.apiMaestroOrganizacionRpe + END_POINTS.organizacion_rpe.eliminar+id,
+      environment.apiGatewayMaestro + END_POINTS.organizacion_rpe.eliminar+id,
       this.httpOptions
     );
   }

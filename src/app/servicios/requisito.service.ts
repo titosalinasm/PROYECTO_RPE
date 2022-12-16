@@ -21,14 +21,14 @@ export class RequisitoService {
 
   public agregarActualizarRequisito$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiMaestroRequisito + END_POINTS.requisito.crear,
+      environment.apiGatewayMaestro + END_POINTS.requisito.crear,
       entity
     );
   }
 
   public listarRequisito$(entity: RequisitoFilterI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiMaestroRequisito + END_POINTS.requisito.listar_paginado,
+      environment.apiGatewayMaestro + END_POINTS.requisito.listar_paginado,
       entity,
       this.httpOptions
     );
@@ -36,7 +36,7 @@ export class RequisitoService {
 
   public eliminarRequisito$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      environment.apiMaestroRequisito + END_POINTS.requisito.eliminar + id,
+      environment.apiGatewayMaestro + END_POINTS.requisito.eliminar + id,
       this.httpOptions
     );
   }

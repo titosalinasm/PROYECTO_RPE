@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EntidadPrestadoraI } from 'src/app/interfaces/entidad-prestadora-i';
 import { EntidadPrestadoraService } from 'src/app/servicios/entidad-prestadora.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { EntidadPrestadoraFilterI } from 'src/app/interfaces/entidad-prestadora-filter';
@@ -18,10 +17,6 @@ import { eTipoAccion } from 'src/app/utilitarios/data.enums';
 })
 export class EntidadPrestadoraComponent implements OnInit {
   @ViewChild('modal_nuevo_entidad') _modal_nuevo_entidad: TemplateRef<any>;
-
-  // contentArray = new Array(5).fill('');
-  // returnedArray?: string[];
-
   modalRef?: BsModalRef;
   config = {
     backdrop: true,
@@ -32,7 +27,6 @@ export class EntidadPrestadoraComponent implements OnInit {
   filaRegistroActualizar: number;
 
   listaEntidadPrestadora: EntidadPrestadoraI[] = [];
-  // objEntidadPrestadoraActualiza: EntidadPrestadoraI;
 
   frmEntidadPrestadora = this.formBuilder.group({
     ruc: ['', [Validators.required]],
@@ -47,8 +41,6 @@ export class EntidadPrestadoraComponent implements OnInit {
   objFiltroEntidadP: EntidadPrestadoraFilterI;
   objEntidadPrestadora: EntidadPrestadoraI;
   objEntidadPrestadoraActualizar: EntidadPrestadoraI;
-
-  //paginacion
   pagina: number = 1;
   tamanioPagina: number = constante.paginacion.tamanioPagina;
   totalItems: number;
@@ -67,6 +59,7 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   doModalEntidad() {
+    this.nuTipo == eTipoAccion.Insertar;
     this.frmEntidadPrestadora.reset();
     let objEntidad = {
       id: 1,
@@ -80,13 +73,13 @@ export class EntidadPrestadoraComponent implements OnInit {
   crearActualizarEntidad() {
     if (this.nuTipo == eTipoAccion.Actualizar) {
       Swal.fire({
-        title: 'Está seguro que desea actualizar el registro?',
+        title: '¿Está seguro que desea actualizar el registro?',
         text: 'Esta acción no se podrá recuperar!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: constante.color_alert.rojo,
         cancelButtonColor: constante.color_alert.plomo,
-        confirmButtonText: 'Sí, eliminar',
+        confirmButtonText: 'Sí, actualizar',
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
@@ -207,8 +200,6 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   listarEntidadPrestadora() {
-    // this.spinner.show();
-
     this.objFiltroEntidadP = {
       razonsocial:
         this.frmFiltroEntidadPrestadora.value.razonsocial == ''
@@ -225,7 +216,6 @@ export class EntidadPrestadoraComponent implements OnInit {
     this.entidadPrestadoraService
       .listarEntidad$(this.objFiltroEntidadP)
       .subscribe((resp) => {
-        // this.spinner.hide();
         this.listaEntidadPrestadora = resp.data.lista;
         this.totalItems = resp.data.totalItems;
       });

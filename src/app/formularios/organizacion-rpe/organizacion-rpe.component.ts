@@ -2,15 +2,10 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
-import { AreaI } from 'src/app/interfaces/area-i';
-import { CargoI } from 'src/app/interfaces/cargo-i';
 import { OrgRPEFilter } from 'src/app/interfaces/organizacion-rpe -filter';
 import { OrganizacioRPE } from 'src/app/interfaces/organizacion-rpe-i';
 import { ParametroI } from 'src/app/interfaces/parameto-i';
-import { TipoDocumentoI } from 'src/app/interfaces/tipo-documento-i';
-import { EntidadPrestadoraService } from 'src/app/servicios/entidad-prestadora.service';
 import { OrganizacionRpeService } from 'src/app/servicios/organizacion-rpe.service';
 import { ParametroService } from 'src/app/servicios/parametro.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -77,7 +72,6 @@ export class OrganizacionRpeComponent implements OnInit {
     private organizacionRpeService: OrganizacionRpeService,
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
-    // private spinner: NgxSpinnerService,
     private usuarioService: UsuarioService,
     private parametroService: ParametroService
   ) { }
@@ -194,7 +188,9 @@ export class OrganizacionRpeComponent implements OnInit {
       this.parametroService.listarParametro$(paramTipoDocumento),
       this.parametroService.listarParametro$(paramArea),
       this.parametroService.listarParametro$(paramCargo)
-    ]).subscribe((resp) => {
+    ]).subscribe(
+
+      (resp) => {
       this.listaTipoDocumento = resp[0].data;
       this.listaArea = resp[1].data;
       this.listaCargo = resp[2].data;
@@ -208,12 +204,16 @@ export class OrganizacionRpeComponent implements OnInit {
       };
       this.openModal(this._modal_nuevo_org_rpe, objEntidad);
     }, error => {
+      console.log("Error: "+JSON.stringify(error))
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
+        title: error.error.statusDetail,
+        confirmButtonColor: constante.color_alert.rojo,
+        confirmButtonText: 'Aceptar',
       });
-    });
+    }
+
+    );
 
 
   }

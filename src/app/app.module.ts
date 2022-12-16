@@ -32,6 +32,7 @@ import { RequisitoService } from './servicios/requisito.service';
 import { LineaProductoService } from './servicios/linea-producto.service';
 import { RegionService } from './servicios/region.service';
 import { ProductoService } from './servicios/producto.service';
+import { UsuarioComponent } from './formularios/usuario/usuario.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { ProductoService } from './servicios/producto.service';
     EntidadPrestadoraComponent,
     OrganizacionRpeComponent,
     RequisitosComponent,
+    UsuarioComponent,
 
   ],
   imports: [

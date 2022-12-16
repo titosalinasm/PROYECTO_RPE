@@ -21,7 +21,7 @@ export class ProductoService {
 
   public listarProducto$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiMaestroProducto +
+      environment.apiGatewayMaestro +
         END_POINTS.producto.listar,
       entity,
       this.httpOptions

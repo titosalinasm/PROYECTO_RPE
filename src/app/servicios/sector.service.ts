@@ -24,7 +24,7 @@ export class SectorService {
 
   public listarSector$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiMaestroSector + END_POINTS.sector.listar,
+      environment.apiGatewayMaestro + END_POINTS.sector.listar,
       entity,
       this.httpOptions
     );

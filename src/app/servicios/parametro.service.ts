@@ -21,7 +21,7 @@ export class ParametroService {
 
   public listarParametro$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiMaestroParametro + END_POINTS.parametro.listar,
+      environment.apiGatewaySeguridad + END_POINTS.parametro.listar,
       entity,
       this.httpOptions
     );

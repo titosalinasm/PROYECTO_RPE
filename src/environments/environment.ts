@@ -4,14 +4,8 @@
 
 export const environment = {
   production: false,
-  apiGateway: "http://20.236.129.139:8010",
-  apiMaestroOrganizacionRpe : 'http://20.236.129.139:8030',
-  apiMaestroLineaProducto : 'http://20.236.129.139:8020',
-  apiMaestroProducto : 'http://20.236.129.139:8050',
-  apiMaestroRegion: 'http://20.236.129.139:8060',
-  apiMaestroSector : 'http://20.236.129.139:8080',
-  apiMaestroRequisito: 'http://20.236.129.139:8070',
-  apiMaestroParametro: 'http://20.236.129.139:8110',
+  apiGatewayMaestro: "http://20.236.129.139/maestro-",
+  apiGatewaySeguridad: "http://20.236.129.139/seguridad-",
   recaptcha:{siteKey:''}
 };
 
