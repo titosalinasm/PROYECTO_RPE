@@ -33,5 +33,8 @@ export const END_POINTS = {
   },
   parametro: {
     listar: 'parametro/api/v1/seguridad/parametro/parametros'
+  },
+  perfil: {
+    listar: 'perfil/api/v1/seguridad/perfil/perfiles'
   }
 };

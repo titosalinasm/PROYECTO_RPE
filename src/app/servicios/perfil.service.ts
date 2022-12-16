@@ -9,7 +9,7 @@ import { OrgRPEFilter } from '../interfaces/organizacion-rpe -filter';
 @Injectable({
   providedIn: 'root'
 })
-export class LineaProductoService {
+export class PerfilService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -17,14 +17,13 @@ export class LineaProductoService {
   };
 
   constructor(private http: HttpClient,
-    ) {}
+  ) { }
 
-    public listarLineaProducto$(entity: any): Observable<GeneralI> {
-      return this.http.post<GeneralI>(
-        environment.apiGatewayMaestro + END_POINTS.linea_producto.listar,
-        entity,
-        this.httpOptions
-      );
-    }
+  public listarPerfil$(): Observable<GeneralI> {
+    return this.http.get<GeneralI>(
+      environment.apiGatewaySeguridad + END_POINTS.perfil.listar,
+      this.httpOptions
+    );
+  }
 
 }
