@@ -1,6 +1,6 @@
 export const END_POINTS = {
   usuario: {
-    iniciar_sesion: "/api/v1/usuario/usuario.json"
+    iniciar_sesion: "/api/v1/usuario/usuario.json",
   },
   entidad_prestadora: {
     crear_actualizar: 'entidad-prestadora/api/v1/maestro/entidad-prestadora/entidad',
@@ -39,5 +39,13 @@ export const END_POINTS = {
   },
   menu: {
     listar: '/api/v1/seguridad/menu/menus/'
+  },
+  _usuario: {
+    listar_usuario_perfil: 'usuario/api/v1/seguridad/usuario/usuarios/',
+    eliminar: 'usuario/api/v1/seguridad/usuario/usuario/'
+  },
+  usuarioOrquestador: {
+    listar: 'usuario/api/v1/seguridad/orquestador/usuario/usuario/paginado',
+    eliminar: 'usuario/api/v1/seguridad/orquestador/usuario/usuario/' // {idUsuario}
   }
 };

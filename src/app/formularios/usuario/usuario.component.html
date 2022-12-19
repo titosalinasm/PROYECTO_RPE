@@ -2,13 +2,13 @@
   <h5 class="fontbold">Lista de usuarios</h5>
   <div class="card">
     <div class="card-body">
-      <form class="row g-3">
+      <form class="row g-3" [formGroup]="frmFilterUsuario" autocomplete="off">
         <div class="col-auto">
           <span for="staticEmail2">Perfil</span>
         </div>
         <div class="col-auto">
           <label for="inputPassword2" class="visually-hidden">Seleccionar</label>
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select" aria-label="Default select example" formControlName="idperfil">
             <option value="0" selected disabled hidden>
               --Seleccionar--
             </option>
@@ -27,7 +27,8 @@
           </select>
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-success mb-3 boton_verde" style="width: 150px; margin-bottom: 5px">
+          <button type="submit" class="btn btn-success mb-3 boton_verde" style="width: 150px; margin-bottom: 5px"
+            (click)="listarUsuario()">
             Buscar
           </button>
         </div>
@@ -55,38 +56,25 @@
           <th scope="row" class="table_cabecera">Estado</th>
           <th scope="row" class="table_cabecera">Acciones</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>tflores</td>
-          <td>Entidad prestadora RPE</td>
-          <td>pepito SAC</td>
-          <td>08/11/2022 10:25:21</td>
-          <td>Activo</td>
+        <tr *ngFor="let item of listaUsuario; let row = index">
+          <td>{{ row + 1 }}</td>
+          <td>{{ item.usuario }}</td>
+          <td>{{ item.nombreperfil }}</td>
+          <td>{{ item. identidadprestadora }}</td>
+          <td>{{ item.fechacreacion }}</td>
           <td>
-            <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </button>
-            </span>
-            <span>
-              <button type="button" class="btn btn-outline-danger btn-sm">
-                <i class="fa fa-trash" aria-hidden="true"></i></button></span>
+            <span *ngIf="item.estadousuario">Activo</span>
+            <span *ngIf="!item.estadousuario">Inactivo</span>
           </td>
-        </tr>
-
-        <tr>
-          <td>2</td>
-          <td>tsalinas</td>
-          <td>Entidad prestadora RPE</td>
-          <td>pepito SAC</td>
-          <td>08/11/2022 10:25:21</td>
-          <td>Activo</td>
           <td>
-            <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm">
+            <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
+                (click)="abrirModaCrearActualizarUsuario()">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </span>
             <span>
-              <button type="button" class="btn btn-outline-danger btn-sm">
+              <button type="button" class="btn btn-outline-danger btn-sm"
+                (click)="eliminarUsuario(row, item.idusuario)">
                 <i class="fa fa-trash" aria-hidden="true"></i></button></span>
           </td>
         </tr>
@@ -248,7 +236,7 @@
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Pefil:</label>
         <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select" aria-label="Default select example" formControlName="idperfil">
             <option value="0" selected disabled hidden>
               --Seleccionar--
             </option>
@@ -261,7 +249,7 @@
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Nom. Entidad:</label>
         <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select" aria-label="Default select example" formControlName="idpersona">
             <option selected>--Seleccionar--</option>
             <option value="1">One</option>
             <option value="2">Two</option>

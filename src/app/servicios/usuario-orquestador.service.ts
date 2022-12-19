@@ -5,12 +5,12 @@ import { environment } from 'src/environments/environment';
 import { END_POINTS } from '../utilitarios/end-point';
 import { CookieService } from "ngx-cookie-service";
 import { GeneralI } from '../utilitarios/GeneralI';
-import { UsuarioFilterI } from '../interfaces/usuario-filter';
+import { UsuarioOrquestadorFilterI } from '../interfaces/usuario-orquestador-filter';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class UsuarioOrquestadorService {
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -23,21 +23,10 @@ export class UsuarioService {
     private cookies: CookieService
   ) { }
 
-  getValidaUsuario() {
-    return this.http.get<any>('assets/apigetway' + END_POINTS.usuario.iniciar_sesion);
-  }
-
-  setUsuario(usuario: string) {
-    this.cookies.set("usuario", usuario);
-  }
-
-  getUsuario() {
-    return this.cookies.get("usuario");
-  }
-
-  public listarUsuarioPerfil$(entity: UsuarioFilterI): Observable<GeneralI> {
-    return this.http.get<GeneralI>(
-      environment.apiGatewaySeguridad + END_POINTS._usuario.listar_usuario_perfil + entity.idperfil,
+  public listarUsuario$(entity: UsuarioOrquestadorFilterI): Observable<GeneralI> {
+    return this.http.post<GeneralI>(
+      environment.apiGatewaySeguridad + END_POINTS.usuarioOrquestador.listar,
+      entity,
       this.httpOptions
     );
   }
@@ -47,10 +36,6 @@ export class UsuarioService {
       environment.apiGatewaySeguridad + END_POINTS._usuario.eliminar + id,
       this.httpOptions
     );
-  }
-
-  logout() {
-    this.cookies.delete("usuario");
   }
 
 
