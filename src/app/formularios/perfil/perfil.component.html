@@ -1,305 +1,201 @@
 <div class="container">
   <div class="card fontregular">
+
     <div class="card-body" style="padding: 0px !important">
-      <ul
-        class="nav nav-tabs"
-        id="myTab"
-        role="tablist"
-        style="background-color: #d7d7d7"
-      >
+      <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #d7d7d7">
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active fontbold"
-            id="home-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#home-tab-pane"
-            type="button"
-            role="tab"
-            aria-controls="home-tab-pane"
-            aria-selected="true"
-          >
+          <button class="nav-link active fontbold" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
             DATOS DEL PERFIL
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link fontbold"
-            id="profile-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#profile-tab-pane"
-            type="button"
-            role="tab"
-            aria-controls="profile-tab-pane"
-            aria-selected="false"
-          >
+          <button class="nav-link fontbold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+            type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
             DATOS DEL CONTACTO
           </button>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
-        <div
-          class="tab-pane fade show active"
-          id="home-tab-pane"
-          role="tabpanel"
-          aria-labelledby="home-tab"
-          tabindex="0"
-        >
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+          tabindex="0">
           <div class="card-body">
-            <form>
+            <form [formGroup]="frmPerfil" autocomplete="off">
               <div class="row mb-1">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Nro. Ruc:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nro. Ruc:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="nroruc" />
                 </div>
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Estado del contribuyente:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Estado del contribuyente:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="estadocontribuyente" />
                 </div>
               </div>
               <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom"
-              >
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
                 <h1 class="h5 fontbold">DOMICILIO FISCAL</h1>
               </div>
               <div class="row mb-1">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Región:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Región:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                    disabled
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example" formControlName="idregion">
+                    <option selected>-- Seleccione --</option>
+                    <option [value]="1">Lima</option>
                   </select>
                 </div>
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Provincia:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Provincia:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                    disabled
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example" formControlName="idprovincia">
+                    <option selected>-- Seleccione --</option>
+                    <option value="1">Lima</option>
                   </select>
                 </div>
               </div>
               <div class="row mb-1">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Distrito:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Distrito:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                    disabled
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example" formControlName="iddistrito">
+                    <option selected>-- Seleccione --</option>
+                    <option value="1">Chorrillos</option>
                   </select>
                 </div>
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Ubigeo:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Ubigeo:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="ubigeo" />
                 </div>
               </div>
               <div class="row mb-1">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Condición:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Condición:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="condicion" />
                 </div>
               </div>
               <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom"
-              >
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom">
                 <h1 class="h5 fontbold">REPRESENTANTE LEGAL</h1>
               </div>
               <div class="row mb-1">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Apellidos y nombres:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Apellidos y nombres:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="nombrecompleto" />
                 </div>
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Género:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Género:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example" formControlName="idgenero">
+                    <option selected>-- Seleccione --</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
                   </select>
                 </div>
               </div>
               <div class="row mb-1">
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Correo electrónico:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Correo electrónico:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="correo" />
                 </div>
-                <label for="inputEmail3" class="col-sm-2 col-form-label"
-                  >Teléfono:</label
-                >
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Teléfono:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" disabled />
+                  <input type="email" class="form-control" formControlName="telefono" />
                 </div>
               </div>
             </form>
           </div>
         </div>
-        <div
-          class="tab-pane fade"
-          id="profile-tab-pane"
-          role="tabpanel"
-          aria-labelledby="profile-tab"
-          tabindex="0"
-        >
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
           <div class="card-body">
-            <form>
+            <form [formGroup]="frmContacto" autocomplete="off">
               <div class="row mb-1">
                 <label class="col-sm-2 col-form-label">Usuario SOL:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="usuariosol" />
                 </div>
-                <label class="col-sm-2 col-form-label"
-                  >Nombres <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Nombres <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="nombres" />
                 </div>
               </div>
               <div class="row mb-1">
-                <label class="col-sm-2 col-form-label"
-                  >Apellido paterno <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Apellido paterno <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="apellidopaterno" />
                 </div>
-                <label class="col-sm-2 col-form-label"
-                  >Apellido Materno <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Apellido Materno <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="apellidomaterno" />
                 </div>
               </div>
               <div class="row mb-1">
-                <label class="col-sm-2 col-form-label"
-                  >Tipo de documento <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Tipo de documento <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example" formControlName="idtipodocumento">
+                    <option value="0" disabled hidden>
+                      --Seleccionar--
+                    </option>
+                    <option *ngFor="let item of listaTipoDocumento" [value]="item.idparametro">
+                      {{ item.nombre }}
+                    </option>
                   </select>
                 </div>
-                <label class="col-sm-2 col-form-label"
-                  >Número de documento
-                  <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Número de documento
+                  <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="text" class="form-control" formControlName="nrodocumento" />
                 </div>
               </div>
               <div class="row mb-1">
-                <label class="col-sm-2 col-form-label"
-                  >Correo electrónico:</label
-                >
+                <label class="col-sm-2 col-form-label">Correo electrónico:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="correo" />
                 </div>
-                <label class="col-sm-2 col-form-label"
-                  >Teléfono fijo <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Teléfono fijo <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="text" class="form-control" formControlName="telefonofijo" />
                 </div>
               </div>
               <div class="row mb-1">
-                <label class="col-sm-2 col-form-label"
-                  >Celular <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Celular <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="text" class="form-control" formControlName="celular" />
                 </div>
-                <label class="col-sm-2 col-form-label"
-                  >Cargo <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Cargo <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example">
+                    <option value="0" disabled hidden>
+                      --Seleccionar--
+                    </option>
+                    <option *ngFor="let item of listaCargo" [value]="item.idparametro">
+                      {{ item.nombre }}
+                    </option>
                   </select>
                 </div>
               </div>
               <div class="row mb-1">
-                <label class="col-sm-2 col-form-label"
-                  >Área a la que pertenece
-                  <span class="_obligatorio">*</span>:</label
-                >
+                <label class="col-sm-2 col-form-label">Área a la que pertenece
+                  <span class="_obligatorio">*</span>:</label>
                 <div class="col-sm-4">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example">
+                    <option value="0" disabled hidden>
+                      --Seleccionar--
+                    </option>
+                    <option *ngFor="let item of listaArea" [value]="item.idparametro">
+                      {{ item.nombre }}
+                    </option>
                   </select>
                 </div>
-                <label class="col-sm-2 col-form-label"
-                  >Facebook/Instagram de organización:</label
-                >
+                <label class="col-sm-2 col-form-label">Facebook/Instagram de organización:</label>
                 <div class="col-sm-4">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="redessociales" />
                 </div>
               </div>
               <div class="row mb-1">
-                <label class="col-sm-2 col-form-label"
-                  >Sitio web de organización</label
-                >
+                <label class="col-sm-2 col-form-label">Sitio web de organización</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" />
+                  <input type="email" class="form-control" formControlName="sitioweb" />
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-sm-12" style="text-align: center">
-                  <button type="button" class="btn btn-danger boton_guardar">
+                  <button type="button" class="btn btn-danger boton_guardar" (click)="guardarDatosContacto()">
                     Guardar
                   </button>
                 </div>

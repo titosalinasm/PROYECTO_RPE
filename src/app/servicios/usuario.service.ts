@@ -6,6 +6,8 @@ import { END_POINTS } from '../utilitarios/end-point';
 import { CookieService } from "ngx-cookie-service";
 import { GeneralI } from '../utilitarios/GeneralI';
 import { UsuarioFilterI } from '../interfaces/usuario-filter';
+import { validarUsuarioFilterI } from '../interfaces/validar-usuario-filter';
+import { UsuarioI } from '../interfaces/usuario-i';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,16 @@ export class UsuarioService {
     return this.cookies.get("usuario");
   }
 
+  public creaActualizaUsuario$(entity: UsuarioI): Observable<GeneralI> {
+    return this.http.post<GeneralI>(
+      // environment.apiGatewaySeguridad
+      'http://20.236.129.139:8140'
+      + END_POINTS._usuario.crearActualiza,
+      entity,
+      this.httpOptions
+    );
+  }
+
   public listarUsuarioPerfil$(entity: UsuarioFilterI): Observable<GeneralI> {
     return this.http.get<GeneralI>(
       // environment.apiGatewaySeguridad
@@ -47,8 +59,21 @@ export class UsuarioService {
   public eliminarUsuario$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
       // environment.apiGatewaySeguridad +
-      'http://20.236.129.139:8150'+
-       END_POINTS._usuario.eliminar + id,
+      'http://20.236.129.139:8150' +
+      END_POINTS._usuario.eliminar + id,
+      this.httpOptions
+    );
+  }
+
+  public validarUsuario$(entity: validarUsuarioFilterI): Observable<GeneralI> {
+    console.log('>>validarUsuario$');
+    // let url = 'http://20.236.129.139:8150/' + END_POINTS._usuario.validar;
+    // console.log('>>url: ' + url);
+    return this.http.post<GeneralI>(
+      // environment.apiGatewaySeguridad
+      'http://20.236.129.139:8140'
+      + END_POINTS._usuario.validar,
+      entity,
       this.httpOptions
     );
   }

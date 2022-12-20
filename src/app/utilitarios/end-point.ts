@@ -41,13 +41,15 @@ export const END_POINTS = {
     listar: '/api/v1/seguridad/menu/menus/'
   },
   _usuario: {
+    crearActualiza: '/api/v1/seguridad/usuario/usuario',
     listar_usuario_perfil: 'usuario/api/v1/seguridad/usuario/usuarios/',
-    eliminar: 'usuario/api/v1/seguridad/usuario/usuario/'
+    eliminar: 'usuario/api/v1/seguridad/usuario/usuario/',
+    validar: '/api/v1/seguridad/usuario/usuarios'
   },
   usuarioOrquestador: {
     listar: '/api/v1/seguridad/orquestador/usuario/usuario/paginado',
     eliminar: '/api/v1/seguridad/orquestador/usuario/usuario/',
-    crearActualiza : '/api/v1/seguridad/orquestador/usuario/usuario',
+    crearActualiza: '/api/v1/seguridad/orquestador/usuario/usuario',
     obtenerDetalle: '/api/v1/seguridad/orquestador/usuario/usuario/'
   }
 };
