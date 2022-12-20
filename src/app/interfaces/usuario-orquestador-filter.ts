@@ -1,7 +1,7 @@
 export interface UsuarioOrquestadorFilterI {
   idperfil: number;
   identidadprestadora: number;
-  flagvalidarentidad: true;
+  flagvalidarentidad: boolean;
   pageNumber: number;
   pageSize: number;
 }

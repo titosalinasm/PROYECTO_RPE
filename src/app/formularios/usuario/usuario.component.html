@@ -20,10 +20,12 @@
         <div class="col-auto">
           <label for="inputPassword2" class="visually-hidden">Seleccionar</label>
           <select class="form-select" aria-label="Default select example">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="0" selected disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of lstEntidadPrestadora" [value]="item.identidadprestadora">
+              {{ item.razonsocial }}
+            </option>
           </select>
         </div>
         <div class="col-auto">
@@ -68,7 +70,7 @@
           </td>
           <td>
             <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
-                (click)="abrirModaCrearActualizarUsuario()">
+                (click)="abrirModaCrearActualizarUsuario(item.idusuario)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </span>
@@ -85,15 +87,17 @@
     <div class="p-2">
       <div class="row">
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#"> Atrás</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Siguiente</a>
-            </li>
-          </ul>
+          <pagination
+            [boundaryLinks]="true"
+            previousText="&lsaquo;"
+            nextText="&rsaquo;"
+            firstText="&laquo;"
+            lastText="&raquo;"
+            [totalItems]="totalItems"
+            [itemsPerPage]="tamanioPagina"
+            (pageChanged)="pageChanged($event)"
+          >
+          </pagination>
         </nav>
       </div>
     </div>
@@ -108,11 +112,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="frmUsuarioCreaActualiza" autocomplete="off" >
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Pefil:</label>
         <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select" formControlName="idperfil">
             <option value="0" selected disabled hidden>
               --Seleccionar--
             </option>
@@ -125,35 +129,39 @@
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Nom. Entidad:</label>
         <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select class="form-select" formControlName="identidadprestadora">
+            <option value="0" selected disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of lstEntidadPrestadora" [value]="item.identidadprestadora">
+              {{ item.razonsocial }}
+            </option>
           </select>
         </div>
       </div>
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Usuario:</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control" />
+          <input type="email" class="form-control" formControlName="usuario"  maxlength="10"/>
         </div>
       </div>
       <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Contraseña:</label>
+        <label for="inputEmail3" class="col-sm-4 col-form-label" >Contraseña:</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control" />
+          <input type="password" class="form-control" formControlName="password" maxlength="10" />
         </div>
       </div>
 
       <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Tipo documento:</label>
+        <label for="inputEmail3" class="col-sm-4 col-form-label" formControlName="idtipodocumento">Tipo documento:</label>
         <div class="col-sm-8">
           <select class="form-select" aria-label="Default select example">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="0" selected disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of listaTipoDocumento" [value]="item.idparametro">
+              {{ item.nombre }}
+            </option>
           </select>
         </div>
       </div>
@@ -161,151 +169,62 @@
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Nro. Documento:</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control" />
+          <input type="text" class="form-control" formControlName="numerodocumento" maxlength="12"/>
         </div>
       </div>
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Nombres y apellidos:</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control" />
+          <input type="text" class="form-control" formControlName="nombresapellidos" maxlength="50" />
         </div>
       </div>
       <div class="row mb-1">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Correo electronico:</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control" />
+          <input type="email" class="form-control" formControlName="correoelectronico" maxlength="50"/>
         </div>
       </div>
 
-      <div class="row mb-1">
+      <div class="row mb-1" *ngIf="nuValidaVisible">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Celular:</label>
         <div class="col-sm-8">
-          <input type="email" class="form-control" />
+          <input type="email" class="form-control" formControlName="celular"/>
         </div>
       </div>
 
-      <div class="row mb-1">
+      <div class="row mb-1" *ngIf="nuValidaVisible">
         <label for="inputEmail3" class="col-sm-4 col-form-label">Cargo:</label>
         <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Área:</label>
-        <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_guardar">
-            Guardar
-          </button>
-        </div>
-        <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_cancelar">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
-</ng-template>
-
-<ng-template #modal_editar_usuario class="fontregular">
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">DATOS DEL USUARIO</h4>
-    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body fontregular">
-    <form [formGroup]="frmUsuario" autocomplete="off">
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Pefil:</label>
-        <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example" formControlName="idperfil">
+          <select class="form-select" formControlName="idcargo">
             <option value="0" selected disabled hidden>
               --Seleccionar--
             </option>
-            <option *ngFor="let item of listaPerfil" [value]="item.idperfil">
+            <option *ngFor="let item of listaCargo" [value]="item.idparametro">
               {{ item.nombre }}
             </option>
           </select>
         </div>
       </div>
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Nom. Entidad:</label>
+
+      <div class="row mb-1" *ngIf="nuValidaVisible">
+        <label for="inputEmail3" class="col-sm-4 col-form-label">Área:</label>
         <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example" formControlName="idpersona">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select class="form-select" formControlName="idarea" >
+            <option value="0" selected disabled hidden>
+              --Seleccionar--
+            </option>
+            <option *ngFor="let item of listaArea" [value]="item.idparametro">
+              {{ item.nombre }}
+            </option>
           </select>
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Tipo documento:</label>
-        <div class="col-sm-8">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>--Seleccionar--</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Nro. Documento:</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" />
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Usuario:</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" />
-        </div>
-      </div>
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Contraseña:</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" />
-        </div>
-      </div>
-
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Nombres y apellidos:</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" />
-        </div>
-      </div>
-      <div class="row mb-1">
-        <label for="inputEmail3" class="col-sm-4 col-form-label">Correo electronico:</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" />
         </div>
       </div>
 
       <div class="row mb-1">
         <div class="col-sm-6" style="text-align: center">
-          <button type="button" class="btn btn-danger boton_guardar">
+          <button type="button" class="btn btn-danger boton_guardar"
+          (click)="crearActualiaUsuario()"
+          >
             Guardar
           </button>
         </div>
@@ -318,3 +237,4 @@
     </form>
   </div>
 </ng-template>
+

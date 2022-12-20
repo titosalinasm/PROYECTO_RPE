@@ -6,6 +6,7 @@ import { END_POINTS } from '../utilitarios/end-point';
 import { CookieService } from "ngx-cookie-service";
 import { GeneralI } from '../utilitarios/GeneralI';
 import { UsuarioOrquestadorFilterI } from '../interfaces/usuario-orquestador-filter';
+import { UsuarioOrquestadorReqI } from '../interfaces/usuario-orquestador-resp-i';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,38 @@ export class UsuarioOrquestadorService {
 
   public listarUsuario$(entity: UsuarioOrquestadorFilterI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiGatewaySeguridad + END_POINTS.usuarioOrquestador.listar,
+      // environment.apiGatewaySeguridad +
+      'http://20.236.129.139:8150'+
+      END_POINTS.usuarioOrquestador.listar,
       entity,
+      this.httpOptions
+    );
+  }
+
+  public creaActualizaUsuario$(entity: UsuarioOrquestadorReqI): Observable<GeneralI> {
+    return this.http.post<GeneralI>(
+      // environment.apiGatewaySeguridad +
+      'http://20.236.129.139:8150'+
+      END_POINTS.usuarioOrquestador.crearActualiza,
+      entity,
+      this.httpOptions
+    );
+  }
+
+  public obtenerDetalleUsuario$(id : number): Observable<GeneralI> {
+    return this.http.get<GeneralI>(
+      // environment.apiGatewaySeguridad +
+      'http://20.236.129.139:8150'+
+      END_POINTS.usuarioOrquestador.obtenerDetalle+id,
       this.httpOptions
     );
   }
 
   public eliminarUsuario$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      environment.apiGatewaySeguridad + END_POINTS._usuario.eliminar + id,
+      // environment.apiGatewaySeguridad
+      'http://20.236.129.139:8150'
+      + END_POINTS.usuarioOrquestador.eliminar + id,
       this.httpOptions
     );
   }

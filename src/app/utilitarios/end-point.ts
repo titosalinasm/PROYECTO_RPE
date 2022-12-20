@@ -20,7 +20,7 @@ export const END_POINTS = {
     eliminar: 'requisito/api/v1/maestro/requisito/requisito/'
   },
   linea_producto: {
-    listar: 'linea/api/v1/maestro/linea/lineas/paginado'
+    listar: 'linea-producto/api/v1/maestro/linea/lineas/paginado'
   },
   producto: {
     listar: 'producto/api/v1/maestro/producto/productos/paginado'
@@ -45,7 +45,9 @@ export const END_POINTS = {
     eliminar: 'usuario/api/v1/seguridad/usuario/usuario/'
   },
   usuarioOrquestador: {
-    listar: 'usuario/api/v1/seguridad/orquestador/usuario/usuario/paginado',
-    eliminar: 'usuario/api/v1/seguridad/orquestador/usuario/usuario/' // {idUsuario}
+    listar: '/api/v1/seguridad/orquestador/usuario/usuario/paginado',
+    eliminar: '/api/v1/seguridad/orquestador/usuario/usuario/',
+    crearActualiza : '/api/v1/seguridad/orquestador/usuario/usuario',
+    obtenerDetalle: '/api/v1/seguridad/orquestador/usuario/usuario/'
   }
 };
