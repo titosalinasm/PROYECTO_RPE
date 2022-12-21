@@ -25,10 +25,7 @@
               <option value="0" disabled selected hidden>
                 --Seleccionar--
               </option>
-              <option
-                *ngFor="let item of listaLineaProducto"
-                [value]="item.idlineaproducto"
-              >
+              <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto">
                 {{ item.nombre }}
               </option>
             </select>
@@ -51,21 +48,14 @@
               <option value="0" disabled selected hidden>
                 --Seleccionar--
               </option>
-              <option
-                *ngFor="let item of listarProducto"
-                [value]="item.idproducto"
-              >
+              <option *ngFor="let item of listarProducto" [value]="item.idproducto">
                 {{ item.nombre }}
               </option>
             </select>
           </div>
           <div class="col-sm-2">
-            <button
-              type="submit"
-              class="btn btn-success mb-3 boton_verde"
-              style="width: 150px; margin-bottom: 5px"
-              (click)="listarRequisito()"
-            >
+            <button type="submit" class="btn btn-success mb-3 boton_verde" style="width: 150px; margin-bottom: 5px"
+              (click)="listarRequisito()">
               Buscar
             </button>
           </div>
@@ -78,12 +68,8 @@
 
   <div class="row">
     <div class="col">
-      <button
-        type="button"
-        class="btn btn-success boton_verde"
-        style="width: 150px; margin-bottom: 5px"
-        (click)="abrirModalCrearRequisito()"
-      >
+      <button type="button" class="btn btn-success boton_verde" style="width: 150px; margin-bottom: 5px"
+        (click)="abrirModalCrearRequisito()">
         Nuevo Registro
       </button>
     </div>
@@ -113,23 +99,15 @@
             <span *ngIf="!item.estadoregistro">Inactivo</span>
           </td>
           <td>
-            <span style="margin-right: 5px"
-              ><button
-                type="button"
-                class="btn btn-outline-warning btn-sm"
-                (click)="abrirModalActualizar(item, row)"
-              >
+            <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
+                (click)="abrirModalActualizar(item, row)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </span>
             <span>
-              <button
-                type="button"
-                class="btn btn-outline-danger btn-sm"
-                (click)="eliminarRequisito(item.idrequisito, row)"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></button
-            ></span>
+              <button type="button" class="btn btn-outline-danger btn-sm"
+                (click)="eliminarRequisito(item.idrequisito, row)">
+                <i class="fa fa-trash" aria-hidden="true"></i></button></span>
           </td>
         </tr>
       </tbody>
@@ -139,16 +117,9 @@
     <div class="p-2">
       <div class="row">
         <nav aria-label="Page navigation example">
-          <pagination
-            [boundaryLinks]="true"
-            previousText="&lsaquo;"
-            nextText="&rsaquo;"
-            firstText="&laquo;"
-            lastText="&raquo;"
-            [totalItems]="totalItems"
-            [itemsPerPage]="tamanioPagina"
-            (pageChanged)="pageChanged($event)"
-          >
+          <pagination [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+            lastText="&raquo;" [totalItems]="totalItems" [itemsPerPage]="tamanioPagina"
+            (pageChanged)="pageChanged($event)">
           </pagination>
         </nav>
       </div>
@@ -159,12 +130,7 @@
 <ng-template #modal_nuevo_requisito class="fontregular">
   <div class="modal-header">
     <h5 class="modal-title pull-left">DATOS DEL USUARIO</h5>
-    <button
-      type="button"
-      class="close btn-close pull-right"
-      aria-label="Close"
-      (click)="modalRef?.hide()"
-    >
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
@@ -181,11 +147,7 @@
       <div class="row mb-1">
         <label class="col-sm-3 col-form-label">Descripción</label>
         <div class="col-sm-9">
-          <textarea
-            class="form-control"
-            id="floatingTextarea"
-            formControlName="descripcion"
-          ></textarea>
+          <textarea class="form-control" id="floatingTextarea" formControlName="descripcion"></textarea>
         </div>
       </div>
 
@@ -194,10 +156,7 @@
         <div class="col-sm-3">
           <select class="form-select" formControlName="idsector">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
-            <option
-              *ngFor="let item of listaSectorModal"
-              [value]="item.idsector"
-            >
+            <option *ngFor="let item of listaSectorModal" [value]="item.idsector">
               {{ item.nombre }}
             </option>
           </select>
@@ -206,10 +165,7 @@
         <div class="col-sm-3">
           <select class="form-select" formControlName="idlineaproducto">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
-            <option
-              *ngFor="let item of listaLineaProductoModal"
-              [value]="item.idlineaproducto"
-            >
+            <option *ngFor="let item of listaLineaProductoModal" [value]="item.idlineaproducto">
               {{ item.nombre }}
             </option>
           </select>
@@ -222,10 +178,7 @@
         <div class="col-sm-3">
           <select class="form-select" formControlName="idproducto">
             <option value="0" disabled selected hidden>--Seleccionar--</option>
-            <option
-              *ngFor="let item of listarProductoModal"
-              [value]="item.idproducto"
-            >
+            <option *ngFor="let item of listarProductoModal" [value]="item.idproducto">
               {{ item.nombre }}
             </option>
           </select>
@@ -235,20 +188,12 @@
 
       <div class="row mb-3">
         <div class="col-sm-6" style="text-align: center">
-          <button
-            type="button"
-            class="btn btn-danger boton_guardar"
-            (click)="crearActualizarEntidad()"
-          >
+          <button type="button" class="btn btn-danger boton_guardar" (click)="crearActualizarEntidad()">
             Guardar
           </button>
         </div>
         <div class="col-sm-6" style="text-align: center">
-          <button
-            type="button"
-            class="btn btn-danger boton_cancelar"
-            (click)="modalRef?.hide()"
-          >
+          <button type="button" class="btn btn-danger boton_cancelar" (click)="modalRef?.hide()">
             Cancelar
           </button>
         </div>

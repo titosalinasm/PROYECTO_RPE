@@ -3,36 +3,18 @@
   <div class="card">
     <div class="card-body">
 
-      <form
-        [formGroup]="frmFiltroEntidadPrestadora"
-        autocomplete="off"
-      >
+      <form [formGroup]="frmFiltroEntidadPrestadora" autocomplete="off">
         <div class="row g-5">
           <div class="col-auto"> <label class="mx-auto">Razón Social</label></div>
-          <div class="col-auto"> <input
-              type="text"
-              class="form-control"
-              placeholder="Razón social"
-              formControlName="razonsocial"
-            /></div>
-          <div class="col-auto"><label
-            >RUC</label
-          ></div>
-          <div class="col-auto"> <input
-            type="text"
-            class="form-control"
-            placeholder="RUC"
-            formControlName="ruc"
-            maxlength="11"
-          /></div>
-          <div class="col-auto"><button
-            type="submit"
-            class="btn btn-success mb-3 boton_verde"
-            style="width: 150px; margin-bottom: 5px"
-            (click)="listarEntidadPrestadora()"
-          >
-            Buscar
-          </button></div>
+          <div class="col-auto"> <input type="text" class="form-control" placeholder="Razón social"
+              formControlName="razonsocial" /></div>
+          <div class="col-auto"><label>RUC</label></div>
+          <div class="col-auto"> <input type="text" class="form-control" placeholder="RUC" formControlName="ruc"
+              maxlength="11" /></div>
+          <div class="col-auto"><button type="submit" class="btn btn-success mb-3 boton_verde"
+              style="width: 150px; margin-bottom: 5px" (click)="listarEntidadPrestadora()">
+              Buscar
+            </button></div>
         </div>
       </form>
     </div>
@@ -40,12 +22,8 @@
   <br />
   <div class="row">
     <div class="col">
-      <button
-        type="button"
-        class="btn btn-success boton_verde"
-        style="width: 150px; margin-bottom: 5px"
-        (click)="doModalEntidad()"
-      >
+      <button type="button" class="btn btn-success boton_verde" style="width: 150px; margin-bottom: 5px"
+        (click)="doModalEntidad()">
         Nuevo Registro
       </button>
     </div>
@@ -75,23 +53,15 @@
             <span *ngIf="!item.estadoregistro">Inactivo</span>
           </td>
           <td>
-            <span style="margin-right: 5px"
-              ><button
-                type="button"
-                class="btn btn-outline-warning btn-sm"
-                (click)="abrirModalActualizar(item, row)"
-              >
+            <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
+                (click)="abrirModalActualizar(item, row)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </span>
             <span>
-              <button
-                type="button"
-                class="btn btn-outline-danger btn-sm"
-                (click)="eliminarEntidad(item.identidadprestadora, row)"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></button
-            ></span>
+              <button type="button" class="btn btn-outline-danger btn-sm"
+                (click)="eliminarEntidad(item.identidadprestadora, row)">
+                <i class="fa fa-trash" aria-hidden="true"></i></button></span>
           </td>
         </tr>
       </tbody>
@@ -101,16 +71,9 @@
   <div class="d-flex justify-content-center">
     <div class="p-2">
       <div class="row">
-        <pagination
-          [boundaryLinks]="true"
-          previousText="&lsaquo;"
-          nextText="&rsaquo;"
-          firstText="&laquo;"
-          lastText="&raquo;"
-          [totalItems]="totalItems"
-          [itemsPerPage]="tamanioPagina"
-          (pageChanged)="pageChanged($event)"
-        >
+        <pagination [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+          lastText="&raquo;" [totalItems]="totalItems" [itemsPerPage]="tamanioPagina"
+          (pageChanged)="pageChanged($event)">
         </pagination>
       </div>
     </div>
@@ -119,12 +82,7 @@
 <ng-template #modal_nuevo_entidad class="fontregular">
   <div class="modal-header">
     <h5 class="modal-title pull-left">DATOS DE LA ENTIDAD PRESTADORA</h5>
-    <button
-      type="button"
-      class="close btn-close pull-right"
-      aria-label="Close"
-      (click)="modalRef?.hide()"
-    >
+    <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
@@ -133,43 +91,24 @@
       <div class="row mb-3">
         <label for="inputEmail3" class="col-sm-4 col-form-label">RUC:</label>
         <div class="col-sm-8">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="ruc"
-            maxlength="11"
-          />
+          <input type="text" class="form-control" formControlName="ruc" maxlength="11" />
         </div>
       </div>
       <div class="row mb-3">
-        <label for="inputEmail3" class="col-sm-4 col-form-label"
-          >Razón social:</label
-        >
+        <label for="inputEmail3" class="col-sm-4 col-form-label">Razón social:</label>
         <div class="col-sm-8">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="razonsocial"
-          />
+          <input type="text" class="form-control" formControlName="razonsocial" />
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col-sm-6" style="text-align: center">
-          <button
-            type="button"
-            class="btn btn-danger boton_guardar"
-            (click)="crearActualizarEntidad()"
-          >
+          <button type="button" class="btn btn-danger boton_guardar" (click)="crearActualizarEntidad()">
             Guardar
           </button>
         </div>
         <div class="col-sm-6" style="text-align: center">
-          <button
-            type="button"
-            class="btn btn-danger boton_cancelar"
-            (click)="cerrarModalCrearActualizar()"
-          >
+          <button type="button" class="btn btn-danger boton_cancelar" (click)="cerrarModalCrearActualizar()">
             Cancelar
           </button>
         </div>
