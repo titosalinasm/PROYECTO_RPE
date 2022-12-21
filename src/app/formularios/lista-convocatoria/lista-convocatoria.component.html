@@ -1,0 +1,539 @@
+<div class="container fontregular">
+  <h3 class="fontbold">Lista convocatoria</h3>
+  <div class="card">
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-auto">
+          <span for="staticEmail2">Nombre Convocatoria</span>
+        </div>
+        <div class="col-auto">
+          <input type="email" class="form-control" />
+        </div>
+        <div class="col-auto">
+          <span for="staticEmail2">Nro Convocatoria</span>
+        </div>
+        <div class="col-auto">
+          <input type="email" class="form-control" />
+        </div>
+        <div class="col-auto">
+          <button
+            type="submit"
+            class="btn btn-success mb-3 boton_verde"
+            style="width: 150px; margin-bottom: 5px"
+          >
+            Buscar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col">
+      <button
+        type="button"
+        class="btn btn-success boton_verde"
+        style="width: 150px; margin-bottom: 5px"
+        (click)="abrirModalNuevaConvocatoria()"
+      >
+        Nuevo Registro
+      </button>
+    </div>
+  </div>
+  <div class="table-responsive tableshadow">
+    <table class="table table-bordered marginbutton0">
+      <tbody>
+        <tr>
+          <th scope="row" class="table_cabecera">Nro. Orden</th>
+          <th scope="row" class="table_cabecera">Nro Convocatoria</th>
+          <th scope="row" class="table_cabecera">Nombre</th>
+          <th scope="row" class="table_cabecera">Plazo inscripción</th>
+          <th scope="row" class="table_cabecera">Plazo evaluación</th>
+          <th scope="row" class="table_cabecera">Plazo confirmación</th>
+          <th scope="row" class="table_cabecera">Estado</th>
+          <th scope="row" class="table_cabecera">Acciones</th>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>31313</td>
+          <td>Convocatoria de ruta libre 01</td>
+          <td>20/10/2022/ 25/10/2022</td>
+          <td>20/10/2022/ 25/10/2022</td>
+          <td>20/10/2022/ 25/10/2022</td>
+          <td>Guardado</td>
+          <td>
+            <span style="margin-right: 5px">
+              <button type="button" class="btn btn-outline-warning btn-sm">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span style="margin-right: 5px">
+              <button type="button" class="btn btn-outline-warning btn-sm">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span style="margin-right: 5px">
+              <button type="button" class="btn btn-outline-warning btn-sm">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span>
+              <button type="button" class="btn btn-outline-danger btn-sm">
+                <i class="fa fa-trash" aria-hidden="true"></i></button
+            ></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>31313</td>
+          <td>Convocatoria de ruta libre 01</td>
+          <td>20/10/2022/ 25/10/2022</td>
+          <td>20/10/2022/ 25/10/2022</td>
+          <td>20/10/2022/ 25/10/2022</td>
+          <td>Guardado</td>
+          <td>
+            <span style="margin-right: 5px">
+              <button type="button" class="btn btn-outline-warning btn-sm">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span style="margin-right: 5px">
+              <button type="button" class="btn btn-outline-warning btn-sm">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span style="margin-right: 5px">
+              <button type="button" class="btn btn-outline-warning btn-sm">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </span>
+            <span>
+              <button type="button" class="btn btn-outline-danger btn-sm">
+                <i class="fa fa-trash" aria-hidden="true"></i></button
+            ></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="p-2">
+      <div class="row">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#"> Atrás</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Siguiente</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modal_nueva_convocatoria class="fontregular">
+  <div class="modal-body fontregular" style="padding: 0px !important">
+    <div class="card fontregular">
+      <div class="card-body" style="padding: 0px !important">
+        <ul
+          class="nav nav-tabs"
+          id="myTab"
+          role="tablist"
+          style="background-color: #d7d7d7"
+        >
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="home-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#home-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="home-tab-pane"
+              aria-selected="true"
+            >
+              DATOS DE LA CONVOCATORIA
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="profile-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#profile-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="profile-tab-pane"
+              aria-selected="false"
+            >
+              PRODUCTOS
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade show active"
+            id="home-tab-pane"
+            role="tabpanel"
+            aria-labelledby="home-tab"
+            tabindex="0"
+          >
+            <div class="card-body">
+              <form>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label"
+                    >Nombre</label
+                  >
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label"
+                    >Estado</label
+                  >
+                  <div class="col-sm-4">
+                    <select class="form-select">
+                      <option selected>--Seleccionar--</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label"
+                    >Descripción</label
+                  >
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">
+                    Plazo inscripción
+                    <br />
+                    <br />
+                    Plazo evaluación
+                  </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker />
+                    <br />
+                    <input type="text" class="form-control" bsDatepicker />
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" />
+                    <br />
+                    <input type="text" class="form-control" />
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label"
+                    >Regiones</label
+                  >
+                  <div class="col-sm-4">
+                    <select class="form-select" multiple>
+                      <option
+                        *ngFor="let item of listaRegion"
+                        [value]="item.idregion"
+                      >
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">
+                    Plazo confirmación organización rpe
+                  </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">
+                    Plazo confirmación Entidad
+                  </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="profile-tab-pane"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+            tabindex="0"
+          >
+            <div class="card-body">
+              <form>
+                <div class="row mb-1">
+                  <label class="col-sm-2 col-form-label">Sector</label>
+                  <div class="col-sm-3">
+                    <select class="form-select" formControlName="idsector">
+                      <option value="0" disabled selected hidden>
+                        --Seleccionar--
+                      </option>
+                      <option
+                        *ngFor="let item of listaSector"
+                        [value]="item.idsector"
+                      >
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <label class="col-sm-2 col-form-label">Linea producto</label>
+                  <div class="col-sm-3">
+                    <select class="form-select">
+                      <option selected>--Seleccionar--</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+
+                <div class="row mb-1">
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-sm-3"></div>
+
+                  <label class="col-sm-2 col-form-label">Producto</label>
+                  <div class="col-sm-3">
+                    <select class="form-select">
+                      <option selected>--Seleccionar--</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <button
+                      type="button"
+                      class="btn btn-success boton_verde"
+                      style="width: 150px; margin-bottom: 5px"
+                    >
+                      <span style="font-size: 20px">+</span> Agregar
+                    </button>
+                  </div>
+                </div>
+
+                <div class="table-responsive tableshadow">
+                  <table class="table table-bordered marginbutton0">
+                    <tbody>
+                      <tr>
+                        <th scope="row" class="table_cabecera">Nro. Orden</th>
+                        <th scope="row" class="table_cabecera">Nombre</th>
+                        <th scope="row" class="table_cabecera">Sector</th>
+                        <th scope="row" class="table_cabecera">
+                          Linea producto
+                        </th>
+                        <th scope="row" class="table_cabecera">Acciones</th>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>PALTA</td>
+                        <td>AGRONEGOCIOS</td>
+                        <td>FRESCOS</td>
+                        <td>
+                          <span style="margin-right: 5px"
+                            ><button
+                              type="button"
+                              class="btn btn-outline-warning btn-sm"
+                              (click)="abrirModalRequisito(1)"
+                            >
+                              <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                          </span>
+                          <span>
+                            <button
+                              type="button"
+                              class="btn btn-outline-danger btn-sm"
+                            >
+                              <i
+                                class="fa fa-trash"
+                                aria-hidden="true"
+                              ></i></button
+                          ></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="p-2">
+                    <div class="row">
+                      <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <a class="page-link" href="#"> Atrás</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">Siguiente</a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-6" style="text-align: center">
+                    <button type="button" class="btn btn-danger boton_guardar">
+                      GUARDAR
+                    </button>
+                  </div>
+                  <div class="col-sm-6" style="text-align: center">
+                    <button type="button" class="btn btn-danger boton_cancelar">
+                      CANCELAR
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_duplicar>
+  <div class="modal-body fontregular">
+    <div style="text-align: center">
+      <span class="material-symbols-outlined" style="font-size: 80px">
+        done_outline
+      </span>
+      <h3><b>SERVICIO DUPLICADO</b></h3>
+      <div>El servicio se ha duplicado correctamente</div>
+      <br />
+      <div class="row mb-3">
+        <div class="col-sm-12" style="text-align: center">
+          <button type="button" class="btn btn-success boton_verde">
+            ACEPTAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_enviar>
+  <div class="modal-body fontregular">
+    <div style="text-align: center">
+      <span class="material-symbols-outlined" style="font-size: 80px">
+        done_outline
+      </span>
+      <h3><b>SERVICIO ENVIADO</b></h3>
+      <div>El servicio se ha envíado correctamente</div>
+      <br />
+      <div class="row mb-3">
+        <div class="col-sm-12" style="text-align: center">
+          <button type="button" class="btn btn-success boton_verde">
+            ACEPTAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_agregar_requisito>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">SELECCIÓN DE REQUISITOS</h5>
+    <button type="button" class="close btn-close pull-right" aria-label="Close">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body fontregular">
+    <div class="tableshadow">
+      <table class="table table-bordered marginbutton0">
+        <thead>
+          <tr>
+            <th scope="row" class="table_cabecera"></th>
+            <th scope="row" class="table_cabecera">Descripción</th>
+            <th scope="row" class="table_cabecera">Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input class="form-check-input" type="checkbox" value="" />
+            </td>
+            <td>Requisito 01</td>
+            <td>Ser persona natural con negocio o jurídica con RUC activo.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <input class="form-check-input" type="checkbox" value="" />
+            </td>
+            <td>Requisito 02</td>
+            <td>Ser persona natural con negocio o jurídica con RUC activo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row mb-3 mt-2">
+      <div class="col-sm-6" style="text-align: center">
+        <button
+          type="button"
+          class="btn btn-danger boton_verde"
+          style="width: 150px"
+        >
+          Guardar
+        </button>
+      </div>
+      <div class="col-sm-6" style="text-align: center">
+        <button type="button" class="btn btn-danger boton_cancelar">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_eliminar>
+  <div class="modal-body fontregular">
+    <div style="text-align: center">
+      <span
+        class="material-symbols-outlined"
+        style="font-size: 80px; color: #f59a23"
+      >
+        warning
+      </span>
+      <h3><b>ALERTA DEL SISTEMA</b></h3>
+      <br />
+      <div class="row mb-3">
+        <div class="col-sm-6" style="text-align: center">
+          <button type="button" class="btn btn-danger boton_guardar">SI</button>
+        </div>
+        <div class="col-sm-6" style="text-align: center">
+          <button type="button" class="btn btn-danger boton_cancelar">
+            NO
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

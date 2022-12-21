@@ -34,6 +34,8 @@ import { RegionService } from './servicios/region.service';
 import { ProductoService } from './servicios/producto.service';
 import { UsuarioComponent } from './formularios/usuario/usuario.component';
 import { PerfilComponent } from './formularios/perfil/perfil.component';
+import { ListaConvocatoriaComponent } from './formularios/lista-convocatoria/lista-convocatoria.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,7 @@ import { PerfilComponent } from './formularios/perfil/perfil.component';
     RequisitosComponent,
     UsuarioComponent,
     PerfilComponent,
+    ListaConvocatoriaComponent,
 
   ],
   imports: [
@@ -62,6 +65,7 @@ import { PerfilComponent } from './formularios/perfil/perfil.component';
     NgxSpinnerModule,
     SweetAlert2Module.forRoot(),
     PaginationModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

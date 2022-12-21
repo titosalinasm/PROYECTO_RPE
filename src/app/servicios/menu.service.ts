@@ -19,9 +19,11 @@ export class MenuService {
   constructor(private http: HttpClient,
   ) { }
 
-  public listarPerfil$(): Observable<GeneralI> {
+  public listarPerfil$(id: number): Observable<GeneralI> {
     return this.http.get<GeneralI>(
-      environment.apiGatewaySeguridad + END_POINTS.menu.listar,
+      // environment.apiGatewaySeguridad +
+      'http://20.236.129.139:8130'+
+       END_POINTS.menu.listar+id,
       this.httpOptions
     );
   }
