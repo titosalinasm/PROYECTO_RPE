@@ -4,8 +4,14 @@
 
 export const environment = {
   production: false,
-  apiGatewayMaestro: "http://20.236.129.139/maestro-",
-  apiGatewaySeguridad: "http://20.236.129.139/seguridad-",
+  apiGateway: "http://20.236.129.139",
+  apiRoot:{
+    gestion_organizacion: '/api/v1/maestro/gestion/organizacion',
+    gestion_producto: '/api/v1/maestro/gestion/producto',
+    gestion_usuario: '/api/v1/seguridad/gestion/usuario',
+    orquestador_usuario: '/api/v1/seguridad/orquestador/usuario',
+  },
+
   recaptcha:{siteKey:''}
 };
 

@@ -39,9 +39,9 @@ export class UsuarioService {
 
   public creaActualizaUsuario$(entity: UsuarioI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      // environment.apiGatewaySeguridad
-      'http://20.236.129.139:8140'
-      + END_POINTS._usuario.crearActualiza,
+      // environment.apiGateway
+      environment.apiGateway
+      + END_POINTS.usuario.crearActualiza,
       entity,
       this.httpOptions
     );
@@ -49,18 +49,18 @@ export class UsuarioService {
 
   public listarUsuarioPerfil$(entity: UsuarioFilterI): Observable<GeneralI> {
     return this.http.get<GeneralI>(
-      // environment.apiGatewaySeguridad
-      'http://20.236.129.139:8150'
-      + END_POINTS._usuario.listar_usuario_perfil + entity.idperfil,
+      // environment.apiGateway
+      environment.apiGateway
+      + END_POINTS.usuario.listar_usuario_perfil + entity.idperfil,
       this.httpOptions
     );
   }
 
   public eliminarUsuario$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      // environment.apiGatewaySeguridad +
-      'http://20.236.129.139:8150' +
-      END_POINTS._usuario.eliminar + id,
+      // environment.apiGateway +
+      environment.apiGateway +
+      END_POINTS.usuario.eliminar + id,
       this.httpOptions
     );
   }
@@ -70,9 +70,9 @@ export class UsuarioService {
     // let url = 'http://20.236.129.139:8150/' + END_POINTS._usuario.validar;
     // console.log('>>url: ' + url);
     return this.http.post<GeneralI>(
-      // environment.apiGatewaySeguridad
-      'http://20.236.129.139:8140'
-      + END_POINTS._usuario.validar,
+      // environment.apiGateway
+      environment.apiGateway
+      + END_POINTS.usuario.validar,
       entity,
       this.httpOptions
     );

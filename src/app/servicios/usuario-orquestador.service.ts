@@ -26,8 +26,8 @@ export class UsuarioOrquestadorService {
 
   public listarUsuario$(entity: UsuarioOrquestadorFilterI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      // environment.apiGatewaySeguridad +
-      'http://20.236.129.139:8150'+
+      // environment.apiGateway +
+      environment.apiGateway+
       END_POINTS.usuarioOrquestador.listar,
       entity,
       this.httpOptions
@@ -36,8 +36,8 @@ export class UsuarioOrquestadorService {
 
   public creaActualizaUsuario$(entity: UsuarioOrquestadorReqI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      // environment.apiGatewaySeguridad +
-      'http://20.236.129.139:8150'+
+      // environment.apiGateway +
+      environment.apiGateway+
       END_POINTS.usuarioOrquestador.crearActualiza,
       entity,
       this.httpOptions
@@ -46,8 +46,8 @@ export class UsuarioOrquestadorService {
 
   public obtenerDetalleUsuario$(id : number): Observable<GeneralI> {
     return this.http.get<GeneralI>(
-      // environment.apiGatewaySeguridad +
-      'http://20.236.129.139:8150'+
+      // environment.apiGateway +
+      environment.apiGateway+
       END_POINTS.usuarioOrquestador.obtenerDetalle+id,
       this.httpOptions
     );
@@ -55,8 +55,8 @@ export class UsuarioOrquestadorService {
 
   public eliminarUsuario$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      // environment.apiGatewaySeguridad
-      'http://20.236.129.139:8150'
+      // environment.apiGateway
+      environment.apiGateway
       + END_POINTS.usuarioOrquestador.eliminar + id,
       this.httpOptions
     );

@@ -21,7 +21,7 @@ export class PerfilService {
 
   public listarPerfil$(): Observable<GeneralI> {
     return this.http.get<GeneralI>(
-      environment.apiGatewaySeguridad + END_POINTS.perfil.listar,
+      environment.apiGateway + END_POINTS.perfil.listar,
       this.httpOptions
     );
   }

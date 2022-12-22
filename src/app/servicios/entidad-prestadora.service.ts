@@ -23,14 +23,14 @@ export class EntidadPrestadoraService {
 
   public agregarEntidad$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiGatewayMaestro + END_POINTS.entidad_prestadora.crear,
+      environment.apiGateway + END_POINTS.entidad_prestadora.crear_actualizar,
       entity,
     );
   }
 
   public listarEntidad$(entity: EntidadPrestadoraFilterI): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiGatewayMaestro + END_POINTS.entidad_prestadora.listar_paginado,
+      environment.apiGateway + END_POINTS.entidad_prestadora.listar_paginado,
       entity,
       this.httpOptions
     );
@@ -38,7 +38,7 @@ export class EntidadPrestadoraService {
 
   public eliminarEntidad$(id: number): Observable<GeneralI> {
     return this.http.put<GeneralI>(
-      environment.apiGatewayMaestro + END_POINTS.entidad_prestadora.eliminar+id,
+      environment.apiGateway + END_POINTS.entidad_prestadora.eliminar+id,
       this.httpOptions
     );
   }

@@ -8,10 +8,13 @@ import { lineaProductoI } from 'src/app/interfaces/linea-producto-i';
 import { maestroFilterI } from 'src/app/interfaces/maestro-filter';
 import { productoI } from 'src/app/interfaces/producto-i';
 import { RegionI } from 'src/app/interfaces/region-i';
+import { RequisitoFilterI } from 'src/app/interfaces/requisito-filter';
+import { RequisitoI } from 'src/app/interfaces/requisito-i';
 import { SectorI } from 'src/app/interfaces/sector-i';
 import { LineaProductoService } from 'src/app/servicios/linea-producto.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { RegionService } from 'src/app/servicios/region.service';
+import { RequisitoService } from 'src/app/servicios/requisito.service';
 import { SectorService } from 'src/app/servicios/sector.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 
@@ -22,10 +25,11 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 })
 export class ListaConvocatoriaComponent implements OnInit {
   modalRef?: BsModalRef;
-  @ViewChild('modal_nueva_convocatoria') _modal_nueva_convocatoria: TemplateRef<any>;
+  @ViewChild('modal_nueva_convocatoria')
+  _modal_nueva_convocatoria: TemplateRef<any>;
 
-  @ViewChild('modal_agregar_requisito') _modal_agregar_requisito: TemplateRef<any>;
-
+  @ViewChild('modal_agregar_requisito')
+  _modal_agregar_requisito: TemplateRef<any>;
 
   frmConvocatoria = this.formBuilder.group({
     nombre: ['convocatoria 1', [Validators.required]],
@@ -53,17 +57,20 @@ export class ListaConvocatoriaComponent implements OnInit {
   listaSector: SectorI[] = [];
   listaLineaProducto: lineaProductoI[] = [];
   listaProducto: productoI[] = [];
+  listaRequisito: RequisitoI[]=[];
 
   listConvocatoriaProducto: convocatoriaProductoI[] = [];
 
-  constructor(private modalService: BsModalService,
+  constructor(
+    private modalService: BsModalService,
     private usuarioService: UsuarioService,
     private sectorService: SectorService,
     private lineaProductoService: LineaProductoService,
     private regionService: RegionService,
     private productoService: ProductoService,
     private formBuilder: FormBuilder,
-  ) { }
+    private requisitoService: RequisitoService
+  ) {}
 
   ngOnInit(): void {
     this.cargarMaestros();
@@ -112,19 +119,24 @@ export class ListaConvocatoriaComponent implements OnInit {
       fechamodificacion: new Date(),
       estadoregistro: true,
       idproducto: this.frmProductoFiltro.value.idproducto,
-      nombreproducto: this.listaProducto.filter((e) => (e.idproducto = this.frmProductoFiltro.value.idproducto))[0].nombre,
+      nombreproducto: this.listaProducto.filter(
+        (e) => e.idproducto == this.frmProductoFiltro.value.idproducto
+      )[0].nombre,
       idsector: this.frmProductoFiltro.value.idsector,
-      nombresector: this.listaSector.filter((e) => (e.idsector = this.frmProductoFiltro.value.idsector))[0].nombre,
+      nombresector: this.listaSector.filter(
+        (e) => e.idsector == this.frmProductoFiltro.value.idsector
+      )[0].nombre,
       idlineaproducto: this.frmProductoFiltro.value.idlineaproducto,
-      nombrelineaproducto: this.listaLineaProducto.filter((e) => (e.idlineaproducto = this.frmProductoFiltro.value.idlineaproducto))[0].nombre,
-      requisitos: []
+      nombrelineaproducto: this.listaLineaProducto.filter(
+        (e) => e.idlineaproducto == this.frmProductoFiltro.value.idlineaproducto
+      )[0].nombre,
+      requisitos: [],
     };
     this.listConvocatoriaProducto.push(objProducto);
   }
 
   agregarConvocatoria() {
     let convocatoria: convocatoriaI = {
-      // let convocatoria: any = {
       usuariocreacion: 'usuario',
       fechacreacion: new Date(),
       usuariomodificacion: 'usuario',
@@ -138,14 +150,18 @@ export class ListaConvocatoriaComponent implements OnInit {
       fechafininscripcion: this.frmConvocatoria.value.plazoinscripcionfin,
       fechainicioevaluacion: this.frmConvocatoria.value.plazoevaluacioninicio,
       fechafinevaluacion: this.frmConvocatoria.value.plazoevaluacionfin,
-      fechainicioconfirmacionep: this.frmConvocatoria.value.plazoconfirmacionrpeinicio,
-      fechafinconfirmacionep: this.frmConvocatoria.value.plazoconfirmacionrpefin,
-      fechainicioconfirmacionorg: this.frmConvocatoria.value.plazoconfirmacionentidadinicio,
-      fechafinconfirmacionorg: this.frmConvocatoria.value.plazoconfirmacionentidadfin,
+      fechainicioconfirmacionep:
+        this.frmConvocatoria.value.plazoconfirmacionrpeinicio,
+      fechafinconfirmacionep:
+        this.frmConvocatoria.value.plazoconfirmacionrpefin,
+      fechainicioconfirmacionorg:
+        this.frmConvocatoria.value.plazoconfirmacionentidadinicio,
+      fechafinconfirmacionorg:
+        this.frmConvocatoria.value.plazoconfirmacionentidadfin,
       idestadoconvocatoria: this.frmConvocatoria.value.idestado,
       flagfinconvocatoria: true,
       regiones: [],
-      productos: []
+      productos: [],
     };
 
     //cargar regiones
@@ -157,8 +173,8 @@ export class ListaConvocatoriaComponent implements OnInit {
         usuariomodificacion: 'usuario',
         fechamodificacion: new Date(),
         estadoregistro: true,
-        idregion: value
-      }
+        idregion: value,
+      };
       regiones.push(region);
     });
 
@@ -166,14 +182,25 @@ export class ListaConvocatoriaComponent implements OnInit {
 
     // productos
     let lstRequisitosTmp = [
-      { idproducto: 1, idrequisito: 1, nombre: 'requisito 1', descripcion: '', valor: '1' },
-      { idproducto: 2, idrequisito: 2, nombre: 'requisito 2', descripcion: '', valor: '2' },
+      {
+        idproducto: 1,
+        idrequisito: 1,
+        nombre: 'requisito 1',
+        descripcion: '',
+        valor: '1',
+      },
+      {
+        idproducto: 2,
+        idrequisito: 2,
+        nombre: 'requisito 2',
+        descripcion: '',
+        valor: '2',
+      },
     ];
 
     let productos: any[] = [];
 
     this.listConvocatoriaProducto.forEach(function (value) {
-
       let lstRequisitos: any[] = [];
       lstRequisitosTmp.forEach(function (value) {
         let requisito = {
@@ -198,26 +225,32 @@ export class ListaConvocatoriaComponent implements OnInit {
     convocatoria.productos = productos;
 
     console.log('objConvocatoria: ' + JSON.stringify(convocatoria));
-
   }
 
   abrirModalNuevaConvocatoria() {
     let config = {
       backdrop: true,
       ignoreBackdropClick: false,
-      class: 'modal-xl'
+      class: 'modal-xl',
     };
-    this.openModal(this._modal_nueva_convocatoria, config)
+    this.openModal(this._modal_nueva_convocatoria, config);
   }
 
   abrirModalRequisito(id: number) {
-
-    let config = {
-      backdrop: true,
-      ignoreBackdropClick: false,
-      class: 'modal-lg'
+    let param= {
+      nombre: null,
+      idproducto: id
     };
-    this.openModal(this._modal_agregar_requisito, config)
+    this.requisitoService.listarRequisitoNP$(param).subscribe((resp) => {
+      this.listaRequisito=resp.data;
+      let config = {
+        backdrop: true,
+        ignoreBackdropClick: false,
+        class: 'modal-lg',
+      };
+      this.openModal(this._modal_agregar_requisito, config);
+    });
+
   }
 
   openModal(template: TemplateRef<any>, config: any) {
@@ -249,6 +282,28 @@ export class ListaConvocatoriaComponent implements OnInit {
     ]).subscribe((resp) => {
       this.listaSector = resp[0].data.lista;
       this.listaRegion = resp[1].data.lista;
+    });
+  }
+
+  selectedItemsList = [];
+  checkedIDs = [];
+
+  changeSelection() {
+    this.fetchSelectedItems()
+  }
+
+  fetchSelectedItems() {
+    this.selectedItemsList = this.listaRequisito.filter((value, index) => {
+      // return value.isChecked
+    });
+  }
+
+  fetchCheckedIDs() {
+    this.checkedIDs = []
+    this.listaRequisito.forEach((value, index) => {
+      // if (value.isChecked) {
+      //   this.checkedIDs.push(value.idrequisito);
+      // }
     });
   }
 }

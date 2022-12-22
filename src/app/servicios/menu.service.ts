@@ -21,8 +21,8 @@ export class MenuService {
 
   public listarPerfil$(id: number): Observable<GeneralI> {
     return this.http.get<GeneralI>(
-      // environment.apiGatewaySeguridad +
-      'http://20.236.129.139:8130'+
+      // environment.apiGateway +
+      environment.apiGateway+
        END_POINTS.menu.listar+id,
       this.httpOptions
     );

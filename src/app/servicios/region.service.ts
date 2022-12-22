@@ -23,7 +23,7 @@ export class RegionService {
 
   public listarRegion$(entity: any): Observable<GeneralI> {
     return this.http.post<GeneralI>(
-      environment.apiGatewayMaestro + END_POINTS.region.listar,
+      environment.apiGateway + END_POINTS.region.listar,
       entity,
       this.httpOptions
     );

@@ -21,7 +21,7 @@ export class LineaProductoService {
 
     public listarLineaProducto$(entity: any): Observable<GeneralI> {
       return this.http.post<GeneralI>(
-        environment.apiGatewayMaestro + END_POINTS.linea_producto.listar,
+        environment.apiGateway + END_POINTS.linea_producto.listar,
         entity,
         this.httpOptions
       );

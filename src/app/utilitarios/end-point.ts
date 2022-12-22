@@ -1,55 +1,74 @@
+import { environment } from "src/environments/environment";
+
 export const END_POINTS = {
-  usuario: {
-    iniciar_sesion: "/api/v1/usuario/usuario.json",
-  },
-  entidad_prestadora: {
-    crear_actualizar: 'entidad-prestadora/api/v1/maestro/entidad-prestadora/entidad',
-    listar_paginado: 'entidad-prestadora/api/v1/maestro/entidad-prestadora/entidades/paginado',
-    crear: 'entidad-prestadora/api/v1/maestro/entidad-prestadora/entidad',
-    eliminar: 'entidad-prestadora/api/v1/maestro/entidad-prestadora/entidad/'
-  },
-  organizacion_rpe: {
-    listar_paginado: 'organizacionrpe/api/v1/maestro/organizacionrpe/organizaciones/paginado',
-    crear: 'organizacionrpe/api/v1/maestro/organizacionrpe/organizacion',
-    eliminar: 'organizacionrpe/api/v1/maestro/organizacionrpe/organizacion/'
-  },
-  requisito: {
-    crear_actualizar: 'requisito/api/v1/maestro/requisito/requisito',
-    listar_paginado: 'requisito/api/v1/maestro/requisito/requisitos/paginado',
-    crear: 'requisito/api/v1/maestro/requisito/requisito',
-    eliminar: 'requisito/api/v1/maestro/requisito/requisito/'
-  },
-  linea_producto: {
-    listar: 'linea-producto/api/v1/maestro/linea/lineas/paginado'
-  },
-  producto: {
-    listar: 'producto/api/v1/maestro/producto/productos/paginado'
-  },
-  sector: {
-    listar: 'sector/api/v1/maestro/sector/sectores/paginado'
-  },
+  //MC GESTION DE PRODUCTOS /maestro/gestion/producto
+  //API  region http://20.236.129.139:8020/swagger-ui/index.html
   region: {
-    listar: 'region/api/v1/maestro/region/regiones/paginado'
+    listar: environment.apiRoot.gestion_producto+'/region/regiones/paginado',
   },
+  //API  sector http://20.236.129.139:8020/swagger-ui/index.html
+  sector: {
+    listar: environment.apiRoot.gestion_producto+'/sector/sectores/paginado',
+  },
+  //API  Linea de producto http://20.236.129.139:8020/swagger-ui/index.html
+  linea_producto: {
+    listar: environment.apiRoot.gestion_producto+'/linea/lineas/paginado',
+  },
+  //API producto http://20.236.129.139:8020/swagger-ui/index.html
+  producto: {
+    listar: environment.apiRoot.gestion_producto+'/producto/productos/paginado',
+  },
+  //API resuisito http://20.236.129.139:8020/swagger-ui/index.html
+  requisito: {
+    crear_actualizar: environment.apiRoot.gestion_producto+'/requisito/requisito',
+    listar_paginado: environment.apiRoot.gestion_producto+'/requisito/requisitos/paginado',
+    listar: environment.apiRoot.gestion_producto+'/requisito/requisito/requisitos',
+    crear: environment.apiRoot.gestion_producto+'/requisito/requisito',
+    eliminar: environment.apiRoot.gestion_producto+'/requisito/requisito/',
+  },
+  //MC GESTION DE USUARIO seguridad/gestion/usuario
+  usuario: {
+    iniciar_sesion: environment.apiRoot.gestion_usuario+'/api/v1/usuario/usuario.json',
+    crearActualiza: environment.apiRoot.gestion_usuario+'/usuario/usuario',
+    listar_usuario_perfil: environment.apiRoot.gestion_usuario+'/usuario/usuarios/',
+    eliminar: environment.apiRoot.gestion_usuario+'/usuario/usuario/',
+    validar: environment.apiRoot.gestion_usuario+'/usuario/usuarios'
+  },
+  //API Seguridad parametro http://20.236.129.139:8030/swagger-ui/index.html
   parametro: {
-    listar: 'parametro/api/v1/seguridad/parametro/parametros'
+    listar: environment.apiRoot.gestion_usuario+'/parametro/parametros',
   },
+  //API Seguridad perfil http://20.236.129.139:8030/swagger-ui/index.html
   perfil: {
-    listar: 'perfil/api/v1/seguridad/perfil/perfiles'
+    listar: environment.apiRoot.gestion_usuario+'/perfil/perfiles',
   },
+  //API Seguridad menu http://20.236.129.139:8030/swagger-ui/index.html
   menu: {
-    listar: '/api/v1/seguridad/menu/menus/'
+    listar: environment.apiRoot.gestion_usuario+'/menu/menus/',
   },
-  _usuario: {
-    crearActualiza: '/api/v1/seguridad/usuario/usuario',
-    listar_usuario_perfil: 'usuario/api/v1/seguridad/usuario/usuarios/',
-    eliminar: 'usuario/api/v1/seguridad/usuario/usuario/',
-    validar: '/api/v1/seguridad/usuario/usuarios'
+
+  //MC GESTION ORGANIZACION maestro/gestion/organizacion
+  //API entidad Prestadora http://20.236.129.139:8010/swagger-ui/index.html
+  entidad_prestadora: {
+    crear_actualizar: environment.apiRoot.gestion_organizacion+'/entidad/entidad',
+    listar_paginado: environment.apiRoot.gestion_organizacion+'/entidad/entidades/paginado',
+    // crear: 'entidad-prestadora/entidad-prestadora/entidad',
+    eliminar: environment.apiRoot.gestion_organizacion+'/entidad/entidad/',
   },
+  //API organizacion rpe http://20.236.129.139:8010/swagger-ui/index.html
+  organizacion_rpe: {
+    listar_paginado:  environment.apiRoot.gestion_organizacion+'/organizacionrpe/organizaciones/paginado',
+    crear: environment.apiRoot.gestion_organizacion+'/organizacionrpe/organizacion',
+    eliminar: environment.apiRoot.gestion_organizacion+'/organizacionrpe/organizacion/',
+  },
+  //-----------------------ORQUESTADORES-------------------------------------
+  //API Orquestador de usuario http://20.236.129.139:8040/swagger-ui/index.html
   usuarioOrquestador: {
-    listar: '/api/v1/seguridad/orquestador/usuario/usuario/paginado',
-    eliminar: '/api/v1/seguridad/orquestador/usuario/usuario/',
-    crearActualiza: '/api/v1/seguridad/orquestador/usuario/usuario',
-    obtenerDetalle: '/api/v1/seguridad/orquestador/usuario/usuario/'
-  }
+    listar: environment.apiRoot.orquestador_usuario+'/usuario/paginado',
+    eliminar: environment.apiRoot.orquestador_usuario+'/usuario/',
+    crearActualiza: environment.apiRoot.orquestador_usuario+'/usuario',
+    obtenerDetalle: environment.apiRoot.orquestador_usuario+'/usuario/',
+  },
+
+
 };

@@ -125,10 +125,7 @@ export class RequisitosComponent implements OnInit {
       .get('idlineaproducto')
       .valueChanges.subscribe((value) => {
         let param = {
-          nombre: null,
-          descripcion: null,
           idlineaproducto: value,
-          idfichatpe: 0,
           pageNumber: 1,
           pageSize: 100,
         };
