@@ -156,10 +156,10 @@ export class RequisitosComponent implements OnInit {
 
     this.frmRequisito.get('idlineaproducto').valueChanges.subscribe((value) => {
       let param = {
-        nombre: null,
-        descripcion: null,
+        // nombre: null,
+        // descripcion: null,
         idlineaproducto: value,
-        idfichatpe: 0,
+        // idfichatpe: 0,
         pageNumber: 1,
         pageSize: 100,
       };
@@ -233,6 +233,7 @@ export class RequisitosComponent implements OnInit {
         if (result.isConfirmed) {
           console.log('result.isConfirmed: ' + result.isConfirmed);
           this.crearActualizarEntidadAccion();
+
         }
       });
     } else {
@@ -286,6 +287,7 @@ export class RequisitosComponent implements OnInit {
             this.hideModal(1);
            Swal.fire({ title: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, confirmButtonText: 'Aceptar' });
           }
+          this.listarRequisito();
         },
         (error) => {
           Swal.fire({

@@ -2,21 +2,23 @@
   <h3 class="fontbold">Lista convocatoria</h3>
   <div class="card">
     <div class="card-body">
-      <form class="row g-3">
+      <form class="row g-3" [formGroup]="frmFiltroConvocatoria">
         <div class="col-auto">
           <span for="staticEmail2">Nombre Convocatoria</span>
         </div>
         <div class="col-auto">
-          <input type="email" class="form-control" />
+          <input type="email" class="form-control" formControlName="idconvocatoria" />
         </div>
         <div class="col-auto">
           <span for="staticEmail2">Nro Convocatoria</span>
         </div>
         <div class="col-auto">
-          <input type="email" class="form-control" />
+          <input type="email" class="form-control" formControlName="" />
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-success mb-3 boton_verde" style="width: 150px; margin-bottom: 5px">
+          <button type="submit" class="btn btn-success mb-3 boton_verde" style="width: 150px; margin-bottom: 5px"
+          (click)="listarConvocatoria()"
+          >
             Buscar
           </button>
         </div>
@@ -34,7 +36,7 @@
   </div>
   <div class="table-responsive tableshadow">
     <table class="table table-bordered marginbutton0">
-      <tbody>
+      <thead>
         <tr>
           <th scope="row" class="table_cabecera">Nro. Orden</th>
           <th scope="row" class="table_cabecera">Nro Convocatoria</th>
@@ -46,14 +48,16 @@
           <th scope="row" class="table_cabecera">Acciones</th>
         </tr>
 
-        <tr>
-          <td>1</td>
-          <td>31313</td>
-          <td>Convocatoria de ruta libre 01</td>
-          <td>20/10/2022/ 25/10/2022</td>
-          <td>20/10/2022/ 25/10/2022</td>
-          <td>20/10/2022/ 25/10/2022</td>
-          <td>Guardado</td>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaConvocatoriaResult; let row = index">
+          <td>{{row + 1}}</td>
+          <td>{{item.idconvocatoria}}</td>
+          <td>{{item.nombreconvocatora}}</td>
+          <td>{{item.fechafininscripcion}}</td>
+          <td>{{item.fechafinconfirmacionorg}}</td>
+          <td>{{item.fechafinevaluacion}}</td>
+          <td>{{item.estadoconvocatoria}}</td>
           <td>
             <span style="margin-right: 5px">
               <button type="button" class="btn btn-outline-warning btn-sm">
@@ -76,35 +80,6 @@
           </td>
         </tr>
 
-        <tr>
-          <td>2</td>
-          <td>31313</td>
-          <td>Convocatoria de ruta libre 01</td>
-          <td>20/10/2022/ 25/10/2022</td>
-          <td>20/10/2022/ 25/10/2022</td>
-          <td>20/10/2022/ 25/10/2022</td>
-          <td>Guardado</td>
-          <td>
-            <span style="margin-right: 5px">
-              <button type="button" class="btn btn-outline-warning btn-sm">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </button>
-            </span>
-            <span style="margin-right: 5px">
-              <button type="button" class="btn btn-outline-warning btn-sm">
-                <i class="fa fa-globe" aria-hidden="true"></i>
-              </button>
-            </span>
-            <span style="margin-right: 5px">
-              <button type="button" class="btn btn-outline-warning btn-sm">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </button>
-            </span>
-            <span>
-              <button type="button" class="btn btn-outline-danger btn-sm">
-                <i class="fa fa-trash" aria-hidden="true"></i></button></span>
-          </td>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -112,15 +87,10 @@
     <div class="p-2">
       <div class="row">
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#"> Atrás</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Siguiente</a>
-            </li>
-          </ul>
+          <pagination [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+            lastText="&raquo;" [totalItems]="totalItems" [itemsPerPage]="tamanioPagina"
+            (pageChanged)="pageChanged($event)">
+          </pagination>
         </nav>
       </div>
     </div>
@@ -129,8 +99,8 @@
 
 <ng-template #modal_nueva_convocatoria class="fontregular">
   <div class="modal-body fontregular" style="padding: 0px !important">
-    <div class="card fontregular">
-      <div class="card-body" style="padding: 0px !important">
+    <div cla  ss="card fontregular">
+      <div class="card-body" >
         <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #d7d7d7">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
@@ -145,10 +115,10 @@
             </button>
           </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content" id="myTabContent" >
           <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
             tabindex="0">
-            <div class="card-body">
+            <div class="card-body p-3">
               <form [formGroup]="frmConvocatoria" autocomplete="off">
                 <div class="row mb-3">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
@@ -178,14 +148,14 @@
                     Plazo evaluación
                   </label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" bsDatepicker formControlName="plazoinscripcioninicio" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioinscripcion" />
                     <br />
-                    <input type="text" class="form-control" bsDatepicker formControlName="plazoevaluacioninicio" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioevaluacion" />
                   </div>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" bsDatepicker formControlName="plazoinscripcionfin" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafininscripcion" />
                     <br />
-                    <input type="text" class="form-control" bsDatepicker formControlName="plazoevaluacionfin" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafinevaluacion" />
                   </div>
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Regiones</label>
                   <div class="col-sm-4">
@@ -202,28 +172,28 @@
                     Plazo confirmación organización rpe
                   </label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" bsDatepicker formControlName="plazoconfirmacionrpeinicio" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioconfirmacionep" />
                   </div>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" bsDatepicker formControlName="plazoconfirmacionrpefin" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafinconfirmacionep" />
                   </div>
                   <label for="inputEmail3" class="col-sm-2 col-form-label">
                     Plazo confirmación Entidad
                   </label>
                   <div class="col-sm-2">
                     <input type="text" class="form-control" bsDatepicker
-                      formControlName="plazoconfirmacionentidadinicio" />
+                      formControlName="fechainicioconfirmacionorg" />
                   </div>
                   <div class="col-sm-2">
                     <input type="text" class="form-control" bsDatepicker
-                      formControlName="plazoconfirmacionentidadfin" />
+                      formControlName="fechafinconfirmacionorg" />
                   </div>
                 </div>
               </form>
             </div>
           </div>
           <div class=" tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            <div class="card-body">
+            <div class="card-body p-3">
               <form [formGroup]="frmProductoFiltro" autocomplete="off">
                 <div class="row mb-1">
                   <label class="col-sm-2 col-form-label">Sector</label>
@@ -292,7 +262,7 @@
                         <td>{{ item.nombrelineaproducto }}</td>
                         <td>
                           <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
-                              (click)="abrirModalRequisito(1)">
+                              (click)="abrirModalRequisito(1, row)">
                               <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                           </span>
@@ -304,7 +274,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="d-flex justify-content-center">
+                <!-- <div class="d-flex justify-content-center">
                   <div class="p-2">
                     <div class="row">
                       <nav aria-label="Page navigation example">
@@ -328,9 +298,9 @@
                       </nav>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="row mb-3">
+                <div class="row mb-3 mt-3">
                   <div class="col-sm-6" style="text-align: center">
                     <button type="button" class="btn btn-danger boton_guardar" (click)="agregarConvocatoria()">
                       GUARDAR
@@ -392,12 +362,10 @@
   </div>
 </ng-template>
 
-<ng-template #modal_agregar_requisito>
+<ng-template #modal_agregar_requisito  class="fontregular">
   <div class="modal-header">
     <h5 class="modal-title pull-left">SELECCIÓN DE REQUISITOS</h5>
-    <button type="button" class="close btn-close pull-right" aria-label="Close">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
+
   </div>
   <div class="modal-body fontregular">
     <div class="tableshadow">
@@ -412,10 +380,10 @@
         <tbody>
           <tr  *ngFor="let item of listaRequisito; let row = index">
             <td>
-              <input class="form-check-input" type="checkbox"/>
+             <span>{{row+1}} </span> <input class="form-check-input" type="checkbox" (change)="selecionRequisito(item)"/>
             </td>
-            <td>Requisito 01</td>
-            <td>Ser persona natural con negocio o jurídica con RUC activo.</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.descripcion}}</td>
           </tr>
         </tbody>
       </table>
@@ -423,7 +391,7 @@
     <div class="row mb-3 mt-2">
       <div class="col-sm-6" style="text-align: center">
         <button type="button" class="btn btn-danger boton_verde" style="width: 150px"
-          (click)="cerrarModalAgregarRequisito()">
+          (click)="agregarRequisito()">
           Guardar
         </button>
       </div>

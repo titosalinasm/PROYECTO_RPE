@@ -59,7 +59,7 @@ export class EntidadPrestadoraComponent implements OnInit {
   }
 
   doModalEntidad() {
-    this.nuTipo == eTipoAccion.Insertar;
+    this.nuTipo = eTipoAccion.Insertar;
     this.frmEntidadPrestadora.reset();
     let objEntidad = {
       id: 1,
@@ -94,7 +94,7 @@ export class EntidadPrestadoraComponent implements OnInit {
   crearActualizarRegistroAccion() {
     this.objEntidadPrestadora = {
       identidadprestadora:
-        this.nuTipo == eTipoAccion.Insertar
+        this.nuTipo == 1
           ? 0
           : this.objEntidadPrestadoraActualizar.identidadprestadora,
       ruc: this.frmEntidadPrestadora.value.ruc,

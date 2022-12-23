@@ -21,7 +21,9 @@ const routes: Routes = [
   {path: 'requisitos', component: RequisitosComponent, canActivate: [SesionIniciadaGuard],},
   {path: 'usuario', component: UsuarioComponent, canActivate: [SesionIniciadaGuard],},
   {path: 'perfil', component: PerfilComponent, canActivate: [SesionIniciadaGuard],},
-  {path: 'lista-convocatoria', component: ListaConvocatoriaComponent, canActivate: [SesionIniciadaGuard],},
+  {path: 'lista-convocatoria', component: ListaConvocatoriaComponent,
+  // canActivate: [SesionIniciadaGuard],
+  },
 
 ];
 

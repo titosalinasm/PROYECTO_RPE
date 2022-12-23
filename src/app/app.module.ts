@@ -36,6 +36,7 @@ import { UsuarioComponent } from './formularios/usuario/usuario.component';
 import { PerfilComponent } from './formularios/perfil/perfil.component';
 import { ListaConvocatoriaComponent } from './formularios/lista-convocatoria/lista-convocatoria.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ConvocatoriaService } from './servicios/convocatoria.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +85,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     LineaProductoService,
     RegionService,
     ProductoService,
+    ConvocatoriaService,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

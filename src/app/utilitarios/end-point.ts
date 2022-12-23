@@ -22,13 +22,13 @@ export const END_POINTS = {
   requisito: {
     crear_actualizar: environment.apiRoot.gestion_producto+'/requisito/requisito',
     listar_paginado: environment.apiRoot.gestion_producto+'/requisito/requisitos/paginado',
-    listar: environment.apiRoot.gestion_producto+'/requisito/requisito/requisitos',
+    listar: environment.apiRoot.gestion_producto+'/requisito/requisitos',
     crear: environment.apiRoot.gestion_producto+'/requisito/requisito',
     eliminar: environment.apiRoot.gestion_producto+'/requisito/requisito/',
   },
   //MC GESTION DE USUARIO seguridad/gestion/usuario
   usuario: {
-    iniciar_sesion: environment.apiRoot.gestion_usuario+'/api/v1/usuario/usuario.json',
+    iniciar_sesion: '/api/v1/usuario/usuario.json',
     crearActualiza: environment.apiRoot.gestion_usuario+'/usuario/usuario',
     listar_usuario_perfil: environment.apiRoot.gestion_usuario+'/usuario/usuarios/',
     eliminar: environment.apiRoot.gestion_usuario+'/usuario/usuario/',
@@ -46,7 +46,6 @@ export const END_POINTS = {
   menu: {
     listar: environment.apiRoot.gestion_usuario+'/menu/menus/',
   },
-
   //MC GESTION ORGANIZACION maestro/gestion/organizacion
   //API entidad Prestadora http://20.236.129.139:8010/swagger-ui/index.html
   entidad_prestadora: {
@@ -69,6 +68,11 @@ export const END_POINTS = {
     crearActualiza: environment.apiRoot.orquestador_usuario+'/usuario',
     obtenerDetalle: environment.apiRoot.orquestador_usuario+'/usuario/',
   },
+  convocatoria:{
+    crea_actualiza : environment.apiRoot.gestion_convocatoria+'/convocatoria/convocatoria',
+    listar: environment.apiRoot.gestion_convocatoria+'/convocatoria/convocatorias/paginado',
+    eliminar: environment.apiRoot.gestion_convocatoria+''
+  }
 
 
 };

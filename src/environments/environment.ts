@@ -10,6 +10,7 @@ export const environment = {
     gestion_producto: '/api/v1/maestro/gestion/producto',
     gestion_usuario: '/api/v1/seguridad/gestion/usuario',
     orquestador_usuario: '/api/v1/seguridad/orquestador/usuario',
+    gestion_convocatoria : '/api/v1/convocatoria/gestion/convocatoria'
   },
 
   recaptcha:{siteKey:''}
