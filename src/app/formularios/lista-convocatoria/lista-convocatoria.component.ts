@@ -21,6 +21,7 @@ import { RequisitoService } from 'src/app/servicios/requisito.service';
 import { SectorService } from 'src/app/servicios/sector.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { constante } from 'src/app/utilitarios/constantes';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-convocatoria',
@@ -68,7 +69,7 @@ export class ListaConvocatoriaComponent implements OnInit {
   listaProducto: productoI[] = [];
   listaRequisito: RequisitoI[] = [];
   listaRequisitoSeleccionado: any[] = [];
-  listaConvocatoriaResult: convocatoriaRespuestaI[]=[];
+  listaConvocatoriaResult: convocatoriaRespuestaI[] = [];
 
   listConvocatoriaProducto: convocatoriaProductoI[] = [];
   filaProducto: number;
@@ -90,7 +91,7 @@ export class ListaConvocatoriaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private requisitoService: RequisitoService,
     private convocatoriaService: ConvocatoriaService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarMaestros();
@@ -100,6 +101,8 @@ export class ListaConvocatoriaComponent implements OnInit {
   }
   bindEventsForm() {
     this.frmProductoFiltro.get('idsector').valueChanges.subscribe((value) => {
+      // console.log('bindEventsForm:idlineaproducto');
+
       let param = {
         idsector: value,
         pageNumber: 1,
@@ -116,6 +119,7 @@ export class ListaConvocatoriaComponent implements OnInit {
     this.frmProductoFiltro
       .get('idlineaproducto')
       .valueChanges.subscribe((value) => {
+
         let param = {
           // nombre: null,
           // descripcion: null,
@@ -140,7 +144,62 @@ export class ListaConvocatoriaComponent implements OnInit {
       pageSize: this.tamanioPagina,
     };
     this.convocatoriaService.listarConvocatoria$(param).subscribe((resp) => {
-      this.listaConvocatoriaResult=resp.data.lista;
+      this.listaConvocatoriaResult = resp.data.lista;
+      this.totalItems = resp.data.totalItems;
+    });
+  }
+
+  duplicarConvocatoria(idConvocatoria: number) {
+
+    Swal.fire({
+      title: '¿Está seguro que desea duplicar la convocatoria?',
+      text: 'Esta acción no se podrá recuperar!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, duplicar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // obtener el detalle convocatoria
+        this.convocatoriaService.obtenerDetalleConvocatoria$(idConvocatoria).subscribe(
+          resp => {
+            let objConvocatoria: convocatoriaI = resp.data;
+            objConvocatoria.idconvocatoria = 0;
+            objConvocatoria.usuariomodificacion = null;
+            objConvocatoria.fechamodificacion = null;
+
+            for (let region of objConvocatoria.regiones) {
+              region.usuariomodificacion = null;
+              region.fechamodificacion = null;
+            }
+
+            for (let producto of objConvocatoria.productos) {
+              producto.usuariomodificacion = null;
+              producto.fechamodificacion = null;
+
+              for (let requisito of producto.requisitos) {
+                requisito.usuariomodificacion = null;
+                requisito.fechamodificacion = null;
+              }
+            }
+
+            // crear convocatoria - duplicar
+            this.convocatoriaService.agregarActualizarConvocatoria$(objConvocatoria).subscribe(
+              resp => {
+                this.listarConvocatoria();
+                Swal.fire({
+                  title: 'Se duplicó correctamente',
+                  confirmButtonColor: constante.color_alert.verde,
+                  confirmButtonText: 'Aceptar',
+                });
+              }
+            );
+
+          }
+        );
+      }
     });
   }
 
@@ -176,102 +235,127 @@ export class ListaConvocatoriaComponent implements OnInit {
   }
 
   agregarConvocatoria() {
-    this.nuTipo = 1;
-    let fecha = new Date();
 
-    this.convocatoria = {
-      usuariocreacion: this.objUsuario.usuario,
-      fechacreacion: fecha,
-      usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
-      fechamodificacion: this.nuTipo == 1 ? null : fecha,
-      estadoregistro: 1,
-      idconvocatoria: this.nuTipo == 1 ? 0 : 0,
-      nombre: this.frmConvocatoria.value.nombre,
-      descripcion: this.frmConvocatoria.value.descripcion,
-      idrutapostulacion: 1,
-      fechainicioinscripcion: this.frmConvocatoria.value.fechainicioinscripcion,
-      fechafininscripcion: this.frmConvocatoria.value.fechafininscripcion,
-      fechainicioevaluacion: this.frmConvocatoria.value.fechainicioevaluacion,
-      fechafinevaluacion: this.frmConvocatoria.value.fechafinevaluacion,
-      fechainicioconfirmacionep:
-        this.frmConvocatoria.value.fechainicioconfirmacionep,
-      fechafinconfirmacionep: this.frmConvocatoria.value.fechafinconfirmacionep,
-      fechainicioconfirmacionorg:
-        this.frmConvocatoria.value.fechainicioconfirmacionorg,
-      fechafinconfirmacionorg:
-        this.frmConvocatoria.value.fechafinconfirmacionorg,
-      idestadoconvocatoria: 1, //cambiar por la del combo
-      flagfinconvocatoria: true,
-      regiones: [],
-      productos: [],
-    };
+    Swal.fire({
+      title: '¿Está seguro que desea agregar la convocatoria?',
+      text: 'Esta acción no se podrá recuperar!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: constante.color_alert.rojo,
+      cancelButtonColor: constante.color_alert.plomo,
+      confirmButtonText: 'Sí, agregar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // agregar convocatoria
+        this.nuTipo = 1;
+        let fecha = new Date();
 
-    //cargar regiones
-    let usuario = this.objUsuario.usuario;
-    let tipo = this.nuTipo;
-    let regiones: any[] = [];
-    this.frmConvocatoria.value.idregion.forEach(function (value) {
-      let region = {
-        usuariocreacion: usuario,
-        fechacreacion: fecha,
-        usuariomodificacion: tipo == 1 ? null : usuario,
-        fechamodificacion: tipo == 1 ? null : fecha,
-        estadoregistro: true,
-        idregion: value,
-      };
-      regiones.push(region);
-    });
-
-    this.convocatoria.regiones = regiones;
-
-    let productos = [];
-    for (let n in this.listConvocatoriaProducto) {
-      let objProducto = {
-        usuariocreacion: this.objUsuario.usuario,
-        fechacreacion: this.nuTipo == 1 ? fecha : fecha,
-        usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
-        fechamodificacion: this.nuTipo == 1 ? fecha : fecha,
-        estadoregistro: true,
-        idproducto: this.listConvocatoriaProducto[n].idproducto,
-        idsector: this.listConvocatoriaProducto[n].idsector,
-        idlineaproducto: this.listConvocatoriaProducto[n].idlineaproducto,
-        requisitos: [],
-      };
-      let requisitoAux = [];
-      for (let x in this.listConvocatoriaProducto[n].requisitos) {
-        let objRequisito = {
+        this.convocatoria = {
           usuariocreacion: this.objUsuario.usuario,
-          fechacreacion: this.nuTipo == 1 ? fecha : fecha,
-          usuariomodificacion:
-            this.nuTipo == 1 ? null : this.objUsuario.usuario,
-          fechamodificacion: this.nuTipo == 1 ? fecha : fecha,
-          estadoregistro: true,
-          idproducto: this.listConvocatoriaProducto[n].requisitos[x].idproducto,
-          idrequisito:
-            this.listConvocatoriaProducto[n].requisitos[x].idrequisito,
-          nombre: this.listConvocatoriaProducto[n].requisitos[x].nombre,
-          descripcion:
-            this.listConvocatoriaProducto[n].requisitos[x].descripcion,
-          valor: 'valor',
+          fechacreacion: fecha,
+          usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
+          fechamodificacion: this.nuTipo == 1 ? null : fecha,
+          estadoregistro: 1,
+          idconvocatoria: this.nuTipo == 1 ? 0 : 0,
+          nombre: this.frmConvocatoria.value.nombre,
+          descripcion: this.frmConvocatoria.value.descripcion,
+          idrutapostulacion: 1,
+          fechainicioinscripcion: this.frmConvocatoria.value.fechainicioinscripcion,
+          fechafininscripcion: this.frmConvocatoria.value.fechafininscripcion,
+          fechainicioevaluacion: this.frmConvocatoria.value.fechainicioevaluacion,
+          fechafinevaluacion: this.frmConvocatoria.value.fechafinevaluacion,
+          fechainicioconfirmacionep:
+            this.frmConvocatoria.value.fechainicioconfirmacionep,
+          fechafinconfirmacionep: this.frmConvocatoria.value.fechafinconfirmacionep,
+          fechainicioconfirmacionorg:
+            this.frmConvocatoria.value.fechainicioconfirmacionorg,
+          fechafinconfirmacionorg:
+            this.frmConvocatoria.value.fechafinconfirmacionorg,
+          idestadoconvocatoria: 1, //cambiar por la del combo
+          flagfinconvocatoria: true,
+          regiones: [],
+          productos: [],
         };
-        requisitoAux.push(objRequisito);
+
+        //cargar regiones
+        let usuario = this.objUsuario.usuario;
+        let tipo = this.nuTipo;
+        let regiones: any[] = [];
+        this.frmConvocatoria.value.idregion.forEach(function (value) {
+          let region = {
+            usuariocreacion: usuario,
+            fechacreacion: fecha,
+            usuariomodificacion: tipo == 1 ? null : usuario,
+            fechamodificacion: tipo == 1 ? null : fecha,
+            estadoregistro: true,
+            idregion: value,
+          };
+          regiones.push(region);
+        });
+
+        this.convocatoria.regiones = regiones;
+
+        let productos = [];
+        for (let n in this.listConvocatoriaProducto) {
+          let objProducto = {
+            usuariocreacion: this.objUsuario.usuario,
+            fechacreacion: this.nuTipo == 1 ? fecha : fecha,
+            usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
+            fechamodificacion: this.nuTipo == 1 ? fecha : fecha,
+            estadoregistro: true,
+            idproducto: this.listConvocatoriaProducto[n].idproducto,
+            idsector: this.listConvocatoriaProducto[n].idsector,
+            idlineaproducto: this.listConvocatoriaProducto[n].idlineaproducto,
+            requisitos: [],
+          };
+          let requisitoAux = [];
+          for (let x in this.listConvocatoriaProducto[n].requisitos) {
+            let objRequisito = {
+              usuariocreacion: this.objUsuario.usuario,
+              fechacreacion: this.nuTipo == 1 ? fecha : fecha,
+              usuariomodificacion:
+                this.nuTipo == 1 ? null : this.objUsuario.usuario,
+              fechamodificacion: this.nuTipo == 1 ? fecha : fecha,
+              estadoregistro: true,
+              idproducto: this.listConvocatoriaProducto[n].requisitos[x].idproducto,
+              idrequisito:
+                this.listConvocatoriaProducto[n].requisitos[x].idrequisito,
+              nombre: this.listConvocatoriaProducto[n].requisitos[x].nombre,
+              descripcion:
+                this.listConvocatoriaProducto[n].requisitos[x].descripcion,
+              valor: 'valor',
+            };
+            requisitoAux.push(objRequisito);
+          }
+          objProducto.requisitos = requisitoAux;
+          productos.push(objProducto);
+        }
+        this.convocatoria.productos = productos;
+
+        console.log('objConvocatoria: ' + JSON.stringify(this.convocatoria));
+
+        this.convocatoriaService.agregarActualizarConvocatoria$(this.convocatoria)
+          .subscribe((resp) => {
+            // console.log(JSON.stringify(resp.data));
+            this.listarConvocatoria();
+            this.cerrarModalAgregarConvocatoria();
+          });
       }
-      objProducto.requisitos = requisitoAux;
-      productos.push(objProducto);
-    }
-    this.convocatoria.productos = productos;
-
-    console.log('objConvocatoria: ' + JSON.stringify(this.convocatoria));
-
-    this.convocatoriaService
-      .agregarActualizarConvocatoria$(this.convocatoria)
-      .subscribe((resp) => {
-        console.log(JSON.stringify(resp.data));
-      });
+    });
   }
 
   abrirModalNuevaConvocatoria() {
+    this.frmProductoFiltro.reset();
+    this.frmProductoFiltro.controls.idsector.setValue(0);
+    this.frmProductoFiltro.controls.idlineaproducto.setValue(0);
+    this.frmProductoFiltro.controls.idproducto.setValue(0);
+    this.listConvocatoriaProducto = [];
+    this.listaLineaProducto = [];
+    this.listaProducto = [];
+    //
     let config = {
+      id: 1,
       backdrop: true,
       ignoreBackdropClick: false,
       class: 'modal-xl',

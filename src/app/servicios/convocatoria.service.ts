@@ -17,28 +17,35 @@ export class ConvocatoriaService {
   };
 
   constructor(private http: HttpClient,
-    ) {}
+  ) { }
 
-    public agregarActualizarConvocatoria$(entity: any): Observable<GeneralI> {
-      return this.http.post<GeneralI>(
-        environment.apiGateway + END_POINTS.convocatoria.crea_actualiza,
-        entity,
-      );
-    }
+  public agregarActualizarConvocatoria$(entity: any): Observable<GeneralI> {
+    return this.http.post<GeneralI>(
+      environment.apiGateway + END_POINTS.convocatoria.crea_actualiza,
+      entity,
+    );
+  }
 
-    public listarConvocatoria$(entity: any): Observable<GeneralI> {
-      return this.http.post<GeneralI>(
-        environment.apiGateway + END_POINTS.convocatoria.listar,
-        entity,
-      );
-    }
+  public listarConvocatoria$(entity: any): Observable<GeneralI> {
+    return this.http.post<GeneralI>(
+      environment.apiGateway + END_POINTS.convocatoria.listar,
+      entity,
+    );
+  }
 
-    public eliminarConvocatoria$(id: number): Observable<GeneralI> {
-      return this.http.put<GeneralI>(
-        environment.apiGateway + END_POINTS.convocatoria.eliminar + id,
-        this.httpOptions
-      );
-    }
+  public eliminarConvocatoria$(id: number): Observable<GeneralI> {
+    return this.http.put<GeneralI>(
+      environment.apiGateway + END_POINTS.convocatoria.eliminar + id,
+      this.httpOptions
+    );
+  }
+
+  public obtenerDetalleConvocatoria$(id: number): Observable<GeneralI> {
+    return this.http.get<GeneralI>(
+      environment.apiGateway + END_POINTS.convocatoria.obtener_detalle + id,
+      this.httpOptions
+    );
+  }
 
 
 }

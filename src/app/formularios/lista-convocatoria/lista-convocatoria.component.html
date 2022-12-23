@@ -17,8 +17,7 @@
         </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-success mb-3 boton_verde" style="width: 150px; margin-bottom: 5px"
-          (click)="listarConvocatoria()"
-          >
+            (click)="listarConvocatoria()">
             Buscar
           </button>
         </div>
@@ -60,7 +59,8 @@
           <td>{{item.estadoconvocatoria}}</td>
           <td>
             <span style="margin-right: 5px">
-              <button type="button" class="btn btn-outline-warning btn-sm">
+              <button type="button" class="btn btn-outline-warning btn-sm"
+                (click)="duplicarConvocatoria(item.idconvocatoria)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </span>
@@ -99,8 +99,8 @@
 
 <ng-template #modal_nueva_convocatoria class="fontregular">
   <div class="modal-body fontregular" style="padding: 0px !important">
-    <div cla  ss="card fontregular">
-      <div class="card-body" >
+    <div cla ss="card fontregular">
+      <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #d7d7d7">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
@@ -115,7 +115,7 @@
             </button>
           </li>
         </ul>
-        <div class="tab-content" id="myTabContent" >
+        <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
             tabindex="0">
             <div class="card-body p-3">
@@ -181,12 +181,10 @@
                     Plazo confirmación Entidad
                   </label>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" bsDatepicker
-                      formControlName="fechainicioconfirmacionorg" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioconfirmacionorg" />
                   </div>
                   <div class="col-sm-2">
-                    <input type="text" class="form-control" bsDatepicker
-                      formControlName="fechafinconfirmacionorg" />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafinconfirmacionorg" />
                   </div>
                 </div>
               </form>
@@ -199,7 +197,7 @@
                   <label class="col-sm-2 col-form-label">Sector</label>
                   <div class="col-sm-3">
                     <select class="form-select" formControlName="idsector">
-                      <option value="0" disabled selected hidden>
+                      <option  value="0" disabled hidden>
                         --Seleccionar--
                       </option>
                       <option *ngFor="let item of listaSector" [value]="item.idsector">
@@ -211,7 +209,7 @@
                   <label class="col-sm-2 col-form-label">Linea producto</label>
                   <div class="col-sm-3">
                     <select class="form-select" formControlName="idlineaproducto">
-                      <option value="0" disabled selected hidden>
+                      <option  value="0" disabled hidden>
                         --Seleccionar--
                       </option>
                       <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto">
@@ -229,7 +227,7 @@
                   <label class="col-sm-2 col-form-label">Producto</label>
                   <div class="col-sm-3">
                     <select class="form-select" formControlName="idproducto">
-                      <option value="0" disabled selected hidden>
+                      <option  value="0" disabled hidden>
                         --Seleccionar--
                       </option>
                       <option *ngFor="let item of listaProducto" [value]="item.idproducto">
@@ -244,7 +242,6 @@
                     </button>
                   </div>
                 </div>
-
                 <div class="table-responsive tableshadow">
                   <table class="table table-bordered marginbutton0">
                     <tbody>
@@ -362,7 +359,7 @@
   </div>
 </ng-template>
 
-<ng-template #modal_agregar_requisito  class="fontregular">
+<ng-template #modal_agregar_requisito class="fontregular">
   <div class="modal-header">
     <h5 class="modal-title pull-left">SELECCIÓN DE REQUISITOS</h5>
 
@@ -378,9 +375,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr  *ngFor="let item of listaRequisito; let row = index">
+          <tr *ngFor="let item of listaRequisito; let row = index">
             <td>
-             <span>{{row+1}} </span> <input class="form-check-input" type="checkbox" (change)="selecionRequisito(item)"/>
+              <span>{{row+1}} </span> <input class="form-check-input" type="checkbox"
+                (change)="selecionRequisito(item)" />
             </td>
             <td>{{item.nombre}}</td>
             <td>{{item.descripcion}}</td>
@@ -390,8 +388,7 @@
     </div>
     <div class="row mb-3 mt-2">
       <div class="col-sm-6" style="text-align: center">
-        <button type="button" class="btn btn-danger boton_verde" style="width: 150px"
-          (click)="agregarRequisito()">
+        <button type="button" class="btn btn-danger boton_verde" style="width: 150px" (click)="agregarRequisito()">
           Guardar
         </button>
       </div>
