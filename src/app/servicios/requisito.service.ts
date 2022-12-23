@@ -48,4 +48,13 @@ export class RequisitoService {
       this.httpOptions
     );
   }
+
+  public obtenerDeatlle$(id: number): Observable<GeneralI> {
+    return this.http.get<GeneralI>(
+      // environment.apiGateway + END_POINTS.requisito.obtener_detalle + id,
+      'http://20.236.129.139:8020/api/v1/requisito/requisito/'+id,
+      this.httpOptions
+    );
+  }
+
 }

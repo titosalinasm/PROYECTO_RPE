@@ -306,58 +306,58 @@ export class RequisitosComponent implements OnInit {
   abrirModalActualizar(objRequisito: RequisitoI, fila: number) {
     this.nuTipo = eTipoAccion.Actualizar;
 
-    console.log(
-      'this.objActualizarRequisito.idlineaproducto: ' +
-        JSON.stringify(objRequisito)
-    );
+    this.requisitoService.obtenerDeatlle$(objRequisito.idrequisito).subscribe(resp=>{
+      this.filaRegistroActualizar = fila;
+      this.objActualizarRequisito = resp.data;
+      this.frmRequisito.controls.nombre.setValue(
+        this.objActualizarRequisito.nombre
+      );
+      this.frmRequisito.controls.descripcion.setValue(
+        this.objActualizarRequisito.descripcion
+      );
+      this.frmRequisito.controls.idsector.setValue(
+        this.objActualizarRequisito.idsector
+      );
 
-    this.filaRegistroActualizar = fila;
-    this.objActualizarRequisito = objRequisito;
-    this.frmRequisito.controls.nombre.setValue(
-      this.objActualizarRequisito.nombre
-    );
-    this.frmRequisito.controls.descripcion.setValue(
-      this.objActualizarRequisito.descripcion
-    );
-    this.frmRequisito.controls.idsector.setValue(
-      this.objActualizarRequisito.idsector
-    );
-
-    let paramLineaProducto = {
-      idsector: this.objActualizarRequisito.idsector,
-      pageNumber: 1,
-      pageSize: 100,
-    };
-
-    let paramProducto = {
-      nombre: null,
-      descripcion: null,
-      idlineaproducto: this.objActualizarRequisito.idlineaproducto,
-      idfichatpe: 0,
-      pageNumber: 1,
-      pageSize: 100,
-    };
-    forkJoin([
-      this.lineaProductoService.listarLineaProducto$(paramLineaProducto),
-      this.productoService.listarProducto$(paramProducto),
-    ]).subscribe((resp) => {
-      this.listaLineaProductoModal = resp[0].data.lista;
-      this.listarProductoModal = resp[1].data.lista;
-      let objEntidad = {
-        id: 1,
-        backdrop: true,
-        ignoreBackdropClick: true,
-        class: 'modal-lg modal-dialog-centered',
+      let paramLineaProducto = {
+        idsector: this.objActualizarRequisito.idsector,
+        pageNumber: 1,
+        pageSize: 100,
       };
-      this.openModal(this._modal_nuevo_requisito, objEntidad);
 
-      this.frmRequisito.controls.idlineaproducto.setValue(
-        this.objActualizarRequisito.idlineaproducto
-      );
-      this.frmRequisito.controls.idproducto.setValue(
-        this.objActualizarRequisito.idproducto
-      );
+      let paramProducto = {
+        // nombre: null,
+        // descripcion: null,
+        idlineaproducto: this.objActualizarRequisito.idlineaproducto,
+        // idfichatpe: 0,
+        pageNumber: 1,
+        pageSize: 100,
+      };
+      forkJoin([
+        this.lineaProductoService.listarLineaProducto$(paramLineaProducto),
+        this.productoService.listarProducto$(paramProducto),
+      ]).subscribe((resp) => {
+        this.listaLineaProductoModal = resp[0].data.lista;
+        this.listarProductoModal = resp[1].data.lista;
+        let objEntidad = {
+          id: 1,
+          backdrop: true,
+          ignoreBackdropClick: true,
+          class: 'modal-lg modal-dialog-centered',
+        };
+        this.openModal(this._modal_nuevo_requisito, objEntidad);
+
+        this.frmRequisito.controls.idlineaproducto.setValue(
+          this.objActualizarRequisito.idlineaproducto
+        );
+        this.frmRequisito.controls.idproducto.setValue(
+          this.objActualizarRequisito.idproducto
+        );
+      });
     });
+
+
+
   }
 
   eliminarRequisito(idRequisito: number, row: number) {

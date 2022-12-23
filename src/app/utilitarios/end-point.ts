@@ -25,6 +25,7 @@ export const END_POINTS = {
     listar: environment.apiRoot.gestion_producto + '/requisito/requisitos',
     crear: environment.apiRoot.gestion_producto + '/requisito/requisito',
     eliminar: environment.apiRoot.gestion_producto + '/requisito/requisito/',
+    obtener_detalle: '/requisito/requisito/'
   },
   //MC GESTION DE USUARIO seguridad/gestion/usuario
   usuario: {
@@ -33,6 +34,7 @@ export const END_POINTS = {
     listar_usuario_perfil: environment.apiRoot.gestion_usuario + '/usuario/usuarios/',
     eliminar: environment.apiRoot.gestion_usuario + '/usuario/usuario/',
     validar: environment.apiRoot.gestion_usuario + '/usuario/usuarios'
+
   },
   //API Seguridad parametro http://20.236.129.139:8030/swagger-ui/index.html
   parametro: {
@@ -63,11 +65,12 @@ export const END_POINTS = {
   //-----------------------ORQUESTADORES-------------------------------------
   //API Orquestador de usuario http://20.236.129.139:8040/swagger-ui/index.html
   usuarioOrquestador: {
-    listar: environment.apiRoot.orquestador_usuario + '/usuario/paginado',
-    eliminar: environment.apiRoot.orquestador_usuario + '/usuario/',
-    crearActualiza: environment.apiRoot.orquestador_usuario + '/usuario',
-    obtenerDetalle: environment.apiRoot.orquestador_usuario + '/usuario/',
+    listar: environment.apiRoot.orquestador_usuario + '/usuario/usuario/paginado',
+    eliminar: environment.apiRoot.orquestador_usuario + '/usuario/usuario/',
+    crearActualiza: environment.apiRoot.orquestador_usuario + '/usuario/usuario',
+    obtenerDetalle: environment.apiRoot.orquestador_usuario + '/usuario/usuario/',
   },
+  //API Orquestador de usuario http://20.236.129.139:8050/swagger-ui/index.html
   convocatoria: {
     crea_actualiza: environment.apiRoot.gestion_convocatoria + '/convocatoria/convocatoria',
     listar: environment.apiRoot.gestion_convocatoria + '/convocatoria/convocatorias/paginado',

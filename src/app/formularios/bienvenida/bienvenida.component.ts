@@ -26,7 +26,7 @@ export class BienvenidaComponent implements OnInit {
   validarUsuario() {
     console.log('>>validarUsuario');
     let param: validarUsuarioFilterI = {
-      usuario: '10436678245' //'20504774288'
+      usuario: '10436678249' //'20504774288'
     }
     this.usuarioService.validarUsuario$(param).subscribe(
       resp => {

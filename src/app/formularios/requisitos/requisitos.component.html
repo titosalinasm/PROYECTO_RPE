@@ -9,7 +9,7 @@
           </div>
           <div class="col-sm-3">
             <select class="form-select" formControlName="idsector">
-              <option value="0" disabled selected hidden>
+              <option value="0" selected>
                 --Seleccionar--
               </option>
               <option *ngFor="let item of listaSector" [value]="item.idsector">
@@ -22,7 +22,7 @@
           </div>
           <div class="col-sm-3">
             <select class="form-select" formControlName="idlineaproducto">
-              <option value="0" disabled selected hidden>
+              <option value="0" selected>
                 --Seleccionar--
               </option>
               <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto">
@@ -45,7 +45,7 @@
           </div>
           <div class="col-sm-3">
             <select class="form-select" formControlName="idproducto">
-              <option value="0" disabled selected hidden>
+              <option value="0" selected>
                 --Seleccionar--
               </option>
               <option *ngFor="let item of listarProducto" [value]="item.idproducto">

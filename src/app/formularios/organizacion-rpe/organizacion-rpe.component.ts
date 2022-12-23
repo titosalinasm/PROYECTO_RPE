@@ -164,20 +164,7 @@ export class OrganizacionRpeComponent implements OnInit {
   abrirModaActualizarOrganizacionRPE(item: OrganizacioRPE, fila: number) {
 
     this.nuTipo = eTipoAccion.Actualizar;
-    this.filaRegistroActualizar = fila;
-    this.objOrganizacionRPEActualizar = item;
-    this.frmOrganizacionRPE.controls.nombres.setValue(item.nombres);
-    this.frmOrganizacionRPE.controls.apellidopaterno.setValue(item.apellidopaterno);
-    this.frmOrganizacionRPE.controls.apellidomaterno.setValue(item.apellidomaterno);
-    this.frmOrganizacionRPE.controls.idtipodocumento.setValue(item.idtipodocumento);
-    this.frmOrganizacionRPE.controls.numerodocumento.setValue(item.numerodocumento);
-    this.frmOrganizacionRPE.controls.correoelectronico.setValue(item.correoelectronico);
-    this.frmOrganizacionRPE.controls.telefono.setValue(item.telefono);
-    this.frmOrganizacionRPE.controls.celular.setValue(item.celular);
-    this.frmOrganizacionRPE.controls.idcargo.setValue(item.idcargo);
-    this.frmOrganizacionRPE.controls.idarea.setValue(item.idarea);
-    this.frmOrganizacionRPE.controls.sitioweb.setValue(item.sitioweb);
-    this.frmOrganizacionRPE.controls.redsocial.setValue(item.redsocial);
+
 
     // obtener datos de  comobos
     let paramTipoDocumento = { parametrokey: 'ListaTipoDocumento' };
@@ -194,6 +181,21 @@ export class OrganizacionRpeComponent implements OnInit {
       this.listaTipoDocumento = resp[0].data;
       this.listaArea = resp[1].data;
       this.listaCargo = resp[2].data;
+
+      this.filaRegistroActualizar = fila;
+      this.objOrganizacionRPEActualizar = item;
+      this.frmOrganizacionRPE.controls.nombres.setValue(item.nombres);
+      this.frmOrganizacionRPE.controls.apellidopaterno.setValue(item.apellidopaterno);
+      this.frmOrganizacionRPE.controls.apellidomaterno.setValue(item.apellidomaterno);
+      this.frmOrganizacionRPE.controls.idtipodocumento.setValue(item.idtipodocumento);
+      this.frmOrganizacionRPE.controls.numerodocumento.setValue(item.numerodocumento);
+      this.frmOrganizacionRPE.controls.correoelectronico.setValue(item.correoelectronico);
+      this.frmOrganizacionRPE.controls.telefono.setValue(item.telefono);
+      this.frmOrganizacionRPE.controls.celular.setValue(item.celular);
+      this.frmOrganizacionRPE.controls.idcargo.setValue(item.idcargo);
+      this.frmOrganizacionRPE.controls.idarea.setValue(item.idarea);
+      this.frmOrganizacionRPE.controls.sitioweb.setValue(item.sitioweb);
+      this.frmOrganizacionRPE.controls.redsocial.setValue(item.redsocial);
 
       // abrir modal
       let objEntidad = {

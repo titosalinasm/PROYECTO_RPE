@@ -70,6 +70,7 @@ export class UsuarioComponent implements OnInit {
 
   frmFilterUsuario = this.formBuilder.group({
     idperfil: [0, [Validators.required]],
+    identidadprestadora : [0, [Validators.required]],
   });
 
   validarEntidad: boolean = false;
@@ -88,6 +89,8 @@ export class UsuarioComponent implements OnInit {
 
   nuValidaVisible: boolean = false;
 
+  nuValidaVisibleFiltro: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
@@ -105,13 +108,19 @@ export class UsuarioComponent implements OnInit {
   }
 
   bindEventsForm() {
-    this.frmUsuarioCreaActualiza
-      .get('idperfil')
-      .valueChanges.subscribe((value) => {
+    this.frmUsuarioCreaActualiza.get('idperfil').valueChanges.subscribe((value) => {
         this.nuValidaVisible = this.listaPerfil.filter(
           (e) => e.idperfil == value
         )[0].flagvalidarentidad;
+
       });
+
+   this.frmFilterUsuario.get('idperfil').valueChanges.subscribe((value) => {
+    this.nuValidaVisibleFiltro = this.listaPerfil.filter(
+      (e) => e.idperfil == value
+    )[0].flagvalidarentidad;
+    this.frmFilterUsuario.controls.identidadprestadora.setValue(0);
+   });
   }
 
   cargarListaPerfil() {
@@ -134,7 +143,7 @@ export class UsuarioComponent implements OnInit {
       ruc: null,
       razonsocial: null,
       pageNumber: this.pagina,
-      pageSize: this.tamanioPagina,
+      pageSize: 100,
     };
     this.entidadPrestadoraService.listarEntidad$(param).subscribe((resp) => {
       this.lstEntidadPrestadora = resp.data.lista;
@@ -168,9 +177,9 @@ export class UsuarioComponent implements OnInit {
 
   listarUsuario() {
     let objFiltroUsuario: UsuarioOrquestadorFilterI = {
-      idperfil: this.frmFilterUsuario.value.idperfil,
-      identidadprestadora: 0, // TODO: cambiar
-      flagvalidarentidad: false,
+      idperfil: this.frmFilterUsuario.value.idperfil==0?null:this.frmFilterUsuario.value.idperfil,
+      identidadprestadora: !this.nuValidaVisibleFiltro?null:this.frmFilterUsuario.value.identidadprestadora, // TODO: cambiar
+      flagvalidarentidad: this.nuValidaVisibleFiltro,
       pageNumber: this.pagina,
       pageSize: this.tamanioPagina,
     };
@@ -186,6 +195,7 @@ export class UsuarioComponent implements OnInit {
 
   abrirModalCrearUsuario() {
     this.nuTipo = 1;
+    this.frmUsuarioCreaActualiza.controls.usuario.enable();
     this.frmUsuarioCreaActualiza.reset();
     let objEntidad = {
       id: 1,
@@ -242,6 +252,9 @@ export class UsuarioComponent implements OnInit {
         this.frmUsuarioCreaActualiza.controls.idarea.setValue(
           this.objUsuarioT.idarea
         );
+
+        this.frmUsuarioCreaActualiza.controls.usuario.disable();
+
         let objEntidad = {
           id: 1,
           backdrop: true,
@@ -255,7 +268,7 @@ export class UsuarioComponent implements OnInit {
   crearActualiaUsuario() {
     let request: UsuarioOrquestadorReqI = {
       idusuario: this.nuTipo == 1 ? 0 : this.objUsuarioT.idusuario,
-      usuario: this.frmUsuarioCreaActualiza.value.usuario,
+      usuario: this.nuTipo==1?this.frmUsuarioCreaActualiza.value.usuario:this.objUsuarioT.usuario,
       password: this.frmUsuarioCreaActualiza.value.password,
       idperfil: this.frmUsuarioCreaActualiza.value.idperfil,
       idpersona: this.nuTipo == 1 ? null : this.objUsuarioT.idpersona,
@@ -280,11 +293,12 @@ export class UsuarioComponent implements OnInit {
       .creaActualizaUsuario$(request)
       .subscribe((resp) => {
         Swal.fire({
-          text: 'El usuario se agregó correctamente.',
+          text: 'El usuario se actualizó correctamente.',
           confirmButtonColor: constante.color_alert.verde,
         });
         this.hideModal(1);
         this.frmUsuarioCreaActualiza.reset();
+        this.listarUsuario();
       });
   }
 
@@ -302,7 +316,8 @@ export class UsuarioComponent implements OnInit {
       if (result.isConfirmed) {
         this.usuarioOrquestadorService.eliminarUsuario$(idusario).subscribe(
           (resp) => {
-            this.listaUsuario.splice(row, 1);
+            // this.listaUsuario.splice(row, 1);
+            this.listarUsuario();
             Swal.fire({
               text: 'El usuario se elimnó correctamente.',
               confirmButtonColor: constante.color_alert.verde,
