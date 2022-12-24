@@ -70,7 +70,8 @@
               </button>
             </span>
             <span style="margin-right: 5px">
-              <button type="button" class="btn btn-outline-warning btn-sm">
+              <button type="button" class="btn btn-outline-warning btn-sm"
+                (click)="abrirModalEditarConvocatoria(item.idconvocatoria)">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
             </span>
@@ -197,7 +198,7 @@
                   <label class="col-sm-2 col-form-label">Sector</label>
                   <div class="col-sm-3">
                     <select class="form-select" formControlName="idsector">
-                      <option  value="0" disabled hidden>
+                      <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
                       <option *ngFor="let item of listaSector" [value]="item.idsector">
@@ -209,7 +210,7 @@
                   <label class="col-sm-2 col-form-label">Linea producto</label>
                   <div class="col-sm-3">
                     <select class="form-select" formControlName="idlineaproducto">
-                      <option  value="0" disabled hidden>
+                      <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
                       <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto">
@@ -227,7 +228,229 @@
                   <label class="col-sm-2 col-form-label">Producto</label>
                   <div class="col-sm-3">
                     <select class="form-select" formControlName="idproducto">
-                      <option  value="0" disabled hidden>
+                      <option value="0" disabled hidden>
+                        --Seleccionar--
+                      </option>
+                      <option *ngFor="let item of listaProducto" [value]="item.idproducto">
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-success boton_verde" style="width: 150px; margin-bottom: 5px"
+                      (click)="agregarProducto()">
+                      <span style="font-size: 20px">+</span> Agregar
+                    </button>
+                  </div>
+                </div>
+                <div class="table-responsive tableshadow">
+                  <table class="table table-bordered marginbutton0">
+                    <tbody>
+                      <tr>
+                        <th scope="row" class="table_cabecera">Nro. Orden</th>
+                        <th scope="row" class="table_cabecera">Nombre</th>
+                        <th scope="row" class="table_cabecera">Sector</th>
+                        <th scope="row" class="table_cabecera"> Linea producto </th>
+                        <th scope="row" class="table_cabecera">Acciones</th>
+                      </tr>
+                      <tr *ngFor="let item of listConvocatoriaProducto; let row = index">
+                        <td>{{row + 1}}</td>
+                        <td>{{ item.nombreproducto }}</td>
+                        <td>{{ item.nombresector }}</td>
+                        <td>{{ item.nombrelineaproducto }}</td>
+                        <td>
+                          <span style="margin-right: 5px"><button type="button" class="btn btn-outline-warning btn-sm"
+                              (click)="abrirModalRequisito(1, row)">
+                              <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                          </span>
+                          <span>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                              <i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- <div class="d-flex justify-content-center">
+                  <div class="p-2">
+                    <div class="row">
+                      <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <a class="page-link" href="#"> Atrás</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">Siguiente</a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="row mb-3 mt-3">
+                  <div class="col-sm-6" style="text-align: center">
+                    <button type="button" class="btn btn-danger boton_guardar" (click)="agregarConvocatoria()">
+                      GUARDAR
+                    </button>
+                  </div>
+                  <div class="col-sm-6" style="text-align: center">
+                    <button type="button" class="btn btn-danger boton_cancelar"
+                      (click)="cerrarModalAgregarConvocatoria()">
+                      CANCELAR
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_editar_convocatoria class="fontregular">
+  <div class="modal-body fontregular" style="padding: 0px !important">
+    <div cla ss="card fontregular">
+      <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #d7d7d7">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+              type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+              DATOS DE LA CONVOCATORIA
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+              type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+              PRODUCTOS
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+            tabindex="0">
+            <div class="card-body p-3">
+              <form [formGroup]="frmConvocatoria" autocomplete="off">
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" formControlName="nombre" />
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Estado</label>
+                  <div class="col-sm-4">
+                    <select class="form-select" formControlName="idestado">
+                      <option selected>--Seleccionar--</option>
+                      <option [value]="1">Activo</option>
+                      <option [value]="0">Inactivo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Descripción</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" formControlName="descripcion" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">
+                    Plazo inscripción
+                    <br />
+                    <br />
+                    Plazo evaluación
+                  </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioinscripcion" />
+                    <br />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioevaluacion" />
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafininscripcion" />
+                    <br />
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafinevaluacion" />
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Regiones</label>
+                  <div class="col-sm-4">
+                    <select class="form-select" multiple formControlName="idregion">
+                      <option *ngFor="let item of listaRegion" [value]="item.idregion">
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">
+                    Plazo confirmación organización rpe
+                  </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioconfirmacionep" />
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafinconfirmacionep" />
+                  </div>
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">
+                    Plazo confirmación Entidad
+                  </label>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechainicioconfirmacionorg" />
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" bsDatepicker formControlName="fechafinconfirmacionorg" />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class=" tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <div class="card-body p-3">
+              <form [formGroup]="frmProductoFiltro" autocomplete="off">
+                <div class="row mb-1">
+                  <label class="col-sm-2 col-form-label">Sector</label>
+                  <div class="col-sm-3">
+                    <select class="form-select" formControlName="idsector">
+                      <option value="0" disabled hidden>
+                        --Seleccionar--
+                      </option>
+                      <option *ngFor="let item of listaSector" [value]="item.idsector">
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <label class="col-sm-2 col-form-label">Linea producto</label>
+                  <div class="col-sm-3">
+                    <select class="form-select" formControlName="idlineaproducto">
+                      <option value="0" disabled hidden>
+                        --Seleccionar--
+                      </option>
+                      <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto">
+                        {{ item.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+
+                <div class="row mb-1">
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-sm-3"></div>
+
+                  <label class="col-sm-2 col-form-label">Producto</label>
+                  <div class="col-sm-3">
+                    <select class="form-select" formControlName="idproducto">
+                      <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
                       <option *ngFor="let item of listaProducto" [value]="item.idproducto">
@@ -377,8 +600,8 @@
         <tbody>
           <tr *ngFor="let item of listaRequisito; let row = index">
             <td>
-             <input class="form-check-input" type="checkbox"
-                (change)="selecionRequisito(item)" />
+              <input class="form-check-input" type="checkbox" [checked]="item.isChecked" />
+              <!-- (change)="selecionRequisito(item)" -->
             </td>
             <td>{{item.nombre}}</td>
             <td>{{item.descripcion}}</td>

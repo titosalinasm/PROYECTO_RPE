@@ -21,6 +21,7 @@ import { RequisitoService } from 'src/app/servicios/requisito.service';
 import { SectorService } from 'src/app/servicios/sector.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { constante } from 'src/app/utilitarios/constantes';
+import { eTipoAccion } from 'src/app/utilitarios/data.enums';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,11 +31,10 @@ import Swal from 'sweetalert2';
 })
 export class ListaConvocatoriaComponent implements OnInit {
   modalRef?: BsModalRef;
-  @ViewChild('modal_nueva_convocatoria')
-  _modal_nueva_convocatoria: TemplateRef<any>;
+  @ViewChild('modal_nueva_convocatoria') _modal_nueva_convocatoria: TemplateRef<any>;
+  @ViewChild('modal_editar_convocatoria') _modal_editar_convocatoria: TemplateRef<any>;
 
-  @ViewChild('modal_agregar_requisito')
-  _modal_agregar_requisito: TemplateRef<any>;
+  @ViewChild('modal_agregar_requisito') _modal_agregar_requisito: TemplateRef<any>;
 
   frmFiltroConvocatoria = this.formBuilder.group({
     idconvocatoria: ['', [Validators.required]],
@@ -75,11 +75,13 @@ export class ListaConvocatoriaComponent implements OnInit {
   filaProducto: number;
 
   convocatoria: any;
-  nuTipo: number = 1;
+  nuTipo: number = eTipoAccion.Insertar; // 1;
 
   pagina: number = 1;
   tamanioPagina: number = constante.paginacion.tamanioPagina;
   totalItems: number;
+
+  objConvocatoria: convocatoriaI;
 
   constructor(
     private modalService: BsModalService,
@@ -228,8 +230,7 @@ export class ListaConvocatoriaComponent implements OnInit {
   }
 
   agregarRequisito() {
-    this.listConvocatoriaProducto[this.filaProducto].requisitos =
-      this.listaRequisitoSeleccionado;
+    // this.listConvocatoriaProducto[this.filaProducto].requisitos = this.listaRequisitoSeleccionado;
     this.hideModal(2);
     // console.log(JSON.stringify(this.listConvocatoriaProducto));
   }
@@ -248,16 +249,16 @@ export class ListaConvocatoriaComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         // agregar convocatoria
-        this.nuTipo = 1;
+        this.nuTipo = eTipoAccion.Insertar;
         let fecha = new Date();
 
         this.convocatoria = {
           usuariocreacion: this.objUsuario.usuario,
           fechacreacion: fecha,
-          usuariomodificacion: this.nuTipo == 1 ? null : this.objUsuario.usuario,
-          fechamodificacion: this.nuTipo == 1 ? null : fecha,
+          usuariomodificacion: this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
+          fechamodificacion: this.nuTipo == eTipoAccion.Insertar ? null : fecha,
           estadoregistro: 1,
-          idconvocatoria: this.nuTipo == 1 ? 0 : 0,
+          idconvocatoria: this.nuTipo == eTipoAccion.Insertar ? 0 : 0,
           nombre: this.frmConvocatoria.value.nombre,
           descripcion: this.frmConvocatoria.value.descripcion,
           idrutapostulacion: 1,
@@ -309,25 +310,49 @@ export class ListaConvocatoriaComponent implements OnInit {
             idlineaproducto: this.listConvocatoriaProducto[n].idlineaproducto,
             requisitos: [],
           };
-          let requisitoAux = [];
-          for (let x in this.listConvocatoriaProducto[n].requisitos) {
-            let objRequisito = {
+          let requisitoAux: RequisitoI[] = [];
+
+          for (let requisito of this.listConvocatoriaProducto[n].requisitos) {
+            let objRequisito: RequisitoI = {
               usuariocreacion: this.objUsuario.usuario,
-              fechacreacion: this.nuTipo == 1 ? fecha : fecha,
-              usuariomodificacion:
-                this.nuTipo == 1 ? null : this.objUsuario.usuario,
-              fechamodificacion: this.nuTipo == 1 ? fecha : fecha,
+              fechacreacion: this.nuTipo == eTipoAccion.Insertar ? fecha : fecha,
+              usuariomodificacion: this.nuTipo == eTipoAccion.Insertar ? null : this.objUsuario.usuario,
+              fechamodificacion: this.nuTipo == eTipoAccion.Insertar ? fecha : fecha,
               estadoregistro: true,
-              idproducto: this.listConvocatoriaProducto[n].requisitos[x].idproducto,
-              idrequisito:
-                this.listConvocatoriaProducto[n].requisitos[x].idrequisito,
-              nombre: this.listConvocatoriaProducto[n].requisitos[x].nombre,
-              descripcion:
-                this.listConvocatoriaProducto[n].requisitos[x].descripcion,
-              valor: 'valor',
+              idproducto: requisito.idproducto,
+              idrequisito: requisito.idrequisito,
+              nombre: requisito.nombre,
+              descripcion: requisito.descripcion,
+              // valor: 'valor',
+              isChecked: true,
+              tipovalor: '',
+              listavalorkey: '',
+              nombresector: '',
+              nombrelineaproducto: '',
+              idlineaproducto: 0,
+              idsector: 0
             };
             requisitoAux.push(objRequisito);
           }
+
+          // for (let x in this.listConvocatoriaProducto[n].requisitos) {
+          //   let objRequisito = {
+          //     usuariocreacion: this.objUsuario.usuario,
+          //     fechacreacion: this.nuTipo == 1 ? fecha : fecha,
+          //     usuariomodificacion:
+          //       this.nuTipo == 1 ? null : this.objUsuario.usuario,
+          //     fechamodificacion: this.nuTipo == 1 ? fecha : fecha,
+          //     estadoregistro: true,
+          //     idproducto: this.listConvocatoriaProducto[n].requisitos[x].idproducto,
+          //     idrequisito:
+          //       this.listConvocatoriaProducto[n].requisitos[x].idrequisito,
+          //     nombre: this.listConvocatoriaProducto[n].requisitos[x].nombre,
+          //     descripcion:
+          //       this.listConvocatoriaProducto[n].requisitos[x].descripcion,
+          //     valor: 'valor',
+          //   };
+          //   requisitoAux.push(objRequisito);
+          // }
           objProducto.requisitos = requisitoAux;
           productos.push(objProducto);
         }
@@ -363,6 +388,62 @@ export class ListaConvocatoriaComponent implements OnInit {
     this.openModal(this._modal_nueva_convocatoria, config);
   }
 
+  abrirModalEditarConvocatoria(idconvocatoria: number) {
+    idconvocatoria = 30;
+    this.nuTipo = eTipoAccion.Actualizar;
+    // obtener detalle de la convocatoria
+    this.convocatoriaService.obtenerDetalleConvocatoria$(idconvocatoria).subscribe(
+      resp => {
+        // let objConvocatoria: convocatoriaI = 
+        this.objConvocatoria = resp.data;
+        // console.log('objConvocatoria: ' + JSON.stringify(objConvocatoria));
+
+        // asignar datos de convocatoria
+        // datos de la convocatoria
+        this.frmConvocatoria.controls.nombre.setValue(this.objConvocatoria.nombre);
+        this.frmConvocatoria.controls.idestado.setValue(this.objConvocatoria.idestadoconvocatoria);
+        this.frmConvocatoria.controls.descripcion.setValue(this.objConvocatoria.descripcion);
+        this.frmConvocatoria.controls.fechainicioinscripcion.setValue(this.objConvocatoria.fechainicioinscripcion);
+        this.frmConvocatoria.controls.fechafininscripcion.setValue(this.objConvocatoria.fechafininscripcion);
+        this.frmConvocatoria.controls.fechainicioevaluacion.setValue(this.objConvocatoria.fechainicioevaluacion);
+        this.frmConvocatoria.controls.fechafinevaluacion.setValue(this.objConvocatoria.fechafinevaluacion);
+        this.frmConvocatoria.controls.fechainicioconfirmacionep.setValue(this.objConvocatoria.fechainicioconfirmacionep);
+        this.frmConvocatoria.controls.fechafinconfirmacionep.setValue(this.objConvocatoria.fechafinconfirmacionep);
+        this.frmConvocatoria.controls.fechainicioconfirmacionorg.setValue(this.objConvocatoria.fechainicioconfirmacionorg);
+        this.frmConvocatoria.controls.fechafinconfirmacionorg.setValue(this.objConvocatoria.fechafinconfirmacionorg);
+        // this.frmConvocatoria.controls.idregion.setValue(objConvocatoria.regiones);
+
+        // datos de productos
+        console.log('this.listaProducto: ' + JSON.stringify(this.listaProducto));
+        // for (let producto of objConvocatoria.productos) {
+        //   producto.nombreproducto = this.listaProducto.filter((e) => e.idproducto == producto.idproducto)[0].nombre;
+        //   producto.nombresector = this.listaSector.filter((e) => e.idsector == producto.idsector)[0].nombre;
+        //   producto.nombrelineaproducto = this.listaLineaProducto.filter((e) => e.idlineaproducto == producto.idlineaproducto)[0].nombre;
+        // }
+
+        this.listConvocatoriaProducto = this.objConvocatoria.productos;
+
+        console.log('listConvocatoriaProducto: ' + JSON.stringify(this.listConvocatoriaProducto));
+
+        // datos de requisitos
+        // this.listaRequisito
+
+        // abrir modal editar convocatoria
+        this.modalEditarConvocatoria();
+      }
+    );
+  }
+
+  modalEditarConvocatoria() {
+    let config = {
+      id: 1,
+      backdrop: true,
+      ignoreBackdropClick: false,
+      class: 'modal-xl',
+    };
+    this.openModal(this._modal_editar_convocatoria, config);
+  }
+
   abrirModalRequisito(id: number, fila: number) {
     this.listaRequisitoSeleccionado = [];
     this.filaProducto = fila;
@@ -372,6 +453,11 @@ export class ListaConvocatoriaComponent implements OnInit {
     };
     this.requisitoService.listarRequisitoNP$(param).subscribe((resp) => {
       this.listaRequisito = resp.data;
+
+      if (this.nuTipo == eTipoAccion.Actualizar) {
+        this.seleccionarRequisitos(fila);
+      }
+
       let config = {
         id: 2,
         backdrop: true,
@@ -380,6 +466,22 @@ export class ListaConvocatoriaComponent implements OnInit {
       };
       this.openModal(this._modal_agregar_requisito, config);
     });
+  }
+
+  seleccionarRequisitos(fila: number) {
+    console.log('this.objConvocatoria.productos[fila].requisitos: ' + JSON.stringify(this.objConvocatoria.productos[fila].requisitos));
+    // console.log('this.listaRequisito: ' + JSON.stringify(this.listaRequisito.));
+
+
+    for (let requisito of this.objConvocatoria.productos[fila].requisitos) {
+      for (let req of this.listaRequisito) {
+        if (requisito.idrequisito == req.idrequisito) {
+          req.isChecked = true;
+          break;
+        }
+      }
+      // this.listaRequisito[requisito.idrequisito].isChecked;
+    }
   }
 
   openModal(template: TemplateRef<any>, config: any) {

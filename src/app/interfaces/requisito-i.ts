@@ -14,6 +14,5 @@ export interface RequisitoI {
   estadoregistro: boolean;
   idlineaproducto: number;
   idsector: number;
-  // isChecked : boolean;
-
+  isChecked: boolean;
 }

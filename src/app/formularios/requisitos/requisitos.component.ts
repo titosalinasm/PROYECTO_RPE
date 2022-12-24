@@ -95,7 +95,7 @@ export class RequisitosComponent implements OnInit {
     private lineaProductoService: LineaProductoService,
     private regionService: RegionService,
     private productoService: ProductoService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarMaestros();
@@ -226,9 +226,9 @@ export class RequisitosComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: constante.color_alert.rojo,
-      cancelButtonColor: constante.color_alert.plomo,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+        cancelButtonColor: constante.color_alert.plomo,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
           console.log('result.isConfirmed: ' + result.isConfirmed);
@@ -269,6 +269,7 @@ export class RequisitosComponent implements OnInit {
       estadoregistro: true,
       idlineaproducto: this.frmRequisito.value.idlineaproducto,
       idsector: this.frmRequisito.value.idsector,
+      isChecked: true
     };
 
     this.requisitoService
@@ -285,7 +286,7 @@ export class RequisitosComponent implements OnInit {
           } else {
             this.listaRequisito[this.filaRegistroActualizar] = resp.data;
             this.hideModal(1);
-           Swal.fire({ title: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, confirmButtonText: 'Aceptar' });
+            Swal.fire({ title: 'Se actualizó correctamente', confirmButtonColor: constante.color_alert.verde, confirmButtonText: 'Aceptar' });
           }
           this.listarRequisito();
         },
@@ -306,7 +307,7 @@ export class RequisitosComponent implements OnInit {
   abrirModalActualizar(objRequisito: RequisitoI, fila: number) {
     this.nuTipo = eTipoAccion.Actualizar;
 
-    this.requisitoService.obtenerDeatlle$(objRequisito.idrequisito).subscribe(resp=>{
+    this.requisitoService.obtenerDeatlle$(objRequisito.idrequisito).subscribe(resp => {
       this.filaRegistroActualizar = fila;
       this.objActualizarRequisito = resp.data;
       this.frmRequisito.controls.nombre.setValue(
