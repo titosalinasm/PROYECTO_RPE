@@ -20,6 +20,7 @@ export class MenuService {
   ) { }
 
   public listarPerfil$(id: number): Observable<GeneralI> {
+    return null;
     return this.http.get<GeneralI>(
       // environment.apiGateway +
       environment.apiGateway+

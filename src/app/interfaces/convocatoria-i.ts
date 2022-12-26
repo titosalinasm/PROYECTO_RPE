@@ -1,13 +1,12 @@
 import { convocatoriaProductoI } from "./convocatoria-producto-i";
 import { convocatoriaRegionI } from "./convocatoria-region-i";
-import { RegionI } from "./region-i";
 
 export interface convocatoriaI {
   usuariocreacion: string;
   fechacreacion: Date;
   usuariomodificacion: string;
   fechamodificacion: Date;
-  estadoregistro: true;
+  estadoregistro: boolean;
   idconvocatoria: number;
   nombre: string;
   descripcion: string;
@@ -21,7 +20,7 @@ export interface convocatoriaI {
   fechainicioconfirmacionorg: Date;
   fechafinconfirmacionorg: Date;
   idestadoconvocatoria: number;
-  flagfinconvocatoria: true;
+  flagfinconvocatoria: boolean;
   regiones: convocatoriaRegionI[];
   productos: convocatoriaProductoI[];
 }

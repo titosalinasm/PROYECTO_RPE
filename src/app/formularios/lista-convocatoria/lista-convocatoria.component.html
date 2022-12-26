@@ -49,10 +49,10 @@
 
       </thead>
       <tbody>
-        <tr *ngFor="let item of listaConvocatoriaResult; let row = index">
+        <tr *ngFor="let item of lstConvocatoriaDummy; let row = index">
           <td>{{row + 1}}</td>
           <td>{{item.idconvocatoria}}</td>
-          <td>{{item.nombreconvocatora}}</td>
+          <td>{{item.nombre}}</td>
           <td>{{item.fechafininscripcion}}</td>
           <td>{{item.fechafinconfirmacionorg}}</td>
           <td>{{item.fechafinevaluacion}}</td>
@@ -76,7 +76,7 @@
               </button>
             </span>
             <span>
-              <button type="button" class="btn btn-outline-danger btn-sm">
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarConvocatoria(row)">
                 <i class="fa fa-trash" aria-hidden="true"></i></button></span>
           </td>
         </tr>
@@ -197,7 +197,7 @@
                 <div class="row mb-1">
                   <label class="col-sm-2 col-form-label">Sector</label>
                   <div class="col-sm-3">
-                    <select class="form-select" formControlName="idsector">
+                    <select class="form-select" formControlName="idsector" (change)="cambiarSector($event)">
                       <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
@@ -209,7 +209,8 @@
 
                   <label class="col-sm-2 col-form-label">Linea producto</label>
                   <div class="col-sm-3">
-                    <select class="form-select" formControlName="idlineaproducto">
+                    <select class="form-select" formControlName="idlineaproducto"
+                      (change)="cambiarLineaProducto($event)">
                       <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
@@ -265,7 +266,7 @@
                             </button>
                           </span>
                           <span>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarProducto(row)">
                               <i class="fa fa-trash" aria-hidden="true"></i></button></span>
                         </td>
                       </tr>
@@ -419,11 +420,11 @@
                 <div class="row mb-1">
                   <label class="col-sm-2 col-form-label">Sector</label>
                   <div class="col-sm-3">
-                    <select class="form-select" formControlName="idsector">
+                    <select class="form-select" formControlName="idsector" (change)="cambiarSector($event)">
                       <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
-                      <option *ngFor="let item of listaSector" [value]="item.idsector">
+                      <option *ngFor="let item of listaSector" [value]="item.idsector" (change)="cambiarSector($event)">
                         {{ item.nombre }}
                       </option>
                     </select>
@@ -431,11 +432,13 @@
 
                   <label class="col-sm-2 col-form-label">Linea producto</label>
                   <div class="col-sm-3">
-                    <select class="form-select" formControlName="idlineaproducto">
+                    <select class="form-select" formControlName="idlineaproducto"
+                      (change)="cambiarLineaProducto($event)">
                       <option value="0" disabled hidden>
                         --Seleccionar--
                       </option>
-                      <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto">
+                      <option *ngFor="let item of listaLineaProducto" [value]="item.idlineaproducto"
+                        (change)="cambiarLineaProducto($event)">
                         {{ item.nombre }}
                       </option>
                     </select>
@@ -487,42 +490,16 @@
                             </button>
                           </span>
                           <span>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarProducto(row)">
                               <i class="fa fa-trash" aria-hidden="true"></i></button></span>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <!-- <div class="d-flex justify-content-center">
-                  <div class="p-2">
-                    <div class="row">
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item">
-                            <a class="page-link" href="#"> Atrás</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">1</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">Siguiente</a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
-                </div> -->
-
                 <div class="row mb-3 mt-3">
                   <div class="col-sm-6" style="text-align: center">
-                    <button type="button" class="btn btn-danger boton_guardar" (click)="agregarConvocatoria()">
+                    <button type="button" class="btn btn-danger boton_guardar" (click)="modificarConvocatoria()">
                       GUARDAR
                     </button>
                   </div>
@@ -600,7 +577,8 @@
         <tbody>
           <tr *ngFor="let item of listaRequisito; let row = index">
             <td>
-              <input class="form-check-input" type="checkbox" [checked]="item.isChecked" />
+              <input class="form-check-input" type="checkbox" [(ngModel)]="item.isChecked" />
+              <!-- [checked]="item.isChecked" -->
               <!-- (change)="selecionRequisito(item)" -->
             </td>
             <td>{{item.nombre}}</td>
