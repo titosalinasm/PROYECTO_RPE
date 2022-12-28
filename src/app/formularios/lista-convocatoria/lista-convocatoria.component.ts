@@ -801,7 +801,7 @@ export class ListaConvocatoriaComponent implements OnInit {
     // obtener detalle de la convocatoria
     this.convocatoriaService.obtenerDetalleConvocatoria$(idconvocatoria).subscribe(
       resp => {
-        // let objConvocatoria: convocatoriaI = 
+        // let objConvocatoria: convocatoriaI =
         this.objConvocatoria = resp.data;
         // console.log('objConvocatoria: ' + JSON.stringify(objConvocatoria));
 

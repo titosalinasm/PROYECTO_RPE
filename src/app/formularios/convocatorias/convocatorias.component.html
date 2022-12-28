@@ -1,0 +1,601 @@
+<div class="container">
+  <h3 class="fontbold">Convocatorias RPE</h3>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body fontregular">
+          <h5 class="card-title font500 size16">
+            <b>CONVOCATORIA N° 1</b>
+            <span
+              ><div class="float-end">
+                <i
+                  class="fa fa-bars"
+                  aria-hidden="true"
+
+                ></i></div
+            ></span>
+          </h5>
+          <hr class="mt-2 mb-3" />
+          <p class="card-text">
+            Esta es una convocatoria de prueba para verificar el funcionamiento
+            del sistema.
+          </p>
+          <p class="text-red"><b>04/03/2022 - 06/03/2022</b></p>
+          <p class="text-end marginbutton0">
+            <button type="button" class="btn btn-success btn-sm">
+              <b>TPE</b>
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-success btn-sm"
+              style="margin: 2px"
+
+            >
+              <i class="fa fa-file-text" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-success btn-sm"
+              style="margin: 2px"
+
+            >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body fontregular">
+          <h5 class="card-title font500 size16">
+            <b>CONVOCATORIA N° 2</b>
+            <span
+              ><div class="float-end">
+                <i
+                  class="fa fa-bars"
+                  aria-hidden="true"
+
+                ></i></div
+            ></span>
+          </h5>
+          <hr class="mt-2 mb-3" />
+          <p class="card-text">
+            Esta es una convocatoria de prueba para verificar el funcionamiento
+            del sistema.
+          </p>
+          <p class="text-red"><b>04/03/2022 - 06/03/2022</b></p>
+          <p class="text-center marginbutton0">
+            <button
+              type="button"
+              class="btn btn-danger btn-sm boton_rojo"
+
+            >
+              <b>Registrar ficha de incripción</b>
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modal_requisito>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">REQUISITOS DE LA CONVOCATORIA</h5>
+    <button
+      type="button"
+      class="close btn-close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body fontregular">
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-sm-4">
+          <label>Producto</label>
+        </div>
+        <div class="col-sm-6">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>--Seleccionar--</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-sm-1">
+          <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-sm-11 paddingright0">
+          Ser persona natural con negocio o jurídica con RUC activo.
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-sm-1">
+          <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-sm-11 paddingright0">
+          No tener deudas o penalidades con las entidades públicas proveedoras
+          de servicios que forman parte del proyecto.
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-sm-1">
+          <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-sm-11 paddingright0">
+          Ser una empresa exportadora o contar con oferta exportable.
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-sm-1">
+          <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-sm-11 paddingright0">
+          Actividad empresarial mínima de 01 año.
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-sm-1">
+          <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-sm-11 paddingright0">
+          Pertenecer a alguna de las regiones y de las cadenas productivas
+          priorizadas por la RPE: San Martín (cacao y café) y Junín (cacao y
+          café).
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_ficha_inscripcion>
+  <div class="modal-body fontregular" style="padding: 0px !important">
+    <div class="card fontregular">
+      <div class="card-body" style="padding: 0px !important">
+        <ul
+          class="nav nav-tabs"
+          id="myTab"
+          role="tablist"
+          style="background-color: #d7d7d7"
+        >
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="home-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#home-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="home-tab-pane"
+              aria-selected="true"
+            >
+              FICHA RUC
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="profile-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#profile-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="profile-tab-pane"
+              aria-selected="false"
+            >
+              OTROS DATOS
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="profile-req"
+              data-bs-toggle="tab"
+              data-bs-target="#profile-tab-req"
+              type="button"
+              role="tab"
+              aria-controls="profile-tab-req"
+              aria-selected="false"
+            >
+              REQUISITOS
+            </button>
+          </li>
+        </ul>
+        <div class="container">
+          <div class="tab-content" id="myTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="home-tab-pane"
+              role="tabpanel"
+              aria-labelledby="home-tab"
+              tabindex="0"
+            >
+              <div class="card-body">
+                <form>
+                  <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom"
+                  >
+                    <h1 class="h5">DATOS DE LA EMPRESA</h1>
+                  </div>
+                  <div class="row mb-1">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >RUC</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Nombre</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Correo</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <label
+                      for="inputEmail3"
+                      class="col-sm-2 col-form-label"
+                    ></label>
+                    <div class="col-sm-4"></div>
+                  </div>
+                  <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-1 mb-3 border-bottom"
+                  >
+                    <h1 class="h5">DATOS DEL REPRESENTANTE LEGAL</h1>
+                  </div>
+                  <div class="row mb-1">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >DNI</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Nombre</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Apellido paterno</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Apellido materno</label
+                    >
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Genero</label
+                    >
+                    <div class="col-sm-4">
+                      <select class="form-select">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Teléfono:</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label">Región</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                    <label class="col-sm-2 col-form-label">Provincia</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-4"></div>
+                    <label class="col-sm-2 col-form-label">Distrito</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label">Dirección</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="profile-tab-pane"
+              role="tabpanel"
+              aria-labelledby="profile-tab"
+              tabindex="0"
+            >
+              <div class="card-body">
+                <form>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label"
+                      >Sector <span class="_obligatorio">*</span></label
+                    >
+                    <div class="col-sm-4">
+                      <select class="form-select">
+                        <option selected>--Seleccione--</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label"
+                      >¿Su empresa ha exportado antes?
+                      <span class="_obligatorio">*</span></label
+                    >
+                    <div class="col-sm-4">
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="inlineCheckbox1"
+                          value="option1"
+                          checked
+                        />
+                        <label class="form-check-label" for="inlineCheckbox1"
+                          >Si</label
+                        >
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="inlineCheckbox2"
+                          value="option2"
+                        />
+                        <label class="form-check-label" for="inlineCheckbox2"
+                          >No</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label"
+                      >Linea producto <span class="_obligatorio">*</span></label
+                    >
+                    <div class="col-sm-4">
+                      <select class="form-select">
+                        <option selected>--Seleccione--</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label"
+                      >Tipo empresa <span class="_obligatorio">*</span></label
+                    >
+                    <div class="col-sm-4">
+                      <select class="form-select">
+                        <option selected>--Seleccione--</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label"
+                      >Producto <span class="_obligatorio">*</span></label
+                    >
+                    <div class="col-sm-4">
+                      <select class="form-select">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label"
+                      >Nivel de ventas</label
+                    >
+                    <div class="col-sm-4">
+                      <select class="form-select">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <label class="col-sm-2 col-form-label"
+                      >Fecha inicio de actividad empresarial<span
+                        class="_obligatorio"
+                        >*</span
+                      ></label
+                    >
+                    <div class="col-sm-4">
+                      <input type="email" class="form-control" />
+                    </div>
+                    <label class="col-sm-2 col-form-label"
+                      >DAM de exportación</label
+                    >
+                    <div class="col-sm-4">
+                      <div class="input-group mb-3">
+                        <input
+                          type="text"
+                          class="form-control"
+                          aria-label="Recipient's username"
+                          aria-describedby="button-addon2"
+                        />
+                        <button
+                          class="btn btn-success boton_verde text-white"
+                          type="button"
+                          id="button-addon2"
+                        >
+                          Adjuntar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-4 text-center">
+                      <button
+                        type="button"
+                        class="btn btn-danger boton_rojo mb-1"
+                      >
+                        Guardar sin enviar
+                      </button>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <button
+                        type="button"
+                        class="btn btn-primary boton_celeste mb-1"
+                      >
+                        Enviar inscripción
+                      </button>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <button
+                        type="button"
+                        class="btn btn-secondary boton_secundario mb-1"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="profile-tab-req"
+              role="tabpanel"
+              aria-labelledby="home-tab"
+              tabindex="0"
+            >
+              <div class="card-body">
+                <div class="row mb-1">
+                  <div class="col-sm-1">
+                    <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="col-sm-11 paddingright0">
+                    Ser persona natural con negocio o jurídica con RUC activo.
+                  </div>
+                </div>
+
+                <div class="row mb-1">
+                  <div class="col-sm-1">
+                    <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="col-sm-11 paddingright0">
+                    No tener deudas o penalidades con las entidades públicas
+                    proveedoras de servicios que forman parte del proyecto.
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-1">
+                    <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="col-sm-11 paddingright0">
+                    Ser una empresa exportadora o contar con oferta exportable.
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-1">
+                    <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="col-sm-11 paddingright0">
+                    Actividad empresarial mínima de 01 año.
+                  </div>
+                </div>
+                <div class="row mb-1">
+                  <div class="col-sm-1">
+                    <span><i class="fa fa-tags" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="col-sm-11 paddingright0">
+                    Pertenecer a alguna de las regiones y de las cadenas
+                    productivas priorizadas por la RPE: San Martín (cacao y
+                    café) y Junín (cacao y café).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_estado>
+  <div class="modal-body fontregular">
+    <h4 class="text-center">Avance del proceso</h4>
+    <div class="row mb-3">
+      <div class="col text-center">
+        <div class="progress" style="height: 20px">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-label="Example 20px high"
+            style="width: 50%"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            50%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col text-center">
+        <button type="button" class="btn btn-secondary boton_secundario">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modal_resultado>
+  <div class="modal-body fontregular">
+    <h4 class="text-center">Resultado de inscripción</h4>
+    <div class="row mb-3">
+      <div class="col text-center">
+        <div style="background-color: #e9ecef; padding: 2px">
+          <h5 class="text-center"><b>Aprobado/Desaprobado</b></h5>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col text-center">
+        <button type="button" class="btn btn-secondary boton_secundario">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -37,6 +37,8 @@ import { PerfilComponent } from './formularios/perfil/perfil.component';
 import { ListaConvocatoriaComponent } from './formularios/lista-convocatoria/lista-convocatoria.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ConvocatoriaService } from './servicios/convocatoria.service';
+import { ConvocatoriasComponent } from './formularios/convocatorias/convocatorias.component';
+import { ServiciosComponent } from './formularios/servicios/servicios.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,8 @@ import { ConvocatoriaService } from './servicios/convocatoria.service';
     UsuarioComponent,
     PerfilComponent,
     ListaConvocatoriaComponent,
+    ConvocatoriasComponent,
+    ServiciosComponent,
 
   ],
   imports: [

@@ -101,6 +101,18 @@
 padding-right: 0px;
 }
 
+.theme-green .bs-datepicker-head {
+  background-color: #DA291C !important;
+}
+
+.theme-green .bs-datepicker-body table td span.selected, .theme-green .bs-datepicker-body table td.selected span, .theme-green .bs-datepicker-body table td span[class*=select-]:after, .theme-green .bs-datepicker-body table td[class*=select-] span:after {
+  background-color: #DA291C !important;
+}
+
+.theme-green .bs-datepicker-body table td.week span {
+  color: #DA291C !important;
+}
+
 
 .table_cabecera{
   background-color: #DA291C !important;
